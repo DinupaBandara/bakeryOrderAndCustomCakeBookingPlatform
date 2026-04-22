@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Flourished Hearth | Artisanal Digital Bakery</title>
+
+    <link rel="stylesheet" th:href="@{/css/index-style.css}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+<header class="site-header">
+    <nav class="site-nav">
+        <div class="brand-logo">The Flourished Hearth</div>
+
+        <div class="nav-links">
+            <a class="nav-link" href="#">Products</a>
+        </div>
+
+        <div class="auth-actions">
+            <a class="nav-link sign-in-link" th:href="@{/login}">Sign In</a>
+            <a class="sign-up-btn" href="#">Sign Up</a>
+        </div>
+    </nav>
+</header>
+
+<main class="main-wrapper">
+    <section class="about-section container">
+        <div class="about-grid">
+            <div class="about-image-wrapper">
+                <div class="about-image-container">
+                    <img alt="Our Bakery" data-alt="Warm, sunlit interior of an artisanal bakery with wooden shelves filled with fresh bread and a baker working in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCgleNWjsstPnXGwtR2Qs0Sf291MIypgqR1qXdaHnOisfKw_MY4pewUWGlgg2R9B2QF1vh17du5aINHmakpkm8kA75oNsCB0aBpw9dn6iZqsszMFLYBxYZxzhfvgNY-cRBeRWAkFbG7mY5_-okGxfDSnOSuZAG11WhUgP8ZWhfSzONtXQ7BDuVI1sCUzDqAsnN0ElaV5Owzom6MgtuKROYrtsYGWeg8Ea0brP-_Kb26R4obpBXiYZsPh2Pf4yhex_R7l5lk13TyFc" />
+                </div>
+                <div class="about-quote-box">
+                    <p class="font-headline italic">"Baked with time, tradition, and a touch of flour poetry."</p>
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="story-label text-secondary font-bold uppercase">Our Story</span>
+                <h2 class="about-title font-headline font-black text-primary">Welcome to the <br/> <span class="italic text-secondary">Flourished Hearth</span></h2>
+                <p class="about-description text-on-surface-variant">
+                    Born from a passion for the slow-fermentation process and seasonal storytelling, our hearth has been a cornerstone of artisanal baking for over a decade.
+                </p>
+                <p class="about-description text-on-surface-variant">
+                    Every loaf is hand-shaped and every pastry is a labor of love. We believe that the best ingredients are those grown close to home, and the best memories are made around a table of fresh-baked wonders.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-card">
+            <div class="cta-pattern-overlay"></div>
+            <div class="cta-grid">
+                <div class="cta-content">
+                    <h2 class="cta-title font-headline font-black">
+                        Poetry in <span>Sugar & Flour</span>
+                    </h2>
+                    <p class="cta-description">
+                        Bespoke cakes handcrafted in our hearth, designed to be the breathtaking centerpiece of your most cherished celebrations.
+                    </p>
+                    <div class="cta-buttons">
+                        <button class="btn-primary">Design Your Cake</button>
+                        <button class="btn-outline">View Gallery</button>
+                    </div>
+                </div>
+                <div class="cta-image-wrapper">
+                    <img alt="Baker Decorating" data-alt="Professional pastry chef in clean white apron carefully piping intricate cream details onto a tiered cake in a bright sunlit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCgleNWjsstPnXGwtR2Qs0Sf291MIypgqR1qXdaHnOisfKw_MY4pewUWGlgg2R9B2QF1vh17du5aINHmakpkm8kA75oNsCB0aBpw9dn6iZqsszMFLYBxYZxzhfvgNY-cRBeRWAkFbG7mY5_-okGxfDSnOSuZAG11WhUgP8ZWhfSzONtXQ7BDuVI1sCUzDqAsnN0ElaV5Owzom6MgtuKROYrtsYGWeg8Ea0brP-_Kb26R4obpBXiYZsPh2Pf4yhex_R7l5lk13TyFc" />
+                    <div class="cta-image-gradient"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section container">
+        <div class="menu-header">
+            <div>
+                <h2 class="menu-title font-headline font-black text-primary">Our Daily Menu</h2>
+                <p class="menu-subtitle text-on-surface-variant">Baked fresh every morning using locally sourced ingredients.</p>
+            </div>
+            <button class="btn-view-all">View All Items</button>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="menu-item-image">
+                    <img alt="Sourdough" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVKShFcS3LdpoUICscqPzS3WvrXQQYW57YCpBHvTpyIYgWoZojQ-ZdWZlxdsn1fY4JH94pSX0ux1l5qGQ49Ct2pQila4QZIvpI6z2_mMlNuHj516aRfvpBHn6b-C2on5NhiLfozA8sFly0DxAIgPsn_5hmRo2kro3mxCzkUhM0ITM9ILQCjDfMhuQnds0IrrJG-oXftZkHpIjnGwWNQ2h_84ziCGV6bk6vNxtPM_4BTvh6_h-FEybmUkQlP_fb8wjWR3oNji3Ro2U" />
+                </div>
+                <h4 class="menu-item-title font-headline font-bold text-primary">Signature Sourdough</h4>
+                <p class="menu-item-desc text-on-surface-variant">72-hour fermented wild yeast starter.</p>
+                <div class="menu-item-footer">
+                    <span class="menu-item-price font-bold text-primary">$9.50</span>
+                    <button class="btn-add">
+                        <span class="material-symbols-outlined" style="font-size: 0.875rem;">add</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-image">
+                    <img alt="Croissant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpbPGd6aYToMp1ZuExgAokhAW2dA_5WyGEUsWMvuplL6sbRrSbBYuyymQWExLZzMdOruarXlF0ekTxN50VNg1ydIJ9vpIoRW2Cv3xz9W6EI0TvpJpoy0aTjXKXjR4sZuCLv6pJAHwRgeb7EXt7Y6-42-a4yHoS1Qpshw4nVzA_Rb9HvmdFxO_2lPTXZ9hR55cZCu_NctyEl7yy9VnZpexvvlXF-nIKmzFg1FxbYMmSz7E7IWIg6UZZq0Kx0X1PuVacjGGTR6JSVwk" />
+                </div>
+                <h4 class="menu-item-title font-headline font-bold text-primary">Honey Butter Croissant</h4>
+                <p class="menu-item-desc text-on-surface-variant">French butter and wildflower honey.</p>
+                <div class="menu-item-footer">
+                    <span class="menu-item-price font-bold text-primary">$5.75</span>
+                    <button class="btn-add">
+                        <span class="material-symbols-outlined" style="font-size: 0.875rem;">add</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-image">
+                    <img alt="Brioche" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBJtRiyDte2ojuMUdQ4QR0di0R9xBYYQwHJMEewiWjuRfHCzZGLgdGp_ZjXxYLZOHYndiOLImsM2r3BK2O3lbbdqTL4WOs9O6wJT5lDkvmAkEA6Kj_4lm7ojZ2lZ6GzXKgv37Kt6wQ_gEn487pQey5Y1eFNxd2tOsX8m9TyGTrwgwzTI_ztFwXY7g-08hd0YtOvrIzECk0xJ2jkCbsPyNkZHla6uDVmjz14KP51h7dXYbFl9DPvnsrLCuJaqKNkA7uer7vgCrYaBU" />
+                </div>
+                <h4 class="menu-item-title font-headline font-bold text-primary">Raspberry Brioche</h4>
+                <p class="menu-item-desc text-on-surface-variant">Tart house-made berry compote.</p>
+                <div class="menu-item-footer">
+                    <span class="menu-item-price font-bold text-primary">$4.50</span>
+                    <button class="btn-add">
+                        <span class="material-symbols-outlined" style="font-size: 0.875rem;">add</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-item-image">
+                    <img alt="Cake Slice" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh7Btv7wwCj1eCNP841o6ZLzEPFsD_bKOuWOO_hNO1D_xLbHdQaI1HchdHXkMXb3RbZnbUSdzyn1Wp4HTfld0DV8QjLM1Tm9riBHfgmS7R8vCNSepOPrX9Q9D8cc_Ek22P60kTW3qmWRHTbLea9X95OSz9S7nyoy8bHzeMU3b6PN_V0gTNFJ7eXUfnDu8ej6d8pxXvFJdpzpUxw_obKTMin4WwxGKAGoktvHgmPPAdFSLxe14Ul_-SFfj5Oa3BP3Z--ruO_tnKROk" />
+                </div>
+                <h4 class="menu-item-title font-headline font-bold text-primary">Midnight Ganache</h4>
+                <p class="menu-item-desc text-on-surface-variant">Dark chocolate with gold leaf.</p>
+                <div class="menu-item-footer">
+                    <span class="menu-item-price font-bold text-primary">$12.00</span>
+                    <button class="btn-add">
+                        <span class="material-symbols-outlined" style="font-size: 0.875rem;">add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand-col">
+                    <h3 class="footer-brand-title font-headline font-black text-primary">The Flourished Hearth</h3>
+                    <p class="footer-brand-desc text-on-surface-variant">
+                        An artisanal patisserie dedicated to the art of the slow bake.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-btn">
+                            <span class="material-symbols-outlined" style="font-size: 1.125rem;">share</span>
+                        </a>
+                        <a href="#" class="social-btn">
+                            <span class="material-symbols-outlined" style="font-size: 1.125rem;">photo_camera</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading font-black text-primary uppercase">Contact Us</h4>
+                    <div class="footer-contact-list text-on-surface-variant">
+                        <div class="footer-contact-item">
+                            <span class="material-symbols-outlined" style="font-size: 0.875rem;">call</span>
+                            <p>+1 (555) BAKE-ART</p>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span class="material-symbols-outlined" style="font-size: 0.875rem;">mail</span>
+                            <p>hello@flourishedhearth.com</p>
+                        </div>
+                        <a href="#" class="footer-contact-item text-secondary footer-review-link">
+                            <span class="material-symbols-outlined" style="font-size: 0.875rem;">star</span>
+                            <span>Read Our Reviews</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading font-black text-primary uppercase">Location</h4>
+                    <address class="text-on-surface-variant">
+                        <p>124 Artisans Way</p>
+                        <p>Confectionery District</p>
+                        <p>Bakerstown, BT 90210</p>
+                    </address>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading font-black text-primary uppercase">Hours</h4>
+                    <address class="text-on-surface-variant">
+                        <p>Tuesday — Sunday</p>
+                        <p>7:00 AM — 4:00 PM</p>
+                        <p>Closed on Mondays</p>
+                    </address>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="text-on-surface-variant">© 2024 The Flourished Hearth. All Rights Reserved.</p>
+                <div class="footer-legal-links text-on-surface-variant">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
+</body>
+</html>
