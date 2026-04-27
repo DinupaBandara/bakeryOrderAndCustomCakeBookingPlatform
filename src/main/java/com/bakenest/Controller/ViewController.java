@@ -21,4 +21,11 @@ public class ViewController {
         model.addAttribute("customer", new Customer());
         return "login";
     }
+
+    @GetMapping("/review")
+    public String showReviewPage(Model model) {
+        // THIS IS THE FIX: Pass an empty customer object for the register form
+        model.addAttribute("customer", new Customer());
+        return "customer/review";
+    }
 }
