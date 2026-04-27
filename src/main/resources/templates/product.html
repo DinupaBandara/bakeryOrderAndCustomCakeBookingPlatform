@@ -1,68 +1,70 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>The Flourished Hearth | Artisanal Bakery</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>The Artisanal Bakery | Product Gateway</title>
+    <!-- Google Fonts: Noto Serif & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+          rel="stylesheet"/>
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
           rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
           rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "primary-container": "#8d6e63",
-                        "surface-container": "#f4eedb",
-                        "on-background": "#1e1c10",
-                        "on-error-container": "#93000a",
-                        "on-primary-fixed": "#2b160f",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed-variant": "#24502c",
-                        "tertiary-fixed-dim": "#a2d3a4",
-                        "tertiary-fixed": "#bdefbe",
-                        "on-tertiary-container": "#f8fff4",
-                        "inverse-primary": "#e4beb2",
-                        "tertiary-container": "#527f57",
-                        "on-tertiary-fixed": "#002109",
-                        "outline-variant": "#d4c3be",
-                        "on-secondary-container": "#792b4a",
-                        "primary-fixed-dim": "#e4beb2",
-                        "on-secondary-fixed-variant": "#792b4a",
-                        "secondary-fixed": "#ffd9e2",
-                        "inverse-on-surface": "#f7f0dd",
-                        "surface-bright": "#fff9ec",
-                        "surface-container-low": "#faf3e0",
-                        "surface-container-highest": "#e9e2d0",
-                        "background": "#fff9ec",
-                        "on-error": "#ffffff",
-                        "surface-variant": "#e9e2d0",
                         "on-surface": "#1e1c10",
-                        "secondary-container": "#fe97b9",
-                        "surface-container-lowest": "#ffffff",
-                        "tertiary": "#3a6640",
-                        "on-secondary": "#ffffff",
-                        "surface-container-high": "#efe8d5",
+                        "inverse-on-surface": "#f7f0dd",
+                        "surface-variant": "#e9e2d0",
+                        "tertiary-fixed-dim": "#a2d3a4",
                         "on-surface-variant": "#504441",
-                        "on-primary-fixed-variant": "#5b4137",
-                        "on-secondary-fixed": "#3e001e",
-                        "primary-fixed": "#ffdbce",
-                        "primary": "#72564c",
-                        "on-primary-container": "#fffcff",
+                        "on-error-container": "#93000a",
                         "error-container": "#ffdad6",
-                        "outline": "#827470",
+                        "tertiary": "#3a6640",
                         "surface-dim": "#e0dac7",
-                        "secondary-fixed-dim": "#ffb0c9",
-                        "on-primary": "#ffffff",
-                        "error": "#ba1a1a",
+                        "primary-fixed": "#ffdbce",
+                        "on-secondary-fixed-variant": "#792b4a",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#e4beb2",
                         "surface": "#fff9ec",
-                        "inverse-surface": "#333024",
+                        "surface-container-high": "#efe8d5",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#f8fff4",
+                        "primary-fixed-dim": "#e4beb2",
                         "secondary": "#964261",
-                        "surface-tint": "#75584d"
+                        "inverse-surface": "#333024",
+                        "outline-variant": "#d4c3be",
+                        "on-primary-container": "#fffcff",
+                        "surface-tint": "#75584d",
+                        "secondary-fixed-dim": "#ffb0c9",
+                        "surface-container-low": "#faf3e0",
+                        "on-secondary-fixed": "#3e001e",
+                        "secondary-fixed": "#ffd9e2",
+                        "tertiary-fixed": "#bdefbe",
+                        "surface-container": "#f4eedb",
+                        "primary-container": "#8d6e63",
+                        "on-tertiary-fixed": "#002109",
+                        "on-primary-fixed": "#2b160f",
+                        "background": "#fff9ec",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#527f57",
+                        "outline": "#827470",
+                        "on-secondary-container": "#792b4a",
+                        "surface-container-highest": "#e9e2d0",
+                        "primary": "#72564c",
+                        "surface-bright": "#fff9ec",
+                        "on-primary": "#ffffff"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.25rem",
@@ -72,11 +74,12 @@
                     },
                     "fontFamily": {
                         "headline": ["Noto Serif"],
+                        "display": ["Noto Serif"],
                         "body": ["Plus Jakarta Sans"],
                         "label": ["Plus Jakarta Sans"]
                     }
                 },
-            }
+            },
         }
     </script>
     <style>
@@ -84,341 +87,174 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        .hero-gradient {
-            background: linear-gradient(180deg, #faf3e0 0%, #fff9ec 100%);
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fff9ec;
+            color: #1e1c10;
         }
 
-        .btn-primary-gradient {
-            background: linear-gradient(135deg, #72564c 0%, #8d6e63 100%);
+        h1, h2, h3, .font-serif {
+            font-family: 'Noto Serif', serif;
         }
     </style>
 </head>
-<body class="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+<body class="min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container">
 <!-- TopNavBar -->
-<main class="pt-24 pb-32">
-    <!-- Hero Section -->
-    <section class="max-w-7xl mx-auto px-8 mb-20">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold mb-4 block">Est. 1924 • Hand-Crafted Daily</span>
-                <h1 class="font-headline text-6xl md:text-8xl font-black text-primary leading-[0.9] tracking-tighter mb-6">
-                    Bred from <br/><span class="italic font-light">Tradition.</span>
-                </h1>
-                <p class="text-on-surface-variant text-lg leading-relaxed max-w-md mb-8">
-                    Our sourdough is nurtured over 48 hours, using stone-ground grains and the warmth of our heritage
-                    hearth. Taste the slow-baked difference.
+<nav class="fixed top-0 w-full z-50 bg-stone-50/85 dark:bg-stone-900/85 backdrop-blur-xl shadow-xl shadow-[#1E1C10]/5">
+    <div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+        <!-- Brand Identity -->
+        <a class="text-2xl font-serif font-black text-[#72564C] dark:text-[#E9E2D0] tracking-tighter italic" href="#">
+            The Artisanal Bakery
+        </a>
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center space-gap-8 lg:gap-12">
+            <a class="font-serif tracking-tighter italic lg:text-display-sm body-lg:font-sans lg:leading-relaxed text-[#72564C] dark:text-[#E9E2D0] border-b-2 border-[#72564C] dark:border-[#E9E2D0] pb-1 transition-all duration-300"
+               href="#">Products</a>
+            <a class="font-serif tracking-tighter italic lg:text-display-sm body-lg:font-sans lg:leading-relaxed text-[#8D6E63] dark:text-[#D4C3BE] font-medium hover:text-[#FE97B9] transition-all duration-300"
+               href="#">Contact Us</a>
+        </div>
+        <!-- Trailing Actions -->
+        <div class="flex items-center gap-4">
+            <div class="hidden lg:flex items-center bg-surface-variant/30 rounded-full px-4 py-1.5 border border-outline-variant/20">
+                <span class="material-symbols-outlined text-primary text-sm" data-icon="search">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-sm font-body px-2 w-32 placeholder:text-outline"
+                       placeholder="Search..." type="text"/>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="px-4 py-2 text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300">
+                    Sign In
+                </button>
+                <button class="px-5 py-2 text-sm font-bold bg-primary text-on-primary rounded-full hover:scale-105 active:scale-95 transition-transform duration-300 shadow-md">
+                    Sign Up
+                </button>
+            </div>
+            <button class="relative p-2 text-[#72564C] hover:text-[#FE97B9] transition-colors">
+                <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                <span class="absolute top-0 right-0 bg-secondary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
+            </button>
+        </div>
+    </div>
+    <div class="bg-gradient-to-b from-[#FAF3E0] to-transparent h-1"></div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-20 px-6 max-w-7xl mx-auto w-full">
+    <!-- Hero Title -->
+    <header class="text-center mb-20 max-w-2xl mx-auto">
+        <span class="text-secondary font-label uppercase tracking-widest text-xs font-bold mb-4 block">Curated Excellence</span>
+        <h1 class="text-5xl md:text-7xl font-display font-black text-primary leading-tight tracking-tighter mb-6 italic">
+            Choose Your Experience</h1>
+        <p class="text-on-surface-variant font-body text-lg leading-relaxed opacity-80">Whether you seek the daily
+            comfort of a warm loaf or the bespoke artistry of a celebratory cake, our ovens are ready for you.</p>
+    </header>
+    <!-- Gateway Bento-Style Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Card 1: The Daily Bake -->
+        <section
+                class="group relative overflow-hidden rounded-[2.5rem] bg-surface-container-low transition-all duration-700 hover:shadow-2xl hover:-translate-y-2">
+            <div class="aspect-[4/5] md:aspect-square lg:aspect-[4/5] relative">
+                <img alt="The Daily Bake"
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                     data-alt="A high-quality, professional food photography shot of a variety of artisanal bakery items: sourdough bread loaves with beautiful scoring, flaky golden croissants, and small pastries arranged on a rustic wooden surface with a light dusting of flour. Warm, natural lighting, soft focus background, earthy tones."
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWgo_NnLnevzlHyCs0btjuZwV09FubduS_MKHMYzMArdT2ycaC4FXZnhtMfdpX3L7HGjRz9RdDWb1ztVHOgi20lty9lmHFmu9k5HEh3ibfyEqYHsaCxsPScLru87g3Q8sAzzHqHvhVanXMi8f2b-9eQ63q-iOs7YVHsBkjz1NiB6JHXCc6hLdaSwwGjZlyjwzLs2hEpe7w95Kfz5jA4T7tSL6V9opUFPKqaB2eDgBWOl4eJ_HPUt7sgKlp86ZeMh-OA3oWWZMswcY"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
+            </div>
+            <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full text-white">
+                <h2 class="text-4xl md:text-5xl font-display italic font-bold mb-4 tracking-tight">The Daily Bake</h2>
+                <p class="font-body text-surface-container-lowest/90 mb-8 max-w-md leading-relaxed">
+                    Handcrafted sourdoughs, flaky croissants, and morning pastries baked fresh every dawn using locally
+                    milled grains.
                 </p>
-                <div class="flex gap-4">
-                    <button class="btn-primary-gradient text-on-primary px-8 py-4 rounded-xl font-bold shadow-xl hover:scale-105 transition-transform">
-                        Browse Collection
-                    </button>
-                    <button class="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-xl font-bold hover:scale-105 transition-transform">
-                        Book a Tasting
-                    </button>
-                </div>
+                <a class="inline-flex items-center gap-3 bg-surface-container-lowest text-primary px-8 py-4 rounded-full font-bold hover:bg-secondary-container hover:text-on-secondary-container transition-all duration-300 group/btn shadow-lg"
+                   href="#">
+                    Buy Bakery Items
+                    <span class="material-symbols-outlined transition-transform group-hover/btn:translate-x-1"
+                          data-icon="arrow_forward">arrow_forward</span>
+                </a>
             </div>
-            <div class="relative h-[600px] rounded-[2.5rem] overflow-hidden rotate-2 shadow-2xl">
-                <img alt="Artisanal sourdough" class="w-full h-full object-cover"
-                     data-alt="Close-up of artisan sourdough bread with a perfect golden crust and flour dusting on a rustic wooden table with soft side lighting"
-                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4-PMW9q_A3sHkwMsBGnvTaD6pTSBE468DFSpA0zJ369e3me04eS0YPiHfmNjv5GHnAhO2mfSCDhWP9MMDxD4tNZpE3Np1dhEkPWDDmZJ-6FNW-ZDfnvheHPsGjZhASeC0My70C6fwhRzZHnJCGlWG-bkgZIBS5aoN-UZhaA8C_8c3lKyL32-Lh15PHWeINKJh3QjIggggUHZXzSIBQoTDTpolgkTkfExIefQKoI3hz34lxIs9GXryb2ZMMrnaI_yObpRngT6qJkg"/>
+            <!-- Floating Decorative Badge -->
+            <div class="absolute top-8 right-8 bg-surface-bright/90 backdrop-blur-md p-4 rounded-2xl shadow-xl transform -rotate-6 group-hover:rotate-0 transition-transform">
+                <span class="material-symbols-outlined text-primary block text-center mb-1" data-icon="bakery_dining">bakery_dining</span>
+                <span class="text-[10px] font-label font-black uppercase text-primary tracking-tighter">Fresh Daily</span>
             </div>
-        </div>
-    </section>
-    <!-- Product Grid & Filters -->
-    <section class="max-w-7xl mx-auto px-8 mb-32">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-            <div>
-                <h2 class="font-headline text-4xl font-bold text-primary mb-2">The Daily Bake</h2>
-                <p class="text-on-surface-variant">Filter by your cravings or dietary needs</p>
+        </section>
+        <!-- Card 2: The Cake Atelier -->
+        <section
+                class="group relative overflow-hidden rounded-[2.5rem] bg-surface-container-low transition-all duration-700 hover:shadow-2xl hover:-translate-y-2">
+            <div class="aspect-[4/5] md:aspect-square lg:aspect-[4/5] relative">
+                <img alt="The Cake Atelier"
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                     data-alt="Exquisite multi-tiered minimalist wedding cake with delicate botanical piping and soft pink floral accents in a bright, ethereal studio setting."
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPuE4P5QttnT-f8gvezlpjj15pPgdBUG8PF_-81NIufOGqSoKtkFW8uG8RXlSw60swmTuf36owiHzQBhoyFPbDs1u2p1nSSOKMb3BJ23RjlI1_FK_w2-rXDHA7obeYCpY8cG5Xzit76vO6d_VTBZuQJbxWxz9RT4UT_PlZIlBU-_BFGDbUUn4LxbD1T5YTHvZ-8kw6tEcmcP5fJegLG0OQFE49TZCVg36CZ47_hMR2R5276AwRz_k-gaIZeOn6Yq1OBUk1crRhLQo"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent"></div>
             </div>
-            <!-- Filters -->
-            <div class="flex flex-wrap gap-3">
-                <button class="bg-surface-container-highest px-6 py-2 rounded-full font-label text-sm font-bold text-primary">
-                    All Items
-                </button>
-                <button class="bg-surface-container-low px-6 py-2 rounded-full font-label text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
-                    Breads
-                </button>
-                <button class="bg-surface-container-low px-6 py-2 rounded-full font-label text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
-                    Pastries
-                </button>
-                <button class="bg-tertiary-container px-6 py-2 rounded-full font-label text-sm font-bold text-on-tertiary-container flex items-center gap-2">
-                    <span class="material-symbols-outlined text-sm" data-icon="eco">eco</span> Vegan
-                </button>
-                <button class="bg-surface-container-low px-6 py-2 rounded-full font-label text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
-                    Cakes
-                </button>
+            <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full text-white">
+                <h2 class="text-4xl md:text-5xl font-display italic font-bold mb-4 tracking-tight">The Cake Atelier</h2>
+                <p class="font-body text-surface-container-lowest/90 mb-8 max-w-md leading-relaxed">
+                    Bespoke creations for life's most precious moments. From minimalist chic to ornate floral
+                    arrangements.
+                </p>
+                <a class="inline-flex items-center gap-3 bg-surface-container-lowest text-primary px-8 py-4 rounded-full font-bold hover:bg-secondary-container hover:text-on-secondary-container transition-all duration-300 group/btn shadow-lg"
+                   href="#">
+                    Book Custom Cake
+                    <span class="material-symbols-outlined transition-transform group-hover/btn:translate-x-1"
+                          data-icon="arrow_forward">arrow_forward</span>
+                </a>
             </div>
-        </div>
-        <!-- Bento Grid of Products -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <!-- Large Featured Card -->
-            <div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden border border-outline-variant/10 shadow-sm">
-                <div class="relative h-72 mb-6 overflow-hidden rounded-2xl">
-                    <img alt="Pain au Chocolat"
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                         data-alt="Layers of flaky golden brown pain au chocolat pastry with rich dark chocolate centers visible on a marble surface"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuB556Geyaesn1jOOeD5RogHKW8b37iEfhIu5JwrMcmM2lhANMPn6rNf_3WUsfjnL_A6bz_yln_ECzH26ISnzwmw5627OOGg0TH5QEaVdm-bQ0SPbD0bC9Nj6U70LB3CTioLn_vle5KxpRJNwkFHDSnStwSkW_kz8YtMwv0gCnoSVxU6CM9faE1XgkjYKq50N76nGhlA5qaDgTlmTDdjdUe-rAPUYjzh35ALP9zonVuCjTGBW1-q3PVRek7uSf1iRouKfqbdTMxnTiM"/>
-                </div>
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="font-headline text-3xl font-bold text-primary">Signature Pain au Chocolat</h3>
-                            <div class="flex gap-2 mt-2">
-                                <span class="bg-tertiary-container text-on-tertiary-container text-[10px] uppercase font-black px-2 py-1 rounded">Daily Special</span>
-                            </div>
-                        </div>
-                        <span class="font-headline text-2xl text-secondary font-black">$4.50</span>
-                    </div>
-                    <p class="text-on-surface-variant mb-6 line-clamp-2">24 layers of organic butter-laminated dough,
-                        filled with Valrhona 70% dark chocolate batons.</p>
-                    <button class="w-full bg-primary text-on-primary py-4 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-primary-container transition-colors">
-                        <span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-                        Add to Basket
-                    </button>
-                </div>
+            <!-- Floating Decorative Badge -->
+            <div class="absolute top-8 right-8 bg-secondary/90 backdrop-blur-md p-4 rounded-2xl shadow-xl transform rotate-6 group-hover:rotate-0 transition-transform">
+                <span class="material-symbols-outlined text-white block text-center mb-1" data-icon="cake">cake</span>
+                <span class="text-[10px] font-label font-black uppercase text-white tracking-tighter">Bespoke Design</span>
             </div>
-            <!-- Regular Card 1 -->
-            <div class="bg-surface-container-low rounded-[2rem] p-6 group hover:bg-surface-container-high transition-all">
-                <div class="aspect-square mb-4 overflow-hidden rounded-2xl">
-                    <img alt="Heritage Sourdough"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                         data-alt="A round loaf of heritage sourdough bread with an intricate wheat stalk pattern scored into the crust"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiJEJ15Twrr-nSChnH4jH2acNfGKRcbPGOpzZc3cxwOx3_asLSMxc4ivyp3rPNcSFayzQwaa_CoDTFTihuiJbe97LRbmN182-k24DqKv0Ic-mHEia7uln27XnbzGatSMR8e0XpY-8id9O3emC0b-0XEaBJr2Z4GXMjLIuclI92p31WVby2KXN_K3F1ArDn5Lh6emNJAxHvFEMsV6XyVDmTF-SwUE_GmylX0pz5O-KlDXNcKVFT76ErMjLEWTRV4rknaXxB0fMB5zg"/>
-                </div>
-                <h3 class="font-headline text-xl font-bold text-primary">Heritage Sourdough</h3>
-                <p class="text-on-surface-variant text-sm mb-4">Slow-fermented for 48 hours.</p>
-                <div class="flex justify-between items-center">
-                    <span class="font-bold text-secondary">$8.00</span>
-                    <button class="bg-primary text-on-primary p-2 rounded-lg hover:scale-110 transition-transform">
-                        <span class="material-symbols-outlined" data-icon="add">add</span>
-                    </button>
-                </div>
-            </div>
-            <!-- Regular Card 2 -->
-            <div class="bg-surface-container-low rounded-[2rem] p-6 group hover:bg-surface-container-high transition-all">
-                <div class="aspect-square mb-4 overflow-hidden rounded-2xl">
-                    <img alt="Cardamom Bun"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                         data-alt="Swedish style cardamom bun with twisted dough and coarse pearl sugar topping on a warm background"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJQIsWIbHvc73grxfAt4Zrecr1Kia5TIWyC8qIUhyJ94kjTce_A2eLxW31eyk31zumskdfZwOUXub7AE-5Rm7Ia4XF764k_RqvFV2fyBnu3_Q6WWSbUOqPWM3NMk8c52MlqS9Sx24ydZz_cJ7FPMprbjljNUHe0qYgchRUmPoRg9mJ4OF7TziC1oonIHDJw8SFxigSr9a-l6ifaejmquNUY4XH54mEr9ADcrAE0zqhbyXX1KwyccV8tv5TNKM5qe5nBVW3UHDfDjU"/>
-                </div>
-                <h3 class="font-headline text-xl font-bold text-primary">Twisted Cardamom</h3>
-                <p class="text-on-surface-variant text-sm mb-4">With pearl sugar and sea salt.</p>
-                <div class="flex justify-between items-center">
-                    <span class="font-bold text-secondary">$3.75</span>
-                    <button class="bg-primary text-on-primary p-2 rounded-lg hover:scale-110 transition-transform">
-                        <span class="material-symbols-outlined" data-icon="add">add</span>
-                    </button>
-                </div>
-            </div>
-            <!-- Regular Card 3 -->
-            <div class="bg-surface-container-low rounded-[2rem] p-6 group hover:bg-surface-container-high transition-all">
-                <div class="aspect-square mb-4 overflow-hidden rounded-2xl">
-                    <img alt="Lemon Meringue"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                         data-alt="Individual lemon meringue tart with toasted peaks of fluffy white meringue and bright yellow curd"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxR-mUr1grrt7nd2J-Tc1IaisiXBbntRS2J3EUAvUy0EZXgfX9paEA6hHe345AmHCekvNkZebiLbOOOYcYWxP6Ihrq8AEAAxcuf4EoqUdl4A5-hHQSso9WxjVdOlftdlbbbB6q_XrRSJTnofG7Csa6bWz9DtLXjAYWCzom4QfJ_tc-yKTyPe4UXhc9hikS7b0u-9SuDuksA0vp9EECQMgH7zhQhpODhmCD0FSVCGDC9u-1kI4Hu3bnBeUuu2mjQ2dTJ8D0YmrOHHk"/>
-                </div>
-                <h3 class="font-headline text-xl font-bold text-primary">Lemon Cloud Tart</h3>
-                <p class="text-on-surface-variant text-sm mb-4">Tangy curd &amp; toasted Swiss peaks.</p>
-                <div class="flex justify-between items-center">
-                    <span class="font-bold text-secondary">$6.50</span>
-                    <button class="bg-primary text-on-primary p-2 rounded-lg hover:scale-110 transition-transform">
-                        <span class="material-symbols-outlined" data-icon="add">add</span>
-                    </button>
-                </div>
-            </div>
-            <!-- Regular Card 4 -->
-            <div class="bg-surface-container-low rounded-[2rem] p-6 group hover:bg-surface-container-high transition-all">
-                <div class="aspect-square mb-4 overflow-hidden rounded-2xl">
-                    <img alt="Rye Bread"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                         data-alt="Dark dense rye bread loaf with sunflower seeds and a dusting of flour on a slate board"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJFo9fiVt7oe_OvSbaMAmRKIVVwjdx2_Tu-XsapmB0GyPl5p3CkjSVbecKqE0ztWB4P2pSkpFCNb6cepPU1rRJDFTeQ7J81iiZlhTEaxm50fdVt21kChsIq9UCCUP9kOG3ObV4wkknvL_3LpHjRMq8KK-4-zDdAYmDb7mH0WuFJy349f4FE95xi45oTLTyKBjAgV6gWc6FF0f3j763NGKzMoI14c5uUPgQuPyPtHMuSYV_qIavBNIUbpppBAF0lcIZXwcm1ty1JGM"/>
-                </div>
-                <h3 class="font-headline text-xl font-bold text-primary">Midnight Rye</h3>
-                <div class="flex gap-1 mb-4">
-                    <span class="bg-tertiary-container/20 text-tertiary text-[10px] uppercase font-bold px-2 py-0.5 rounded">Vegan</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="font-bold text-secondary">$9.00</span>
-                    <button class="bg-primary text-on-primary p-2 rounded-lg hover:scale-110 transition-transform">
-                        <span class="material-symbols-outlined" data-icon="add">add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Custom Cake Booking Section -->
-    <section class="max-w-7xl mx-auto px-8">
-        <div class="bg-surface-container-high rounded-[3rem] overflow-hidden">
-            <div class="grid md:grid-cols-2">
-                <div class="p-12 md:p-20">
-                    <span class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold mb-4 block">Commission an Original</span>
-                    <h2 class="font-headline text-5xl font-bold text-primary mb-8 leading-tight">The Cake Atelier</h2>
-                    <p class="text-on-surface-variant mb-12 text-lg">Every milestone deserves a centerpiece. Customize
-                        your celebration cake with our artisanal flavors and hand-piped decorations.</p>
-                    <!-- Design Photo Upload Prompt -->
-                    <div class="mb-10 p-6 bg-surface-container-lowest rounded-2xl border-l-4 border-secondary flex items-center justify-between gap-4">
-                        <div>
-                            <p class="text-primary font-bold">Have a specific vision in mind?</p>
-                            <p class="text-sm text-on-surface-variant">Send your design photo to us via WhatsApp</p>
-                        </div>
-                        <a class="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-lg font-bold hover:brightness-110 transition-all text-sm"
-                           href="https://wa.me/15552253278">
-                            <svg class="w-5 h-5 fill-current" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
-                            </svg>
-                            +1 (555) BAKE-ART
-                        </a>
-                    </div>
-                    <form class="space-y-8">
-                        <!-- Weight Selector -->
-                        <div>
-                            <label class="font-label text-xs uppercase tracking-widest font-bold text-primary mb-4 block">Select
-                                Weight</label>
-                            <div class="grid grid-cols-4 gap-3">
-                                <button class="border-2 border-primary bg-surface-container-lowest p-4 rounded-xl text-center"
-                                        type="button">
-                                    <span class="block font-bold text-primary">1kg</span>
-                                    <span class="text-[10px] text-on-surface-variant">Serves 8-10</span>
-                                </button>
-                                <button class="border-2 border-transparent bg-surface-container-lowest p-4 rounded-xl text-center hover:border-outline-variant transition-colors"
-                                        type="button">
-                                    <span class="block font-bold text-primary">2kg</span>
-                                    <span class="text-[10px] text-on-surface-variant">Serves 15-20</span>
-                                </button>
-                                <button class="border-2 border-transparent bg-surface-container-lowest p-4 rounded-xl text-center hover:border-outline-variant transition-colors"
-                                        type="button">
-                                    <span class="block font-bold text-primary">3kg</span>
-                                    <span class="text-[10px] text-on-surface-variant">Serves 25-30</span>
-                                </button>
-                                <button class="border-2 border-transparent bg-surface-container-lowest p-4 rounded-xl text-center hover:border-outline-variant transition-colors"
-                                        type="button">
-                                    <span class="block font-bold text-primary">5kg</span>
-                                    <span class="text-[10px] text-on-surface-variant">Party Size</span>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Flavor & Decoration -->
-                        <div>
-                            <label class="font-label text-xs uppercase tracking-widest font-bold text-primary mb-4 block">Event
-                                Type</label>
-                            <select class="w-full bg-surface-container-lowest border-none rounded-xl p-4 focus:ring-2 focus:ring-secondary/20 text-on-surface">
-                                <option disabled="" selected="">Select an event type...</option>
-                                <option>Birthday</option>
-                                <option>Wedding</option>
-                                <option>Anniversary</option>
-                                <option>Baby Shower</option>
-                                <option>Corporate Event</option>
-                                <option>Other Celebration</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-2 gap-6">
-                            <div>
-                                <label class="font-label text-xs uppercase tracking-widest font-bold text-primary mb-4 block">Base
-                                    Flavor</label>
-                                <select class="w-full bg-surface-container-lowest border-none rounded-xl p-4 focus:ring-2 focus:ring-secondary/20">
-                                    <option>Tahitian Vanilla Bean</option>
-                                    <option>Earl Grey &amp; Lavender</option>
-                                    <option>Salted Dark Chocolate</option>
-                                    <option>Champagne &amp; Strawberry</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="font-label text-xs uppercase tracking-widest font-bold text-primary mb-4 block">Decoration
-                                    Style</label>
-                                <select class="w-full bg-surface-container-lowest border-none rounded-xl p-4 focus:ring-2 focus:ring-secondary/20">
-                                    <option>Pressed Wildflowers</option>
-                                    <option>Minimalist Smooth Silk</option>
-                                    <option>Vintage Lambeth Piping</option>
-                                    <option>Rustic Naked Frosting</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Message -->
-                        <div>
-                            <label class="font-label text-xs uppercase tracking-widest font-bold text-primary mb-4 block">Custom
-                                Inscription</label>
-                            <input class="w-full bg-surface-container-lowest border-none rounded-xl p-4 focus:ring-2 focus:ring-secondary/20"
-                                   placeholder="Happy Birthday, Evelyn..." type="text"/>
-                        </div>
-                        <button class="w-full btn-primary-gradient text-on-primary py-5 rounded-2xl font-bold text-xl shadow-lg hover:shadow-2xl transition-all">
-                            Request Custom Quote
-                        </button>
-                    </form>
-                </div>
-                <div class="relative hidden md:block">
-                    <img alt="Custom Wedding Cake" class="w-full h-full object-cover"
-                         data-alt="A tall elegant three-tier wedding cake with smooth ivory buttercream frosting and delicate edible wildflowers pressed into the sides"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe10hUK8Bz0TmCD1KxnU4ePuatLkhhA1cgKnnHyWm7_ZZ5Z1qh-22epvAUnKfhaxoC2137dpdo4G6H75eLg9PQ_FoZwS5w-2WsNUtfbckRgQdlkDTDChpq_ahues8Ykh4imboe9oVGLN3_vo5tY_9AMjkRE1RmBstixrizuCWfupixieZZlO2iWcnv5i2go4zMOAKFP5DKlu_Lv-u2K8ytIoxUefzJLaXRaBqPxxSdvkzW0iKiboGXRWhEzL5G9vTl6C2_aUPUYLk"/>
-                    <div class="absolute inset-0 bg-gradient-to-r from-surface-container-high via-transparent to-transparent"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
+    <!-- Secondary Section: Process Highlights -->
 </main>
 <!-- Footer -->
-<footer class="bg-surface-container-highest pt-20 pb-12 px-8">
-    <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-            <div class="md:col-span-1">
-                <h3 class="font-headline text-2xl font-black text-primary mb-6">The Flourished Hearth</h3>
-                <p class="text-on-surface-variant mb-8 leading-relaxed">
-                    An artisanal patisserie dedicated to the art of the slow bake.
-                </p>
-                <div class="flex gap-4">
-                    <a class="w-10 h-10 rounded-full border border-outline flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors"
-                       href="#">
-                        <span class="material-symbols-outlined text-lg">share</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full border border-outline flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors"
-                       href="#">
-                        <span class="material-symbols-outlined text-lg">photo_camera</span>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-label text-sm font-black text-primary uppercase tracking-widest mb-6">Contact Us</h4>
-                <div class="space-y-4 text-on-surface-variant">
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm">call</span>
-                        <p>+1 (555) BAKE-ART</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm">mail</span>
-                        <p>hello@flourishedhearth.com</p>
-                    </div>
-                    <a class="flex items-center gap-2 text-secondary font-bold hover:underline" href="#">
-                        <span class="material-symbols-outlined text-sm">star</span>
-                        <span>Read Our Reviews</span>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-label text-sm font-black text-primary uppercase tracking-widest mb-6">Location</h4>
-                <address class="not-italic text-on-surface-variant space-y-2">
-                    <p>124 Artisans Way</p>
-                    <p>Confectionery District</p>
-                    <p>Bakerstown, BT 90210</p>
-                </address>
-            </div>
-            <div>
-                <h4 class="font-label text-sm font-black text-primary uppercase tracking-widest mb-6">Hours</h4>
-                <address class="not-italic text-on-surface-variant space-y-2">
-                    <p>Tuesday — Sunday</p>
-                    <p>7:00 AM — 4:00 PM</p>
-                    <p>Closed on Mondays</p>
-                </address>
+<footer class="w-full mt-auto py-16 bg-[#FAF3E0] dark:bg-stone-950 border-t border-[#D4C3BE]/20">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto px-8">
+        <!-- Brand Info -->
+        <div class="flex flex-col gap-4">
+            <span class="text-lg font-serif italic text-[#8D6E63]">The Artisanal Digital Bakery</span>
+            <p class="font-sans text-xs tracking-[0.05em] uppercase text-[#8D6E63] dark:text-stone-500 opacity-80">
+                © 2024 The Artisanal Digital Bakery. Crafted with precision.
+            </p>
+            <div class="flex gap-4 mt-2">
+                <a class="text-[#8D6E63] hover:text-[#FE97B9] transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined" data-icon="public">public</span>
+                </a>
+                <a class="text-[#8D6E63] hover:text-[#FE97B9] transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined" data-icon="mail">mail</span>
+                </a>
             </div>
         </div>
-        <div class="pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-sm text-on-surface-variant">© 2024 The Flourished Hearth. All Rights Reserved.</p>
-            <div class="flex gap-8 text-sm text-on-surface-variant">
-                <a class="hover:text-primary transition-colors" href="#">Privacy</a>
-                <a class="hover:text-primary transition-colors" href="#">Terms</a>
-                <a class="hover:text-primary transition-colors" href="#">Accessibility</a>
+        <!-- Links Column 1 -->
+        <div class="flex flex-col gap-3">
+            <h5 class="font-sans text-xs tracking-[0.05em] uppercase font-bold text-[#72564C] dark:text-white mb-2">
+                Connect</h5>
+            <a class="font-sans text-xs tracking-[0.05em] uppercase text-[#8D6E63] dark:text-stone-500 hover:text-[#FE97B9] transition-colors"
+               href="#">Location</a>
+            <a class="font-sans text-xs tracking-[0.05em] uppercase text-[#8D6E63] dark:text-stone-500 hover:text-[#FE97B9] transition-colors"
+               href="#">Email</a>
+        </div>
+        <!-- Links Column 2 -->
+        <div class="flex flex-col gap-3">
+            <h5 class="font-sans text-xs tracking-[0.05em] uppercase font-bold text-[#72564C] dark:text-white mb-2">
+                Support</h5>
+            <a class="font-sans text-xs tracking-[0.05em] uppercase text-[#8D6E63] dark:text-stone-500 hover:text-[#FE97B9] transition-colors"
+               href="#">Contact No</a>
+            <a class="font-sans text-xs tracking-[0.05em] uppercase text-[#8D6E63] dark:text-stone-500 hover:text-[#FE97B9] transition-colors"
+               href="#">Reviews</a>
+        </div>
+        <!-- Newsletter/CTA -->
+        <div class="flex flex-col gap-4">
+            <h5 class="font-sans text-xs tracking-[0.05em] uppercase font-bold text-[#72564C] dark:text-white mb-2">Join
+                Our List</h5>
+            <div class="flex">
+                <input class="bg-surface/50 border-[#D4C3BE]/30 text-xs rounded-l-lg focus:ring-primary focus:border-primary w-full px-3 py-2 uppercase tracking-wider"
+                       placeholder="Email Address" type="email"/>
+                <button class="bg-[#72564C] text-white px-4 py-2 rounded-r-lg hover:bg-[#8D6E63] transition-colors">
+                    <span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+                </button>
             </div>
         </div>
     </div>
