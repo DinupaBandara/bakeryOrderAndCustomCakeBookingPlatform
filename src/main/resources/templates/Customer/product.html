@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The Artisanal Bakery | Product Gateway</title>
+    <link rel="stylesheet" th:href="@{/css/customer/product.css}">
+
+</head>
+<body>
+<!-- TopNavBar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <!-- Brand Identity -->
+        <a class="brand" href="#">
+            The Artisanal Bakery
+        </a>
+        <!-- Desktop Links -->
+        <div class="nav-links">
+            <a class="nav-link active" href="#">Products</a>
+            <a class="nav-link" href="#">Contact Us</a>
+        </div>
+    </div>
+</nav>
+<!-- Main Content -->
+<main>
+    <!-- Gateway Bento Layout -->
+    <div class="gateway-grid">
+        <!-- Card 1: The Daily Bake -->
+        <section class="card">
+            <div class="card-image-wrapper">
+                <img alt="The Daily Bake - Assorted breads and pastries" class="card-image"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWgo_NnLnevzlHyCs0btjuZwV09FubduS_MKHMYzMArdT2ycaC4FXZnhtMfdpX3L7HGjRz9RdDWb1ztVHOgi20lty9lmHFmu9k5HEh3ibfyEqYHsaCxsPScLru87g3Q8sAzzHqHvhVanXMi8f2b-9eQ63q-iOs7YVHsBkjz1NiB6JHXCc6hLdaSwwGjZlyjwzLs2hEpe7w95Kfz5jA4T7tSL6V9opUFPKqaB2eDgBWOl4eJ_HPUt7sgKlp86ZeMh-OA3oWWZMswcY"/>
+                <div class="card-overlay overlay-bakery"></div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">The Daily Bake</h2>
+                <p class="card-text">
+                    Handcrafted sourdoughs, flaky croissants, and morning pastries baked fresh every dawn using locally
+                    milled grains.
+                </p>
+                <a class="card-btn" th:href="@{/product/bakeryitems}">
+                    Buy Bakery Items
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
+            </div>
+            <!-- Floating Decorative Badge -->
+            <div class="badge badge-bakery">
+                <span class="material-symbols-outlined badge-icon">bakery_dining</span>
+                <span class="badge-text">Fresh Daily</span>
+            </div>
+        </section>
+
+        <!-- Card 2: The Cake Atelier -->
+        <section class="card">
+            <div class="card-image-wrapper">
+                <img alt="The Cake Atelier - Elegant layered cake" class="card-image"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPuE4P5QttnT-f8gvezlpjj15pPgdBUG8PF_-81NIufOGqSoKtkFW8uG8RXlSw60swmTuf36owiHzQBhoyFPbDs1u2p1nSSOKMb3BJ23RjlI1_FK_w2-rXDHA7obeYCpY8cG5Xzit76vO6d_VTBZuQJbxWxz9RT4UT_PlZIlBU-_BFGDbUUn4LxbD1T5YTHvZ-8kw6tEcmcP5fJegLG0OQFE49TZCVg36CZ47_hMR2R5276AwRz_k-gaIZeOn6Yq1OBUk1crRhLQo"/>
+                <div class="card-overlay overlay-cake"></div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">The Cake Atelier</h2>
+                <p class="card-text">
+                    Bespoke creations for life's most precious moments. From minimalist chic to ornate floral
+                    arrangements.
+                </p>
+                <a class="card-btn" th:href="@{/product/customcake}">
+                    Book Custom Cake
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
+            </div>
+            <!-- Floating Decorative Badge -->
+            <div class="badge badge-cake">
+                <span class="material-symbols-outlined badge-icon">cake</span>
+                <span class="badge-text">Bespoke Design</span>
+            </div>
+        </section>
+    </div>
+</main>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <!-- Brand Info -->
+        <p class="footer-copy">
+            © 2024 The Artisanal Digital Bakery. Crafted with precision.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

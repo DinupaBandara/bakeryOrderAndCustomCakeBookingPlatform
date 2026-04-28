@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The Flourished Hearth | Buy Bakery Items</title>
+    <link rel="stylesheet" th:href="@{/css/customer/bakeryItem.css}">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <a class="logo" href="#">The Flourished Hearth</a>
+            <div class="nav-links">
+                <a class="active" href="#">Products</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="nav-actions">
+                <div class="auth-buttons">
+                    <button class="btn-text">Sign In</button>
+                    <button class="btn-primary-sm">Sign Up</button>
+                </div>
+                <button class="icon-btn">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+                <button class="icon-btn">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge">2</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Freshly baked, <br/><span>every single dawn.</span></h1>
+            <p class="hero-description">
+                Our artisanal selection is crafted using heritage grains and slow-fermentation techniques. From crusty
+                sourdoughs to buttery layers.
+            </p>
+            <div class="hero-badges">
+<span class="badge badge-organic">
+<span class="material-symbols-outlined" style="font-size: 14px;">nature</span> 100% Organic
+                    </span>
+                <span class="badge badge-fresh">
+<span class="material-symbols-outlined" style="font-size: 14px;">bolt</span> Daily Fresh
+                    </span>
+            </div>
+        </div>
+        <div class="hero-image-wrapper">
+            <img alt="Fresh Sourdough" class="hero-img"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjQt_qZ2KZG8kIJgkaXg0LrMsAqfCFe8xrLvklahl7o6m86r4e0ewmlgKmZ8KybTjPMratkhK-x-cqcl6uFtSq74masLbtZqqchXSpQ4ePHLyxnIm_X-7-E7_DKaKp608muLmGbZipZid4zKhnwtG7TnyxRs5gRH9dOOoCHPmPi3Up0zCVCHRqHV7AqNmyuD9sd0_BoOW_-Fdb0vxaY6RSdD7r86eqz4bpdt2joBj0DFtXPQUBU11QiN25U4-7cGJt9Wy3ziZKsd4"/>
+            <div class="baker-note">
+                <p class="label">Baker's Choice</p>
+                <blockquote>"The fermentation process takes 48 hours for that perfect tang."</blockquote>
+            </div>
+        </div>
+    </section>
+    <!-- Product Filters -->
+    <div class="filters">
+        <button class="filter-btn active">All Creations</button>
+        <button class="filter-btn">Sourdough</button>
+        <button class="filter-btn">Viennoiserie</button>
+        <button class="filter-btn">Patisserie</button>
+        <button class="filter-btn">Savory</button>
+    </div>
+    <!-- Product Grid -->
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <article class="product-card">
+            <div class="product-image">
+                <img alt="Heritage Sourdough"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzAhd8UQXM3EFc4DS_-OY5qVMn4HYh9HoYGbOft6jM1hBWtISa4H2i9V7d3w2t6wjZ958zm_5ltbJI1nBUyIRnWEw7z8_1JJdxvg3iYYWKsCTVp5QkS3zVdtWkTs0vccB4XPgRj9gjVki0TRl-1_ppNRSm53RabgDOLTS_EtmPZStMqMlMtVIQSPU4rgnB-l8I7aFhrILmfYM8p-WkVxv5tlrDn5Usja_UFYlFl1FaaJOrRMu-aFuSPhX3lA8d504aI7HNA6A5cv4"/>
+                <span class="price-tag">Rs. 1,250</span>
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Heritage Sourdough</h3>
+                <p class="product-desc">Wild-yeast fermented for 48 hours. Thick, caramelized crust with a moist, airy
+                    crumb. Perfect for morning toast.</p>
+                <button class="add-to-cart">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    Add to Cart
+                </button>
+            </div>
+        </article>
+        <!-- Product 2 -->
+        <article class="product-card">
+            <div class="product-image">
+                <img alt="Classic Croissant"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5aVNNwtW5AJkXmHowPjrfdbq_9KXGbKBtz1y6dBAoFTUFEjhpXPfUQMghkpT13vYbc1X5tbwiMKi4m_polrRySWZ0W2WFdksvQoABziPESIpxX0OkORkzX81JGkvOn5awlQ1tekPXfOtkpxOLLSthRxwjBJ2ha9rwZJH-7jo_iDh08NBplF9jXRtZtRsRP-UwCEEFLv2zXarEXiVYTkVUN27m0Cce9w4Gb9-rIdUNb1BQj0HGJ2z_s08J8R0cgXxa8ifqBUnKmag"/>
+                <span class="price-tag">Rs. 450</span>
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Classic Croissant</h3>
+                <p class="product-desc">Hand-laminated with premium grass-fed butter. Shatteringly crisp layers with a
+                    honeycomb interior.</p>
+                <button class="add-to-cart">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    Add to Cart
+                </button>
+            </div>
+        </article>
+        <!-- Product 3 -->
+        <article class="product-card">
+            <div class="product-image">
+                <img alt="Berry Meringue"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuARBVVJi770zqW5HawguywsSjSsqmSSHbmTljcpbUd3_LhIlxhJTiCODnUdbUXo30GQ1ZV_vKEgpl5eQU2d8kv5XT160db8ZIa78anPqNHQQFgWJriUHhTAFmKa9xSpenUy4thtwkhzwh7wDvu0KI0ZmgsEzmG4yQT6qul9DTIjri-88nNVzOGtmH4tfE81TShw3dExSxSwKSGxn4pdkjZP_wjJGU50iY1Iov4ZtYJowjN9cSrCB3LoDvBxSW_PlG6CHNdG6bCxf6c"/>
+                <span class="price-tag">Rs. 850</span>
+            </div>
+            <div class="product-content">
+                <div class="product-header">
+                    <h3 class="product-title">Berry Meringue</h3>
+                    <span class="new-badge">New</span>
+                </div>
+                <p class="product-desc">Madagascar vanilla bean sponge topped with tart raspberry coulis and toasted
+                    Swiss meringue.</p>
+                <button class="add-to-cart">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    Add to Cart
+                </button>
+            </div>
+        </article>
+        <!-- Product 4 -->
+        <article class="product-card">
+            <div class="product-image">
+                <img alt="Almond Pain au Choc"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzUlelugQvsx3ohSPbyGEmAd-5h9pBwD-D7-bwxbmqmGhfHM7KCYbkpZZxnZpwJxtpjjEaAjnvV4s8-4vUCbX9eF5PJmh88RYE1rc2MTOJAWt1zBafKIQnIpqLmiaeTk_8HSqk-SeOi5of3VES9geEA23dA1C3wLFNTm1D3w4RuD2eEVv5o0YlOidpiWCiRpw7hOaWEE9EueW-o5XfW_yU1h_Ik_0RXvphEd7qq-CBHFMmjwblrNfg7q6Z15n2GnLtwhc8wXBLS6o"/>
+                <span class="price-tag">Rs. 650</span>
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Almond Pain au Choc</h3>
+                <p class="product-desc">Filled with dark chocolate batons and homemade almond frangipane, topped with
+                    toasted flaked almonds.</p>
+                <button class="add-to-cart">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    Add to Cart
+                </button>
+            </div>
+        </article>
+        <!-- Product 5 -->
+        <article class="product-card">
+            <div class="product-image">
+                <img alt="Heritage Baguette"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYyyilUYsFORCjmYorkAf1jt0KSkzWGQegLdkqpYiJzIAXx-UPdccCr3hGKDZd5nczKJHuHd9O1oW2qeXfLU0inU3R7zjTyaea4CIYn-yEh_AnMtqUWVwR7kSui1U_GurYX2ubgYOTsGX-wp79-8IjuUzkjxSGjeFEi0XXjdmUApEig7x1iHjQ4_ZamC94kZ6QQXs1xRmWFalewY-qsZATlKm7wmdAKP1IxL0msFESFQuJ0RDPa18T-muaKevroEYlgiNRo8WET10"/>
+                <span class="price-tag">Rs. 380</span>
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Heritage Baguette</h3>
+                <p class="product-desc">Classic Parisian style with a thin, crisp crust and an open, chewy crumb. High
+                    hydration dough.</p>
+                <button class="add-to-cart">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    Add to Cart
+                </button>
+            </div>
+        </article>
+        <!-- Product 6 -->
+        <article class="product-card">
+            <div class="product-image">
+                <img alt="Midnight Cocoa Slice"
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKZZ8cvlDX0G0m43Uy1NwxccMqzRlOsR7eLTjYPnmnCphbRq-VRp6wfwN2m62pnU4AKGn1wI8KgZIPzvTqQs0uZM57pPS7t5544EQjh7SgxwEOwKlySu2Ocrhu49yJczEJbJLFZaMUprjwc-IEY5yKZ2hBcxqSX6i83O-uoJbeVxTZ1VOoVnSgvXDbEaBKoyUPYBQ4q_yKaNWrT6-Ek5G5A7yjTswASttWCxxCo6hEdAlbr6HwJcXpZJEYPcP1TgFv9iP1mgFgJ2w"/>
+                <span class="price-tag">Rs. 980</span>
+            </div>
+            <div class="product-content">
+                <h3 class="product-title">Midnight Cocoa Slice</h3>
+                <p class="product-desc">Valrhona chocolate cake layered with 70% dark chocolate ganache and a hint of
+                    espresso.</p>
+                <button class="add-to-cart">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    Add to Cart
+                </button>
+            </div>
+        </article>
+    </div>
+</main>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <!-- Brand Info -->
+        <p class="footer-copy">
+            © 2024 The Artisanal Digital Bakery. Crafted with precision.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

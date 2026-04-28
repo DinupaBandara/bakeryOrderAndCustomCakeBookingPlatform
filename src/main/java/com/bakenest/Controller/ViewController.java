@@ -24,8 +24,16 @@ public class ViewController {
 
     @GetMapping("/product")
     public String showProductPage(Model model) {
-        // THIS IS THE FIX: Pass an empty customer object for the register form
-        model.addAttribute("customer", new Customer());
-        return "product";
+        return "/customer/product";
+    }
+
+    @GetMapping("/product/customcake")
+    public String showCustomCakePage(Model model) {
+        return "/customer/customeCake";
+    }
+
+    @GetMapping("/product/bakeryitems")
+    public String showBackeryItemPage(Model model) {
+        return "/customer/bakeryItem";
     }
 }
