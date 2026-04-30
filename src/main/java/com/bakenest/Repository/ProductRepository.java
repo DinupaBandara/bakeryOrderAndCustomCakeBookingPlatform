@@ -9,4 +9,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // Custom query to find products by category for the filter buttons
     List<Product> findByCategory(String category);
+    boolean existsByName(String name);
+    boolean existsByImageUrl(String imageUrl);
 }
