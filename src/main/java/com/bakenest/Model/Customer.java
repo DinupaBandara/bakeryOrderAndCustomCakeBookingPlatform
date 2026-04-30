@@ -17,17 +17,17 @@ public class Customer {
     private Long id;
 
     // Existing fields...
-    @Column(name = "first_name", nullable = false, length = 50)
+    @Column(name = "first_name", nullable = false, length = 25)
     @NotBlank(message = "First name is required")
-    @Size(max = 50)
+    @Size(max = 25)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(name = "last_name", nullable = false, length = 25)
     @NotBlank(message = "Last name is required")
-    @Size(max = 50)
+    @Size(max = 25)
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @Column(name = "email", nullable = false, unique = true, length = 75)
     @Email(message = "Email should be valid")
     @NotBlank
     private String email;
@@ -39,21 +39,19 @@ public class Customer {
     @Size(min = 9, max = 15, message = "NIC must be between 9 and 15 characters")
     private String nic;
 
-    @Column(name = "address", nullable = false, length = 255)
-    @NotBlank(message = "Address is required")
+    @Column(name = "address", length = 255)
     private String address;
 
-    @Column(name = "city", nullable = false, length = 50)
-    @NotBlank(message = "City is required")
+    @Column(name = "city", length = 20)
     private String city;
 
-    @Column(name = "zip_code", nullable = false, length = 10)
-    @NotBlank(message = "Zip code is required")
+    @Column(name = "zip_code", length = 10)
     @Pattern(regexp = "^[0-9]{5}(?:-[0-9]{4})?$", message = "Invalid Zip Code format")
     private String zipCode;
 
     // Existing fields...
-    @Column(name = "phone_number", length = 10)
+    @Column(name = "phone_number",nullable = false, length = 10)
+    @NotBlank(message = "Phone Number code is required")
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be 10 digits")
     private String phoneNumber;
 
@@ -63,4 +61,7 @@ public class Customer {
     @Column(name = "password", nullable = false)
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
+
+    @Transient
+    private String confirmPassword;
 }
