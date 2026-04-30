@@ -104,7 +104,8 @@
                                 <span class="material-symbols-outlined">[[${product.available ? 'toggle_on' : 'toggle_off'}]]</span>
                             </button>
                         </form>
-                        <button class="icon-btn edit" title="Edit">
+                        <button class="icon-btn edit"
+                                th:onclick="openEditModal([[${product.id}]], [[${product.name}]], [[${product.category}]], [[${product.price}]], [[${product.imageUrl}]], [[${product.description}]])">
                             <span class="material-symbols-outlined">edit</span>
                         </button>
                         <!-- Delete Functionality -->
@@ -168,7 +169,80 @@
     </div>
 </div>
 
+<!-- Edit Product Modal -->
+<div id="editProductModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Edit Bakery Item</h2>
+            <span class="close-modal" onclick="closeEditModal()">&times;</span>
+        </div>
+        <form th:action="@{/admin/products/update-product}" method="post" class="modal-form">
+            <!-- Hidden field to keep track of which ID we are editing -->
+            <input type="hidden" id="editId" name="id">
+
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" id="editName" name="name" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="editCategory" name="category" required>
+                        <option value="Bread">Bread</option>
+                        <option value="Pastry">Pastry</option>
+                        <option value="Viennoiserie">Viennoiserie</option>
+                        <option value="Patisserie">Patisserie</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (Rs.)</label>
+                    <input type="number" step="5" id="editPrice" name="price" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="url" id="editImageUrl" name="imageUrl" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="editDescription" name="description" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-save">Update Product</button>
+        </form>
+    </div>
+</div>
+
 <script>
+    const editModal = document.getElementById("editProductModal");
+
+    function openEditModal(id, name, category, price, imageUrl, description) {
+        // Populate the form fields with existing product data
+        document.getElementById("editId").value = id;
+        document.getElementById("editName").value = name;
+        document.getElementById("editCategory").value = category;
+        document.getElementById("editPrice").value = price;
+        document.getElementById("editImageUrl").value = imageUrl;
+        document.getElementById("editDescription").value = description;
+
+        editModal.style.display = "block";
+    }
+
+    function closeEditModal() {
+        editModal.style.display = "none";
+    }
+
+    // Close modals if user clicks outside
+    window.onclick = function(event) {
+        const addModal = document.getElementById("addProductModal");
+        if (event.target == addModal) addModal.style.display = "none";
+        if (event.target == editModal) editModal.style.display = "none";
+    }
+
+    //Add Product Model
     const modal = document.getElementById("addProductModal");
 
     function openModal() {

@@ -51,4 +51,15 @@ public class ProductController {
 
         return "redirect:/admin/product";
     }
+
+    @PostMapping("/update-product")
+    public String updateProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+        try {
+            productService.updateProduct(product);
+            redirectAttributes.addFlashAttribute("success", "Product updated successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/product";
+    }
 }

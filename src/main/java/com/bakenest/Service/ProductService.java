@@ -26,4 +26,24 @@ public class ProductService {
         product.setAvailable(true);
         productRepository.save(product);
     }
+
+    public void updateProduct(Product product) throws Exception {
+        Product existing = productRepository.findById(product.getId())
+                .orElseThrow(() -> new Exception("Product not found"));
+
+        // Check name uniqueness only if name is changed
+        if (!existing.getName().equals(product.getName()) &&
+                productRepository.existsByName(product.getName())) {
+            throw new Exception("Another product already has this name!");
+        }
+
+        // Update fields
+        existing.setName(product.getName());
+        existing.setCategory(product.getCategory());
+        existing.setPrice(product.getPrice());
+        existing.setImageUrl(product.getImageUrl());
+        existing.setDescription(product.getDescription());
+
+        productRepository.save(existing);
+    }
 }
