@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | The Flourished Hearth</title>
+    <link rel="stylesheet" th:href="@{/css/admin/dashboard.css}">
+</head>
+<body class="admin-body">
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2 class="logo-text">BakeNest</h2>
+        <span class="badge-admin">Admin Panel</span>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a th:href="@{/admin/dashboard}" class="nav-item active">
+            <span class="material-symbols-outlined">dashboard</span>
+            Overview
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">delivery_truck_speed</span>
+            Orders
+        </a>
+        <a th:href="@{/admin/product}" class="nav-item">
+            <span class="material-symbols-outlined">bakery_dining</span>
+            Products
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">group</span>
+            Customers
+        </a>
+        <!-- Only show if the loggedUser is actually the Super Admin -->
+        <a href="#" class="nav-item" th:if="${session.loggedUser != null and session.loggedUser.isSuperAdmin}">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            Admin Management
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a th:href="@{/auth/logout}" class="btn-logout">
+            <span class="material-symbols-outlined">logout</span>
+            Sign Out
+        </a>
+    </div>
+</aside>
+
+<main class="main-content">
+    <header class="top-bar">
+        <div class="welcome-msg">
+            <h1>Welcome Back, <span th:text="${session.loggedUser.name}">Owner</span></h1>
+            <p>Here is what's happening at the bakery today.</p>
+        </div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Orders</h3>
+            <p class="stat-number">124</p>
+        </div>
+        <div class="stat-card">
+            <h3>Revenue</h3>
+            <p class="stat-number">Rs. 45,200</p>
+        </div>
+        <div class="stat-card">
+            <h3>New Customers</h3>
+            <p class="stat-number">12</p>
+        </div>
+    </div>
+
+    <section class="content-placeholder">
+        <div class="empty-state">
+            <span class="material-symbols-outlined">construction</span>
+            <p>Admin tools are currently under construction.</p>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
