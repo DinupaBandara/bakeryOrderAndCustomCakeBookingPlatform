@@ -21,7 +21,7 @@
             Overview
         </a>
         <a href="#" class="nav-item">
-            <span class="material-symbols-outlined">deadlivery_truck_speed</span>
+            <span class="material-symbols-outlined">delivery_truck_speed</span>
             Orders
         </a>
         <a th:href="@{/admin/product}" class="nav-item active">
@@ -53,11 +53,20 @@
             <h1>Product Inventory</h1>
             <p>Manage your bakery offerings and pricing.</p>
         </div>
-        <button class="btn-add-new">
+        <button class="btn-add-new" onclick="openModal()">
             <span class="material-symbols-outlined">add</span>
             Add New Product
         </button>
     </header>
+
+    <!-- Success/Error Alerts -->
+    <div th:if="${error}" style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+        <span th:text="${error}"></span>
+    </div>
+
+    <div th:if="${success}" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+        <span th:text="${success}"></span>
+    </div>
 
     <section class="table-container">
         <table class="admin-table">
@@ -72,7 +81,7 @@
             </thead>
             <tbody>
             <!-- Loop through products from database -->
-            <tr th:each="product : ${products}">
+            <tr th:each="product : ${products}" th:classappend="${!product.available} ? 'out-of-stock'">
                 <td>
                     <img th:src="${product.imageUrl}" class="table-img" alt="Product">
                 </td>
@@ -85,12 +94,28 @@
                 <td th:text="'Rs. ' + ${product.price}">Rs. 1,250</td>
                 <td>
                     <div class="action-btns">
+                        <!-- Availability Toggle Form -->
+                        <form th:action="@{/admin/products/toggle-availability/{id}(id=${product.id})}" method="post"
+                              style="display:inline;">
+                            <button type="submit"
+                                    class="icon-btn toggle"
+                                    th:classappend="${product.available} ? 'status-on' : 'status-off'"
+                                    th:title="${product.available} ? 'Mark as Out of Stock' : 'Mark as Available'">
+                                <span class="material-symbols-outlined">[[${product.available ? 'toggle_on' : 'toggle_off'}]]</span>
+                            </button>
+                        </form>
                         <button class="icon-btn edit" title="Edit">
                             <span class="material-symbols-outlined">edit</span>
                         </button>
-                        <button class="icon-btn delete" title="Delete">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
+                        <!-- Delete Functionality -->
+                        <form th:action="@{/admin/products/delete/{id}(id=${product.id})}"
+                              method="post"
+                              style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to delete this product? This action cannot be undone.');">
+                            <button type="submit" class="icon-btn delete">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -98,5 +123,68 @@
         </table>
     </section>
 </main>
+
+<!-- Add Product Modal -->
+<div id="addProductModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Bakery Item</h2>
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+        </div>
+        <form th:action="@{/admin/products/add-product}" method="post" class="modal-form">
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="name" placeholder="e.g. Honey Glazed Donut" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="Bread">Bread</option>
+                        <option value="Pastry">Pastry</option>
+                        <option value="Viennoiserie">Viennoiserie</option>
+                        <option value="Patisserie">Patisserie</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (Rs.)</label>
+                    <input type="number" step="5" name="price" placeholder="0.00" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="url" name="imageUrl" placeholder="https://unsplash.com/..." required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="3" placeholder="Describe the taste and ingredients..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-save">Save Product</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById("addProductModal");
+
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Close if user clicks outside the box
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
 </body>
 </html>
