@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Products | BakeNest Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/product.css}">
+</head>
+<body class="admin-body">
+
+<!-- Reuse the Sidebar from Dashboard -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2 class="logo-text">BakeNest</h2>
+        <span class="badge-admin">Admin Panel</span>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a th:href="@{/admin/dashboard}" class="nav-item">
+            <span class="material-symbols-outlined">dashboard</span>
+            Overview
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">deadlivery_truck_speed</span>
+            Orders
+        </a>
+        <a th:href="@{/admin/product}" class="nav-item active">
+            <span class="material-symbols-outlined">bakery_dining</span>
+            Products
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">group</span>
+            Customers
+        </a>
+        <!-- Only show if the loggedUser is actually the Super Admin -->
+        <a href="#" class="nav-item" th:if="${session.loggedUser != null and session.loggedUser.isSuperAdmin}">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            Admin Management
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a th:href="@{/auth/logout}" class="btn-logout">
+            <span class="material-symbols-outlined">logout</span>
+            Sign Out
+        </a>
+    </div>
+</aside>
+
+<main class="main-content">
+    <header class="top-bar">
+        <div class="header-title">
+            <h1>Product Inventory</h1>
+            <p>Manage your bakery offerings and pricing.</p>
+        </div>
+        <button class="btn-add-new">
+            <span class="material-symbols-outlined">add</span>
+            Add New Product
+        </button>
+    </header>
+
+    <section class="table-container">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Loop through products from database -->
+            <tr th:each="product : ${products}">
+                <td>
+                    <img th:src="${product.imageUrl}" class="table-img" alt="Product">
+                </td>
+                <td>
+                    <div class="product-info">
+                        <span class="p-name" th:text="${product.name}">Heritage Sourdough</span>
+                    </div>
+                </td>
+                <td><span class="category-pill" th:text="${product.category}">Sourdough</span></td>
+                <td th:text="'Rs. ' + ${product.price}">Rs. 1,250</td>
+                <td>
+                    <div class="action-btns">
+                        <button class="icon-btn edit" title="Edit">
+                            <span class="material-symbols-outlined">edit</span>
+                        </button>
+                        <button class="icon-btn delete" title="Delete">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
