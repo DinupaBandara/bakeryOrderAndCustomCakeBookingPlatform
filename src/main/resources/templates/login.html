@@ -34,54 +34,76 @@
                 <!-- Sign In View -->
                 <div class="form-view active" id="view-signin">
                     <h1 class="form-title">Welcome Back</h1>
-                    <p class="form-description">Returning to the hearth for the aroma of freshly baked artisan
-                        bread.</p>
-                    <form onsubmit="return false;">
+                    <p class="form-description">Returning to the hearth...</p>
+
+                    <form th:action="@{/auth/login}" method="POST">
                         <div class="form-group">
                             <label class="label">Email Address</label>
-                            <input class="input" placeholder="name@example.com" required type="email"/>
+                            <input class="input" name="email" placeholder="name@example.com" required type="email"/>
                         </div>
                         <div class="form-group">
                             <label class="label">Password</label>
-                            <input class="input" placeholder="••••••••" required type="password"/>
+                            <input class="input" name="password" placeholder="••••••••" required type="password"/>
                         </div>
+
+                        <!-- Display login error pill if login failed -->
+                        <div class="error-container" th:if="${loginError != null}">
+                            <div class="error-pill">
+                                <span class="material-symbols-outlined">error</span>
+                                <span th:text="${loginError}">Invalid credentials</span>
+                            </div>
+                        </div>
+
                         <button class="btn btn-primary" type="submit">Sign In to Account</button>
                         <p class="form-footer">
                             Don't have an account? <a class="link" onclick="switchTab('register')" href="#">Create one here</a>
                         </p>
                     </form>
                 </div>
+
                 <!-- Register View -->
                 <div class="form-view" id="view-register">
                     <h2 class="form-title">Join the Hearth</h2>
-                    <p class="form-description">A new beginning. Create an account to join our community of
-                        artisans.</p>
-                    <form onsubmit="return false;">
-                        <div class="form-group">
-                            <label class="label">Full Name</label>
-                            <input class="input" placeholder="Julian Smith" required type="text"/>
+                    <p class="form-description">A new beginning. Create an account to join our community.</p>
+
+                    <form th:action="@{/auth/register}" th:object="${customer}" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label">First Name</label>
+                                <input class="input" th:field="*{firstName}" placeholder="Julian" required type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Last Name</label>
+                                <input class="input" th:field="*{lastName}" placeholder="Smith" required type="text"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="label">Email</label>
-                            <input class="input" placeholder="julian@example.com" required type="email"/>
+                            <input class="input" th:field="*{email}" placeholder="julian@example.com" required type="email"/>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="label">National ID</label>
-                                <input class="input" placeholder="e.g. 199912345678" required type="text"/>
+                                <input class="input" th:field="*{nic}" placeholder="e.g. 199912345678" required type="text" minlength="9" maxlength="15"/>
                             </div>
                             <div class="form-group">
                                 <label class="label">Phone</label>
-                                <input class="input" pattern="^(?:0|94|\\+94)?(7[0-9]{8})$" placeholder="0771234567" type="tel"/>
+                                <input class="input" th:field="*{phoneNumber}" placeholder="0771234567" required type="tel"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="label">Password</label>
-                            <input class="input" placeholder="Create password" required type="password"/>
+                            <input class="input" th:field="*{password}" placeholder="Create password" required type="password" minlength="8" maxlength="20"/>
                         </div>
                         <div class="form-group">
                             <label class="label">Confirm Password</label>
-                            <input class="input" placeholder="Repeat password" required type="password"/>
+                            <input class="input" th:field="*{confirmPassword}" placeholder="Repeat password" required type="password" minlength="8" maxlength="20"/>
+                        </div>
+                        <div class="error-container" th:if="${#fields.hasErrors('*')}">
+                            <div class="error-pill" th:each="err : ${#fields.errors('*')}">
+                                <span class="material-symbols-outlined">error</span>
+                                <span th:text="${err}">Error message goes here.</span>
+                            </div>
                         </div>
                         <button class="btn btn-secondary" type="submit">Create My Account</button>
                         <p class="form-footer">
@@ -93,23 +115,32 @@
         </div>
     </div>
 </main>
-<script>
+<script th:inline="javascript">
     function switchTab(view) {
-        // Update buttons
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         document.getElementById('tab-' + view).classList.add('active');
 
-        // Update views
         document.querySelectorAll('.form-view').forEach(content => content.classList.remove('active'));
         document.getElementById('view-' + view).classList.add('active');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
-        // Look for the 'tab' parameter defined in your link
+
+        // 1. Stay on Register tab if the URL explicitly asks for it
         if (urlParams.get('tab') === 'register') {
             switchTab('register');
         }
+
+        // 2. Stay on Register tab if the backend sent validation errors
+        /*[# th:if="${#fields.hasErrors('customer.*')}"]*/
+        switchTab('register');
+        /*[/]*/
+
+        // 3. Stay on Sign In tab if there is a login error
+        /*[# th:if="${loginError != null}"]*/
+        switchTab('signin');
+        /*[/]*/
     });
 </script>
 </body>

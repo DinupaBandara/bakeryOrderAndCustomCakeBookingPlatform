@@ -27,138 +27,94 @@
     </div>
 </nav>
 <main class="container">
-    <header class="hero">
-        <span class="badge">Artisanal Commissions</span>
-        <h1>The Cake Atelier</h1>
-        <p>Transforming your most cherished moments into edible masterpieces. Hand-piped, slow-baked, and designed
-            exclusively for your celebration.</p>
-    </header>
-    <div class="bento-grid">
-        <!-- Left Column -->
-        <div class="visual-column">
-            <div class="main-image-card">
-                <img alt="Bespoke Cake"
-                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4FHV0KaHOy8tUCa2pTu2NByitQvSXQZDGnrk1hKyid9TU9zSvT0kjq65fxjbkRfpOK6MGdgjZ4ECHyt6QBcpJZBtoyb8HXIIPV-6eKZXHxM-nRRLSODwLEzNlEPbjhrSSCR67Z8r17wZoLoztIQXjgQka1-Xf-hMd5Wyl16eo9jNz-TQDLBPHgwlN2-2HGZelKSRjnNji-REy1ffsf9tArA9sZuUPidfA8RRnd5oicZX-P3612RujTXv0zvA_5q2wFwCH0QYNTZY"/>
-                <div class="image-overlay">
-                    <p class="overlay-text">"Every layer tells a story."</p>
-                </div>
-            </div>
-            <div class="whatsapp-card">
-                <div class="whatsapp-header">
-                    <div class="chat-icon">
-                        <span class="material-symbols-outlined">chat</span>
-                    </div>
+    <!-- Custom Cake Booking Section -->
+    <section class="custom-cake-section">
+        <div class="atelier-card">
+            <!-- Content Side -->
+            <div class="content-area">
+                <h2 class="headline">The Cake Atelier</h2>
+                <p class="description">Every milestone deserves a centerpiece. Customize your celebration cake with our artisanal flavors and hand-piped decorations.</p>
+
+                <form class="cake-form">
                     <div>
-                        <h3 style="font-weight: 700;">Consult on WhatsApp</h3>
-                        <p style="font-size: 0.875rem; opacity: 0.8;">Send us your design inspiration</p>
+                        <label class="form-label">Select Weight</label>
+                        <div class="weight-grid">
+                            <button class="weight-btn selected" type="button">
+                                <span style="font-bold">1kg</span>
+                                <span style="font-size: 10px; color: var(--on-surface-variant)">Serves 8-10</span>
+                            </button>
+                            <button class="weight-btn" type="button">
+                                <span style="font-bold">2kg</span>
+                                <span style="font-size: 10px; color: var(--on-surface-variant)">Serves 15-20</span>
+                            </button>
+                            <button class="weight-btn" type="button">
+                                <span style="font-bold">3kg</span>
+                                <span style="font-size: 10px; color: var(--on-surface-variant)">Serves 25-30</span>
+                            </button>
+                            <button class="weight-btn" type="button">
+                                <span style="font-bold">5kg</span>
+                                <span style="font-size: 10px; color: var(--on-surface-variant)">Party Size</span>
+                            </button>
+                        </div>
                     </div>
+
+                    <div>
+                        <label class="form-label">Event Type</label>
+                        <select class="select-input">
+                            <option disabled selected>Select an event type...</option>
+                            <option>Birthday</option>
+                            <option>Wedding</option>
+                        </select>
+                    </div>
+
+                    <div class="grid-cols-2">
+                        <div>
+                            <label class="form-label">Base Flavor</label>
+                            <select class="select-input">
+                                <option>Tahitian Vanilla Bean</option>
+                                <option>Salted Dark Chocolate</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Decoration Style</label>
+                            <select class="select-input">
+                                <option>Pressed Wildflowers</option>
+                                <option>Vintage Lambeth Piping</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Custom Inscription</label>
+                        <input class="text-input" placeholder="Happy Birthday, Evelyn..." type="text"/>
+                    </div>
+
+                    <button class="submit-btn" type="submit">Request Custom Quote</button>
+                </form>
+            </div>
+
+            <!-- Image Side -->
+            <div class="image-side">
+                <div class="back-div-container image-corner-back">
+                    <a th:href="@{/customer/product}" class="btn-back-round">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Back to Products
+                    </a>
                 </div>
-                <a class="whatsapp-link" href="https://wa.me/15552253278">
-                    <span>+1 (555) BAKE-ART</span>
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </a>
+                <img alt="Custom Wedding Cake" src="https://i.ibb.co/N6WXtqby/Untitled-design.png"/>
+                <div class="image-overlay"></div>
+                <div class="whatsapp-prompt image-side-prompt">
+                    <div>
+                        <p style="color: var(--primary); font-weight: bold; margin: 0;">Have a specific vision?</p>
+                        <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: 0;">Send your design photo via WhatsApp</p>
+                    </div>
+                    <a class="wa-btn" href="https://wa.me/15552253278">
+                        WhatsApp
+                    </a>
+                </div>
             </div>
         </div>
-        <!-- Right Column: Booking Form -->
-        <div class="form-column">
-            <h2>Commission Your Cake</h2>
-            <form action="#">
-                <div class="form-group">
-                    <label class="label-style">Preferred Weight (kg)</label>
-                    <div class="weight-grid">
-                        <label class="weight-option">
-                            <input checked="" name="weight" type="radio" value="1"/>
-                            <div class="weight-content">
-                                <span>1kg</span>
-                                <span>~8-10 Servings</span>
-                            </div>
-                        </label>
-                        <label class="weight-option">
-                            <input name="weight" type="radio" value="2"/>
-                            <div class="weight-content">
-                                <span>2kg</span>
-                                <span>~15-20 Servings</span>
-                            </div>
-                        </label>
-                        <label class="weight-option">
-                            <input name="weight" type="radio" value="3"/>
-                            <div class="weight-content">
-                                <span>3kg</span>
-                                <span>~25-30 Servings</span>
-                            </div>
-                        </label>
-                        <label class="weight-option">
-                            <input name="weight" type="radio" value="5"/>
-                            <div class="weight-content">
-                                <span>5kg+</span>
-                                <span>Events</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-row">
-                        <div>
-                            <label class="label-style" for="event_type">Event Type</label>
-                            <select id="event_type">
-                                <option>Birthday</option>
-                                <option>Wedding</option>
-                                <option>Anniversary</option>
-                                <option>Baby Shower</option>
-                                <option>Corporate</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="label-style" for="base_flavor">Base Flavor</label>
-                            <select id="base_flavor">
-                                <option>Signature Vanilla Bean</option>
-                                <option>Belgian Dark Chocolate</option>
-                                <option>Velvet Beetroot &amp; Cocoa</option>
-                                <option>Zesty Lemon &amp; Poppy</option>
-                                <option>Pistachio &amp; Rose</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="label-style">Decoration Style</label>
-                    <div class="style-grid">
-                        <div class="style-option">
-                            <input checked="" id="style_min" name="style" type="radio"/>
-                            <label class="style-label" for="style_min">
-                                <img alt="Minimalist" class="style-img"
-                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA74AWqrD28BEDSMbdCLnZSI1nhbkUSbKA635fBYgBo9wSqJZeQJpyXjXz5hQ7rbv2jIj9mFkNJjzXGNpUJU01yJFpIAi9ou3d7RSo2LN90mT1LsPUePao28EskqoqppdsamY7MMxlq5eYIu13HtrfDXL8HfkuahE5ZLb_abzDJjLLS-UkeEBg5nhEkJaZrif3TkcTJ0A5-V0nFz799H9xla3nnroZ-8LrJQ5UY4S2Nt_3OJ8IOEEIgNZkmjK0cmsXF3gjKwJHqSI4"/>
-                                <span class="style-name">Minimalist</span>
-                            </label>
-                        </div>
-                        <div class="style-option">
-                            <input id="style_floral" name="style" type="radio"/>
-                            <label class="style-label" for="style_floral">
-                                <img alt="Floral" class="style-img"
-                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi2lRwRJ44RdfFBNG2WKv2qZZt3zwDCcMZ70V53YVGVM8YxW6wiOhY6wXlx4J5Mkg1g4CCTr24TxZGcqfRAxQLLUW-vovCUAgWkCYpSMf86FxgprsOD1I2DT27YN0nSgSrDYiLPcvtIYaG7rMIwIQiQQ8YSMGIWtXZOvdag9V2vLN6T_Xd1xtoisrfTr6oDGJxEmuwSsK5G13U0wYS_0SXxrz3q-j6zGeF_fjKeMzWTy3CG4L2XEuIPqWXAvXvTnt6Qfccj_qkxsI"/>
-                                <span class="style-name">Floral</span>
-                            </label>
-                        </div>
-                        <div class="style-option">
-                            <input id="style_ornate" name="style" type="radio"/>
-                            <label class="style-label" for="style_ornate">
-                                <img alt="Ornate" class="style-img"
-                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrhXULNHyfU3wxFbNnSTg9xv3GRoQAwmwNVnwzWkWYJA3-3AjZ-0We6s3FGeqcvwQPpVdYln_Q-aEhP_JvNw_HNEFE9ckZBWtfZAmeCq_KN9j0_lVv3Fhj1rtLswSucSQKU0nToFCEbd-3YVAUTqhRdrSkVaPhFsaZ92Qk2zf3nPLgY28XzugZ23IYwI1SNgciAAUHQyNp_hadnRqS3E_UqqBq0-fi7moHn521L5ApN0na6CUZrGpEPj0ZzYq2EaBxAZJ5rq3WqvM"/>
-                                <span class="style-name">Ornate</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="label-style" for="notes">Special Requests</label>
-                    <textarea id="notes" placeholder="Dietary restrictions, preferred colors, or specific text..."
-                              rows="4"></textarea>
-                </div>
-                <button class="btn-submit" type="submit">Reserve Your Creation</button>
-                <span class="form-footer-note">* Commissions require 48-hour notice. For urgent requests, please call directly.</span>
-            </form>
-        </div>
-    </div>
+    </section>
 </main>
 <!-- Footer -->
 <footer>

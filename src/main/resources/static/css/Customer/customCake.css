@@ -4,9 +4,14 @@
 /* Base Design Tokens */
 :root {
     --primary: #72564c;
-    --primary-container: #8d6e63;
-    --on-primary: #ffffff;
     --secondary: #964261;
+    --on-surface: #1e1c10;
+    --on-surface-variant: #504441;
+    --surface-container-high: #e9e2d0;
+    --surface-container-lowest: #ffffff;
+    --on-primary: #ffffff;
+    --outline-variant: #d4c3be;
+    --primary-container: #8d6e63;
     --secondary-container: #fe97b9;
     --on-secondary-container: #792b4a;
     --tertiary: #3a6640;
@@ -16,13 +21,8 @@
     --surface: #fff9ec;
     --surface-container-low: #faf3e0;
     --surface-container: #f4eedb;
-    --surface-container-high: #efe8d5;
     --surface-container-highest: #e9e2d0;
-    --surface-container-lowest: #ffffff;
-    --on-surface: #1e1c10;
-    --on-surface-variant: #504441;
     --outline: #827470;
-    --outline-variant: #d4c3be;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --radius-full: 9999px;
@@ -174,255 +174,293 @@ nav {
     line-height: 1.7;
 }
 
-/* Bento Grid Layout */
-.bento-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 4rem;
+/* Section Layout */
+/* Update Image Side to act as a relative container (Required) */
+.image-side {
+    position: relative;
+    display: none;
+    height: 100%;
 }
 
-/* Left Column */
-.visual-column {
+/* Position the button in the top right corner */
+.image-corner-back {
+    position: absolute;
+    /* Vertically aligns with the 'Commission an Original' text on the left */
+    top: 3rem;
+    /* Spacing from the far right edge of the card */
+    right: 2rem;
+    margin-bottom: 0;
+    /* Ensures it sits above the image, overlay, and prompt */
+    z-index: 30;
+}
+
+/* Refined button styling for placing over an image */
+.btn-back-round {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    /* White background with high opacity for readability */
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--outline-variant);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    /* Optional: subtle blur effect */
+    backdrop-filter: blur(8px);
+}
+
+.btn-back-round:hover {
+    transform: translateX(-4px); /* Moves arrow slightly left */
+    background-color: var(--surface-container-low);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 768px) {
+    .image-side {
+        display: block;
+    }
+
+    .image-corner-back {
+        /* Matches the padding of the .content-area */
+        top: 5rem;
+        right: 3rem;
+    }
+}
+
+.custom-cake-section {
+    max-width: 80rem; /* 7xl */
+    margin: 0 auto;
+    padding: 2rem 2rem;
+}
+
+.atelier-card {
+    background-color: var(--surface-container-high);
+    border-radius: 3rem;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Ensure the card doesn't collapse */
+    min-height: 600px;
+}
+
+@media (min-width: 768px) {
+    .atelier-card {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Content & Typography */
+.content-area {
+    padding: 3rem;
+}
+
+@media (min-width: 768px) {
+    .content-area {
+        padding: 5rem;
+    }
+}
+
+.label-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--secondary);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.headline {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+}
+
+.description {
+    color: var(--on-surface-variant);
+    margin-bottom: 3rem;
+    font-size: 1.125rem;
+}
+
+/* WhatsApp Prompt */
+.whatsapp-prompt {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background-color: var(--surface-container-lowest);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.wa-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #25D366;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: filter 0.3s;
+}
+
+.wa-btn:hover {
+    filter: brightness(1.1);
+}
+
+/* Form Styles */
+.cake-form {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
-.main-image-card {
-    position: relative;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    aspect-ratio: 4/5;
-    box-shadow: 0 20px 40px -20px rgba(30, 28, 16, 0.1);
-}
-
-.main-image-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s ease;
-}
-
-.main-image-card:hover img {
-    transform: scale(1.1);
-}
-
-.image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(30, 28, 16, 0.4), transparent);
-    display: flex;
-    align-items: flex-end;
-    padding: 2rem;
-}
-
-.overlay-text {
-    color: white;
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-style: italic;
-}
-
-.whatsapp-card {
-    background: var(--surface-container-low);
-    padding: 2rem;
-    border-radius: var(--radius-xl);
-}
-
-.whatsapp-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.chat-icon {
-    background: var(--tertiary-container);
-    color: var(--on-tertiary-container);
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.whatsapp-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: var(--radius-lg);
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.whatsapp-link:hover {
-    background: var(--tertiary-container);
-    color: var(--on-tertiary-container);
-}
-
-/* Booking Form Column */
-.form-column {
-    background: var(--surface-container-lowest);
-    padding: 2rem;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 20px 40px -20px rgba(30, 28, 16, 0.06);
-}
-
-.form-column h2 {
-    font-family: var(--font-display);
-    font-size: 1.875rem;
-    margin-bottom: 2rem;
-}
-
-.form-group {
-    margin-bottom: 2.5rem;
-}
-
-.label-style {
-    display: block;
+.form-label {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--outline);
-    font-weight: 700;
+    font-weight: bold;
+    color: var(--primary);
     margin-bottom: 1rem;
+    display: block;
 }
 
 /* Weight Grid */
 .weight-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
 }
 
-.weight-option {
-    cursor: pointer;
-    position: relative;
-}
-
-.weight-option input {
-    position: absolute;
-    opacity: 0;
-}
-
-.weight-content {
+.weight-btn {
+    background-color: var(--surface-container-lowest);
     padding: 1rem;
+    border-radius: 0.75rem;
     text-align: center;
-    border: 1px solid var(--outline-variant);
-    border-radius: var(--radius-lg);
-    transition: all 0.3s;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s;
 }
 
-.weight-option input:checked + .weight-content {
+.weight-btn.selected {
     border-color: var(--primary);
-    background: rgba(141, 110, 99, 0.1);
 }
 
-.weight-content span:first-child {
+.weight-btn:hover:not(.selected) {
+    border-color: var(--outline-variant);
+}
+
+.weight-btn span {
     display: block;
-    font-weight: 700;
 }
 
-.weight-content span:last-child {
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    color: var(--on-surface-variant);
-}
-
-/* Form Controls */
-.input-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-select, textarea {
+/* Inputs & Selects */
+.select-input, .text-input {
     width: 100%;
-    background: var(--surface-container-high);
+    background-color: var(--surface-container-lowest);
     border: none;
-    border-radius: var(--radius-lg);
+    border-radius: 0.75rem;
     padding: 1rem;
+    color: var(--on-surface);
     font-family: inherit;
-    color: inherit;
-    appearance: none;
 }
 
-select:focus, textarea:focus {
-    outline: 2px solid rgba(114, 86, 76, 0.4);
+.select-input:focus, .text-input:focus {
+    outline: 2px solid rgba(150, 66, 97, 0.2);
 }
 
-/* Style Grid */
-.style-grid {
+.grid-cols-2 {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-}
-
-.style-option {
-    cursor: pointer;
-}
-
-.style-option input {
-    position: absolute;
-    opacity: 0;
-}
-
-.style-label {
-    display: block;
-    padding: 0.25rem;
-    border-radius: var(--radius-xl);
-    transition: background 0.3s;
-}
-
-.style-option input:checked + .style-label {
-    background: var(--secondary-container);
-}
-
-.style-img {
-    width: 100%;
-    height: 8rem;
-    object-fit: cover;
-    border-radius: var(--radius-lg);
-    margin-bottom: 0.5rem;
-}
-
-.style-name {
-    display: block;
-    text-align: center;
-    font-weight: 500;
-    font-size: 0.875rem;
 }
 
 /* Submit Button */
-.btn-submit {
+.submit-btn {
     width: 100%;
-    background: linear-gradient(to bottom right, var(--primary), var(--primary-container));
-    color: white;
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    font-weight: 700;
-    font-size: 1.125rem;
-    box-shadow: 0 10px 15px -3px rgba(114, 86, 76, 0.2);
-    margin-top: 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+    color: var(--on-primary);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
 }
 
-.btn-submit:active {
-    transform: scale(0.98);
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.form-footer-note {
-    display: block;
-    text-align: center;
-    font-size: 0.75rem;
-    color: var(--on-surface-variant);
-    font-style: italic;
-    margin-top: 1rem;
+/* Image Side */
+.image-side {
+    position: relative;
+    display: none;
+    width: 100%;
+    height: 100%;
 }
 
+.image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* This removes the black space seen in your screenshot */
+    object-position: center;
+}
+
+/* --- Updates to WhatsApp Prompt Positioning --- */
+.image-side-prompt {
+    position: absolute;
+    /* Initial mobile positioning */
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    margin-bottom: 0;
+    z-index: 20;
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (min-width: 768px) {
+    .image-side {
+        display: block;
+    }
+
+    .image-side-prompt {
+        /* This EXACTLY matches the padding of .content-area */
+        bottom: 5rem;
+        left: 3rem;
+        right: 3rem;
+        padding: 1.5rem 2rem;
+    }
+}
+
+/* Ensure the overlay is subtle and doesn't block interaction */
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    /* Updated gradient to be more subtle and transparent in the center */
+    background: linear-gradient(to right,
+    var(--surface-container-high) 0%,
+    rgba(233, 226, 208, 0) 30%);
+    pointer-events: none;
+}
 /* Footer */
 footer {
     background-color: #FAF3E0;

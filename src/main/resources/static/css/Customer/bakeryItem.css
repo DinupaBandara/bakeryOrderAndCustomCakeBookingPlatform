@@ -39,7 +39,9 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-body::-webkit-scrollbar { display: none; }
+body::-webkit-scrollbar {
+    display: none;
+}
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -47,11 +49,17 @@ body::-webkit-scrollbar { display: none; }
     vertical-align: middle;
 }
 
+.head-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0rem 1.5rem;
+}
+
 /* Layout */
 .container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0.5rem 1.5rem;
 }
 
 /* Header */
@@ -257,13 +265,25 @@ nav {
 }
 
 /* Filters */
+
+/* Container to hold filters and back button on the same line */
+.filter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Adjust filters to take up available space but not squash the button */
 .filters {
     display: flex;
     gap: 0.75rem;
-    margin-bottom: 3rem;
     overflow-x: auto;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    flex-grow: 1;
     scrollbar-width: none;
+    margin-bottom: 0; /* Removed bottom margin since row handles spacing */
 }
 
 .filters::-webkit-scrollbar {
@@ -286,6 +306,44 @@ nav {
 .filter-btn.active {
     background-color: var(--primary);
     color: white;
+}
+
+/* Back Button Styling */
+.back-home-container {
+    flex-shrink: 0; /* Prevents the button from getting smaller */
+}
+
+.btn-back-round {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    background-color: var(--surface-container-highest);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 9999px;
+    border: 1px solid var(--outline-variant);
+    transition: var(--transition);
+}
+
+.btn-back-round:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateX(-4px); /* Nudge left to signify "back" */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+    .filter-row {
+        flex-direction: column-reverse; /* Put button on top or bottom on small screens */
+        align-items: flex-end;
+    }
+
+    .filters {
+        width: 100%;
+    }
 }
 
 /* Product Grid */
@@ -492,6 +550,10 @@ footer {
     }
 
     .container {
-        padding: 0 2rem;
+        padding: 1rem 2rem;
+    }
+
+    .head-container {
+        padding: 0rem 2rem;
     }
 }

@@ -9,7 +9,7 @@
 <body>
 <!-- Header -->
 <header>
-    <div class="container">
+    <div class="head-container">
         <nav>
             <a class="logo" href="#">The Flourished Hearth</a>
             <div class="nav-links">
@@ -32,40 +32,26 @@
         </nav>
     </div>
 </header>
+
 <main class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Freshly baked, <br/><span>every single dawn.</span></h1>
-            <p class="hero-description">
-                Our artisanal selection is crafted using heritage grains and slow-fermentation techniques. From crusty
-                sourdoughs to buttery layers.
-            </p>
-            <div class="hero-badges">
-<span class="badge badge-organic">
-<span class="material-symbols-outlined" style="font-size: 14px;">nature</span> 100% Organic
-                    </span>
-                <span class="badge badge-fresh">
-<span class="material-symbols-outlined" style="font-size: 14px;">bolt</span> Daily Fresh
-                    </span>
-            </div>
+    <!-- Filter Row Container -->
+    <div class="filter-row">
+        <!-- Product Filters (Left Side) -->
+        <div class="filters">
+            <button class="filter-btn active">All Creations</button>
+            <button class="filter-btn">Sourdough</button>
+            <button class="filter-btn">Viennoiserie</button>
+            <button class="filter-btn">Patisserie</button>
+            <button class="filter-btn">Savory</button>
         </div>
-        <div class="hero-image-wrapper">
-            <img alt="Fresh Sourdough" class="hero-img"
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjQt_qZ2KZG8kIJgkaXg0LrMsAqfCFe8xrLvklahl7o6m86r4e0ewmlgKmZ8KybTjPMratkhK-x-cqcl6uFtSq74masLbtZqqchXSpQ4ePHLyxnIm_X-7-E7_DKaKp608muLmGbZipZid4zKhnwtG7TnyxRs5gRH9dOOoCHPmPi3Up0zCVCHRqHV7AqNmyuD9sd0_BoOW_-Fdb0vxaY6RSdD7r86eqz4bpdt2joBj0DFtXPQUBU11QiN25U4-7cGJt9Wy3ziZKsd4"/>
-            <div class="baker-note">
-                <p class="label">Baker's Choice</p>
-                <blockquote>"The fermentation process takes 48 hours for that perfect tang."</blockquote>
-            </div>
+
+        <!-- Back Button (Right Side) -->
+        <div class="back-home-container">
+            <a th:href="@{/customer/product}" class="btn-back-round">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back to Products
+            </a>
         </div>
-    </section>
-    <!-- Product Filters -->
-    <div class="filters">
-        <button class="filter-btn active">All Creations</button>
-        <button class="filter-btn">Sourdough</button>
-        <button class="filter-btn">Viennoiserie</button>
-        <button class="filter-btn">Patisserie</button>
-        <button class="filter-btn">Savory</button>
     </div>
     <!-- Product Grid -->
     <div class="product-grid">
