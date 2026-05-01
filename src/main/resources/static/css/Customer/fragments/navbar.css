@@ -1,0 +1,233 @@
+/* --- Floating Header Core --- */
+.floating-header {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(114, 86, 76, 0.15);
+    border-radius: 100px; /* Pill shape */
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(114, 86, 76, 0.08);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* FIX: Centers everything vertically */
+    padding: 0.75rem 2rem;
+    height: 70px; /* Fixed height for consistency */
+}
+
+/* --- Brand & Nav --- */
+.brand-logo {
+    font-family: 'Noto Serif', serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #72564c;
+    text-decoration: none;
+}
+
+/* --- Action Group --- */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Buttons */
+.cart-btn, .logout-btn, .history-btn{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cart-btn {
+    background: #72564c;
+    color: white;
+}
+
+.logout-btn {
+    background: #964261;
+    color: white;
+}
+
+.cart-btn:hover, .logout-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Circular Container for the Image */
+.profile-avatar-container {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Ensures the online image stays circular */
+    object-fit: cover;
+}
+
+.user-name-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #72564c; /* Matches your brand brown */
+    transition: color 0.3s ease;
+    padding-right: 8px;
+    text-decoration: none;
+}
+
+.profile-btn-link{
+    text-decoration: none;
+}
+
+.profile-btn-link:hover .user-name-text {
+    color: #964261;
+}
+
+/* Guest Fallback Styling */
+.profile-avatar-guest {
+    width: 36px;
+    height: 36px;
+    background-color: #d4c3be;
+    color: #72564c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Button Styling (Consistent with your current design) */
+.user-profile-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 16px 4px 4px;
+    background: rgba(114, 86, 76, 0.05);
+    border: 1px solid rgba(114, 86, 76, 0.15);
+    border-radius: 100px;
+    transition: all 0.3s ease;
+}
+
+.user-profile-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Container Link removal of underline */
+.history-btn-link {
+    text-decoration: none;
+}
+
+/* History Button Styling (Matches .cart-btn) */
+.history-btn {
+    background: #72564c;
+    color: #ffffff;
+}
+
+/* Hover effect to match your existing button interactions */
+.history-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* --- Guest Action Group --- */
+.guest-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Subtle Login Link */
+.login-link {
+    text-decoration: none;
+    color: #72564c;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.login-link:hover {
+    color: #964261; /* Matches your logout/secondary theme */
+}
+
+/* Primary Signup Button (Matches your pill-style) */
+.signup-btn {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px 24px;
+    background: #72564c;
+    color: white;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 12px rgba(114, 86, 76, 0.15);
+}
+
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #72564c; /* Brand Brown */
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 8px 16px;
+    transition: 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+    color: #964261;
+}
+
+/* Responsive fix: Ensure the text hides on mobile like the other buttons */
+@media (max-width: 850px) {
+    .history-btn .btn-text {
+        display: none;
+    }
+    .history-btn {
+        padding: 10px; /* Keep it square/circular for icons-only mode */
+    }
+}
+
+/* Mobile responsive - Hide text to keep icons only */
+@media (max-width: 850px) {
+    .btn-text, .user-name {
+        display: none;
+    }
+    .header-container {
+        padding: 0.75rem 1rem;
+    }
+    .guest-actions {
+        gap: 1rem;
+    }
+    .signup-btn {
+        padding: 10px 16px;
+    }
+}

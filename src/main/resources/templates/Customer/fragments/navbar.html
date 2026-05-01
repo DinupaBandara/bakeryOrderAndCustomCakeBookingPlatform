@@ -1,0 +1,61 @@
+<!-- TopAppBar Section -->
+<header th:fragment="header-nav" class="floating-header">
+    <div class="header-container">
+        <!-- Left: Logo -->
+        <div class="header-left">
+            <a class="brand-logo" th:href="@{/home}">BakeNest</a>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="header-right">
+
+
+            <!-- Order History Button -->
+            <a th:if="${user != null}" th:href="@{/customer/orders}" class="history-btn-link">
+                <div class="history-btn">
+                    <span class="material-symbols-outlined">history</span>
+                    <span class="btn-text">Orders</span>
+                </div>
+            </a>
+
+            <button th:if="${user != null}" class="cart-btn">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span class="btn-text">Cart</span>
+            </button>
+
+            <!-- Profile Button -->
+            <a th:href="@{/customer/profile}" class="profile-btn-link">
+                <div class="user-profile-button">
+                    <!-- Dynamic Online Avatar Link -->
+                    <div class="profile-avatar-container">
+                        <img th:if="${user != null}"
+                             th:src="'https://ui-avatars.com/api/?name=' + ${user.firstName} + '+' + ${user.lastName} + '&background=72564c&color=fff&rounded=true&bold=true'"
+                             class="profile-avatar-img"
+                             th:alt="${user.firstName}">
+
+                        <!-- Fallback for Guest -->
+                        <div th:if="${user == null}" class="profile-avatar-guest">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                    </div>
+
+                    <span class="user-name-text" th:text="${user != null ? user.firstName : 'Guest'}">Customer</span>
+                </div>
+            </a>
+
+            <div th:if="${user == null}" class="guest-actions">
+                <a th:href="@{/login}" class="login-link">Sign In</a>
+                <a th:href="@{/login(tab='register')}" class="signup-btn">
+                    <span class="btn-text">Sign Up</span>
+                </a>
+            </div>
+
+            <form th:if="${user != null}" th:action="@{/auth/logout}" method="post">
+                <button type="submit" class="logout-btn">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="btn-text">Logout</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
