@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #72564c;
+    --primary-light: #8d6e63;
+    --surface: #fff9ec;
+    --surface-dark: #f4eedb;
+    --on-surface: #1e1c10;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.admin-body {
+    background-color: var(--surface);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease;
+    flex-grow: 1;
+    padding: 3rem;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-card {
+    background: white;
+    width: 100%;
+    max-width: 750px;
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(114, 86, 76, 0.04);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #f4eedb;
+}
+
+.avatar-container .profile-img-fluid {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 20px; /* Matches your previous container style */
+    border: 4px solid #f4eedb; /* Adds a nice frame around the avatar */
+    box-shadow: 0 4px 10px rgba(114, 86, 76, 0.1);
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-title h2 {
+    font-size: 1.8rem;
+    color: #3d2b24;
+    margin-bottom: 8px;
+}
+
+/* Form Styling */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    color: #72564c;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper .material-symbols-outlined {
+    position: absolute;
+    left: 15px;
+    color: #a69085;
+    font-size: 20px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    border: 2px solid #f4eedb;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    border-color: #72564c;
+    outline: none;
+    background-color: #fffaf0;
+}
+
+.helper-text {
+    display: block;
+    margin-top: 8px;
+    color: #a69085;
+    font-size: 0.8rem;
+}
+
+/* Button Styling */
+.profile-actions {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-save-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #72564c;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save-profile:hover {
+    background: #5a443c;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(114, 86, 76, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+}
+
+.badge-super {
+    background: #72564c;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge-normal {
+    background: #f4eedb;
+    color: #72564c;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .profile-card {
+        padding: 1.5rem;
+    }
+
+    .profile-header {
+        flex-direction: column; /* Stack avatar and name */
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .profile-actions {
+        justify-content: center; /* Center the save button */
+    }
+
+    .btn-save-profile {
+        width: 100%;
+        justify-content: center;
+    }
+}

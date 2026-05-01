@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | BakeNest Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/notification.css}">
+</head>
+<body class="admin-body">
+
+<!-- Sidebar Fragment -->
+<aside th:replace="~{Admin/fragments/sidebar :: admin-sidebar}"></aside>
+
+<main class="main-content">
+    <div class="profile-container">
+        <div class="profile-card">
+            <!-- Profile Header/Avatar Section -->
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <!-- Dynamic Avatar API using your brand color #72564c -->
+                    <img th:src="'https://ui-avatars.com/api/?name=' + ${admin.name} + '&background=random&color=fff&bold=true'"
+                         class="profile-img-fluid"
+                         alt="Profile Avatar">
+                </div>
+                <div class="profile-title">
+                    <h2 th:text="${admin.name}">Jennifer Perera</h2>
+                    <span th:class="${admin.superAdmin} ? 'badge-super' : 'badge-normal'"
+                          th:text="${admin.superAdmin} ? 'Super Admin' : 'Staff Admin'">
+                    </span>
+                </div>
+            </div>
+
+            <!-- Profile Form -->
+            <form th:action="@{/admin/profile/update}" method="post" class="profile-form">
+                <!-- Keep ID hidden for the update logic -->
+                <input type="hidden" name="id" th:value="${admin.id}">
+
+                <!-- Keep superAdmin status hidden so it isn't lost on update -->
+                <input type="hidden" name="superAdmin" th:value="${admin.superAdmin}">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined">person</span>
+                            <input type="text" name="name" th:value="${admin.name}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined">mail</span>
+                            <input type="email" name="email" th:value="${admin.email}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Change Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined">lock</span>
+                            <input type="password" name="password" placeholder="Leave blank to keep current password">
+                        </div>
+                        <small class="helper-text">Minimum 8 characters recommended for security.</small>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button type="submit" class="btn-save-profile">
+                        <span class="material-symbols-outlined">save</span>
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- Notification Container -->
+<div th:replace="~{Admin/fragments/notification :: admin-notification}"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.toast');
+
+        toasts.forEach(toast => {
+            // Set a timeout to remove the toast after 5000ms (5 seconds)
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.5s ease-in forwards';
+                // Wait for the fadeOut animation to finish before removing from DOM
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 5000);
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        // 1. Check localStorage on page load
+        const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+
+        // 2. Apply the saved state immediately
+        if (isCollapsed) {
+            sidebar.classList.add('collapsed');
+            toggleIcon.innerText = 'menu';
+        }
+
+        // 3. Update the toggle function to save the state
+        window.toggleSidebar = function() {
+            sidebar.classList.toggle('collapsed');
+
+            const nowCollapsed = sidebar.classList.contains('collapsed');
+
+            // Update icon
+            toggleIcon.innerText = nowCollapsed ? 'menu' : 'menu_open';
+
+            // Save the current state to localStorage
+            localStorage.setItem('sidebar-collapsed', nowCollapsed);
+        };
+    });
+</script>
+</body>
+</html>
