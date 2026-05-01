@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Management | BakeNest Admin</title>
+  <!-- Reusing your existing styles -->
+  <link rel="stylesheet" th:href="@{/css/admin/adminManagement.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/fragments/sidebar.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/fragments/notification.css}">
+</head>
+<body class="admin-body">
+
+<div th:replace="~{Admin/fragments/sidebar :: admin-sidebar}"></div>
+
+<main class="main-content">
+  <header class="top-bar">
+    <div class="header-title">
+      <h1>Administrator Access</h1>
+      <p>Manage system access and permissions for your team.</p>
+    </div>
+    <button class="btn-add-new" onclick="openModal()">
+      <span class="material-symbols-outlined">person_add</span>
+      Add New Admin
+    </button>
+  </header>
+
+  <section class="table-container">
+    <table class="admin-table">
+      <thead>
+      <tr>
+        <th>Admin Name</th>
+        <th>Email Address</th>
+        <th>Access Level</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="admin : ${admins}">
+        <td th:text="${admin.name}">Name</td>
+        <td th:text="${admin.email}">Email</td>
+        <td>
+          <span th:class="${admin.superAdmin} ? 'badge-super' : 'badge-normal'" th:text="${admin.superAdmin} ? 'Super Admin' : 'Staff Admin'"></span>
+        </td>
+        <td>
+          <div class="action-btns">
+            <button class="icon-btn edit"
+                    th:onclick="openEditModal([[${admin.id}]], [[${admin.name}]], [[${admin.email}]], [[${admin.isSuperAdmin}]])">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+            <!-- Deletion disabled for Super Admins to prevent lockout -->
+            <form th:if="${!admin.superAdmin}" th:action="@{/admin/management/delete/{id}(id=${admin.id})}" method="post">
+              <button type="submit" class="icon-btn delete" onclick="return confirm('Remove this admin permanently?')">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<!-- Notification Container -->
+<div th:replace="~{Admin/fragments/notification :: admin-notification}"></div>
+
+<!-- Add Admin Modal -->
+<div id="addAdminModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Register New Administrator</h2>
+      <span class="close-modal material-symbols-outlined" onclick="closeModal()">close</span>
+    </div>
+    <form th:action="@{/admin/management/add}" method="post" class="modal-form">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="e.g., Jennifer Perera" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="admin@bakenest.lk" required>
+      </div>
+      <div class="form-group">
+        <label>Initial Password</label>
+        <input type="password" name="password" required>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" name="superAdmin" id="isSuperAdmin" value="true">
+        <!-- This hidden field is essential for Spring to handle unchecked boxes -->
+        <input type="hidden" name="_superAdmin" value="on">
+        <label for="isSuperAdmin">Grant Super Admin Access</label>
+      </div>
+      <button type="submit" class="btn-save">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Admin Modal -->
+<div id="editAdminModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Update Permissions</h2>
+      <span class="close-modal material-symbols-outlined" onclick="closeEditModal()">close</span>
+    </div>
+    <form th:action="@{/admin/management/update}" method="post" class="modal-form">
+      <input type="hidden" id="editId" name="id">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="editName" name="name" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="editEmail" name="email" required>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" name="superAdmin" id="editIsSuper" value="true">
+        <input type="hidden" name="_superAdmin" value="on">
+        <label for="editIsSuper">Super Admin Status</label>
+      </div>
+      <button type="submit" class="btn-save">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Reuse your toast logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const toasts = document.querySelectorAll('.toast');
+    toasts.forEach(toast => {
+      setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.5s ease-in forwards';
+        setTimeout(() => toast.remove(), 500);
+      }, 5000);
+    });
+  });
+
+  const addModal = document.getElementById("addAdminModal");
+  const editModal = document.getElementById("editAdminModal");
+
+  function openModal() { addModal.style.display = "block"; }
+  function closeModal() { addModal.style.display = "none"; }
+
+  function openEditModal(id, name, email, isSuper) {
+    document.getElementById("editId").value = id;
+    document.getElementById("editName").value = name;
+    document.getElementById("editEmail").value = email;
+
+    const checkbox = document.getElementById("editIsSuper");
+    // Ensure isSuper is treated as a boolean
+    checkbox.checked = (isSuper === true || isSuper === "true");
+
+    editModal.style.display = "block";
+  }
+
+  function closeEditModal() { editModal.style.display = "none"; }
+
+  window.onclick = function(event) {
+    if (event.target == addModal) closeModal();
+    if (event.target == editModal) closeEditModal();
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    // 1. Check localStorage on page load
+    const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+
+    // 2. Apply the saved state immediately
+    if (isCollapsed) {
+      sidebar.classList.add('collapsed');
+      toggleIcon.innerText = 'menu';
+    }
+
+    // 3. Update the toggle function to save the state
+    window.toggleSidebar = function() {
+      sidebar.classList.toggle('collapsed');
+
+      const nowCollapsed = sidebar.classList.contains('collapsed');
+
+      // Update icon
+      toggleIcon.innerText = nowCollapsed ? 'menu' : 'menu_open';
+
+      // Save the current state to localStorage
+      localStorage.setItem('sidebar-collapsed', nowCollapsed);
+    };
+  });
+</script>
+</body>
+</html>

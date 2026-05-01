@@ -27,5 +27,5 @@ public class Admin {
 
     // Super Admins cannot be deleted and can create other admins
     @Column(nullable = false)
-    private boolean isSuperAdmin = false;
+    private boolean superAdmin = false;
 }

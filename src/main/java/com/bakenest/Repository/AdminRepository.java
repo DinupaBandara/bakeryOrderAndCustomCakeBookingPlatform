@@ -1,7 +1,10 @@
 package com.bakenest.Repository;
 
 import com.bakenest.Model.Admin;
+import com.bakenest.Model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
