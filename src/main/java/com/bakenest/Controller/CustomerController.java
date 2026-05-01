@@ -2,6 +2,7 @@ package com.bakenest.Controller;
 
 import com.bakenest.Model.Admin;
 import com.bakenest.Model.Customer;
+import com.bakenest.Repository.CustomerRepository;
 import com.bakenest.Service.AdminService;
 import com.bakenest.Service.CustomerService;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +21,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Autowired
     private AdminService adminService;
@@ -47,25 +51,23 @@ public class CustomerController {
                         HttpSession session,
                         Model model) {
 
-        // 1. First, check if the email belongs to an Admin (Owner)
+        // 1. Check Admin first
         Optional<Admin> admin = adminService.authenticate(email, password);
         if (admin.isPresent()) {
-            session.setAttribute("loggedUser", admin.get());
+            session.setAttribute("loggedUser", admin.get()); // Saves Admin Object
             session.setAttribute("role", "ADMIN");
-            return "redirect:/admin/dashboard"; // Your admin panel route
+            return "redirect:/admin/dashboard";
         }
 
-        // 2. If no admin match is found, check if it is a Customer
-        if (customerService.authenticate(email, password)) {
-            session.setAttribute("loggedUser", email);
+        // 2. FIXED: Fetch the Customer object and save the WHOLE object to session
+        Optional<Customer> customer = customerRepository.findByEmail(email);
+        if (customer.isPresent() && customer.get().getPassword().equals(password)) {
+            session.setAttribute("loggedUser", customer.get()); // Saves Customer Object [FIXED]
             session.setAttribute("role", "CUSTOMER");
-            return "redirect:/customer/product"; // Standard customer shop
+            return "redirect:/customer/product";
         }
 
-        // 3. If both fail, show the error pill on the login page
         model.addAttribute("loginError", "Invalid email or password");
-
-        // Re-add empty customer to keep the registration tab functional
         model.addAttribute("customer", new Customer());
         return "login";
     }

@@ -24,17 +24,19 @@ public class ProductController {
 
     // New Toggle Method
     @PostMapping("/toggle-availability/{id}")
-    public String toggleAvailability(@PathVariable Long id) {
+    public String toggleAvailability(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         productRepository.findById(id).ifPresent(product -> {
             product.setAvailable(!product.isAvailable()); // Flip the boolean
             productRepository.save(product);
+            redirectAttributes.addFlashAttribute("success", "Availability Changed Successfully");
         });
         return "redirect:/admin/product";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) {
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         productRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("success", "Product deleted successfully!");
         return "redirect:/admin/product";
     }
 
