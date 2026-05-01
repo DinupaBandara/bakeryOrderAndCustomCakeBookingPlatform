@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Management | BakeNest Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin/customers.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/notification.css}">
+</head>
+<body class="admin-body">
+
+<!-- Sidebar Fragment -->
+<aside th:replace="~{Admin/fragments/sidebar :: admin-sidebar}"></aside>
+
+<main class="main-content">
+    <header class="top-bar">
+        <div class="header-title">
+            <h1>Customer Directory</h1>
+            <p>Manage registered customers and account statuses.</p>
+        </div>
+    </header>
+
+    <section class="table-container">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Customer Details</th>
+                <th>NIC Number</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${customers}">
+                <td class="user-cell">
+                    <!-- Dynamic Avatar based on First and Last Name -->
+                    <img th:src="'https://ui-avatars.com/api/?name=' + ${c.firstName} + '+' + ${c.lastName} + '&background=random&color=fff&bold=true'"
+                         class="table-avatar" alt="Avatar">
+                    <div class="user-info">
+                        <span class="user-name" th:text="${c.firstName + ' ' + c.lastName}">Name</span>
+                        <span class="user-email" th:text="${c.email}">email@bakenest.lk</span>
+                    </div>
+                </td>
+                <td class="text-muted" th:text="${c.nic}">NIC</td>
+                <td th:text="${c.phoneNumber}">Phone</td>
+                <td>
+                    <!-- Status Badge -->
+                    <span th:class="${c.isActive} ? 'badge-active' : 'badge-deactive'"
+                          th:text="${c.isActive} ? 'Active' : 'Deactivated'">
+                        </span>
+                </td>
+                <td>
+                    <form th:action="@{/auth/admin/customers/toggle/{id}(id=${c.id})}" method="post">
+                        <button type="submit"
+                                th:class="${c.isActive} ? 'btn-action-deactivate' : 'btn-action-activate'"
+                                th:onclick="return confirm('Are you sure you want to change this account status?')">
+                            <span th:text="${c.isActive} ? 'Deactivate' : 'Activate'"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<!-- Notification Container -->
+<div th:replace="~{Admin/fragments/notification :: admin-notification}"></div>
+
+<script>
+    // Auto-hide notifications
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.toast');
+
+        toasts.forEach(toast => {
+            // Set a timeout to remove the toast after 5000ms (5 seconds)
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.5s ease-in forwards';
+                // Wait for the fadeOut animation to finish before removing from DOM
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 5000);
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        // 1. Check localStorage on page load
+        const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+
+        // 2. Apply the saved state immediately
+        if (isCollapsed) {
+            sidebar.classList.add('collapsed');
+            toggleIcon.innerText = 'menu';
+        }
+
+        // 3. Update the toggle function to save the state
+        window.toggleSidebar = function() {
+            sidebar.classList.toggle('collapsed');
+
+            const nowCollapsed = sidebar.classList.contains('collapsed');
+
+            // Update icon
+            toggleIcon.innerText = nowCollapsed ? 'menu' : 'menu_open';
+
+            // Save the current state to localStorage
+            localStorage.setItem('sidebar-collapsed', nowCollapsed);
+        };
+    });
+</script>
+</body>
+</html>

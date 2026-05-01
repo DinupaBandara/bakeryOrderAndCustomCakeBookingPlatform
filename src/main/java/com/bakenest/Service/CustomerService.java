@@ -6,16 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    /**
-     * Validates and saves the customer in one step.
-     * Logic errors are added to BindingResult to show as separate pills.
-     */
     public void registerCustomer(Customer customer, BindingResult result) {
         // 1. Check for duplicate Email
         if (customerRepository.existsByEmail(customer.getEmail())) {
@@ -43,9 +41,8 @@ public class CustomerService {
         }
     }
 
-    public boolean authenticate(String email, String password) {
+    public Optional<Customer> authenticate(String email, String password) {
         return customerRepository.findByEmail(email)
-                .map(c -> c.getPassword().equals(password)) // Use .matches() for hashed passwords[cite: 2]
-                .orElse(false);
+                .filter(c -> c.getPassword().equals(password));
     }
 }

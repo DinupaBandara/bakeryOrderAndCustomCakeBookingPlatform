@@ -64,4 +64,7 @@ public class Customer {
 
     @Transient
     private String confirmPassword;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
 }

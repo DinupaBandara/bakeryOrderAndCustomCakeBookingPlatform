@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -59,10 +60,19 @@ public class CustomerController {
             return "redirect:/admin/dashboard";
         }
 
-        // 2. FIXED: Fetch the Customer object and save the WHOLE object to session
-        Optional<Customer> customer = customerRepository.findByEmail(email);
-        if (customer.isPresent() && customer.get().getPassword().equals(password)) {
-            session.setAttribute("loggedUser", customer.get()); // Saves Customer Object [FIXED]
+        // 2. Check Customer
+        Optional<Customer> customerOpt = customerService.authenticate(email, password);
+        if (customerOpt.isPresent()) {
+            Customer customer = customerOpt.get();
+
+            // Check if account is active
+            if (!customer.isActive()) {
+                model.addAttribute("loginError", "Your account has been deactivated. Please contact support.");
+                model.addAttribute("customer", new Customer());
+                return "login";
+            }
+
+            session.setAttribute("loggedUser", customer);
             session.setAttribute("role", "CUSTOMER");
             return "redirect:/customer/product";
         }
@@ -70,5 +80,16 @@ public class CustomerController {
         model.addAttribute("loginError", "Invalid email or password");
         model.addAttribute("customer", new Customer());
         return "login";
+    }
+
+    @PostMapping("/admin/customers/toggle/{id}")
+    public String toggleCustomerStatus(@PathVariable Long id, RedirectAttributes ra) {
+        customerRepository.findById(id).ifPresent(customer -> {
+            customer.setActive(!customer.isActive());
+            customerRepository.save(customer);
+            String status = customer.isActive() ? "activated" : "deactivated";
+            ra.addFlashAttribute("success", "Customer " + status + " successfully!");
+        });
+        return "redirect:/admin/customers";
     }
 }
