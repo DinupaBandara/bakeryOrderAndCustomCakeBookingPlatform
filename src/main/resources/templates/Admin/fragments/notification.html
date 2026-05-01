@@ -1,0 +1,15 @@
+<!-- Notification Container (Using your clean pill style) -->
+<div th:fragment="admin-notification" id="notification-container">
+    <div th:if="${error}" class="toast error">
+        <div class="toast-content">
+            <span class="material-symbols-outlined">error</span>
+            <span th:text="${error}">Error</span>
+        </div>
+    </div>
+    <div th:if="${success}" class="toast success">
+        <div class="toast-content">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span th:text="${success}">Success</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,190 @@
+:root {
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 80px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: var(--sidebar-width);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: var(--white);
+    border-right: 1px solid rgba(114, 86, 76, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    position: fixed;
+    height: 100vh;
+}
+
+.header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* Collapsed State Logic */
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+    padding: 2rem 1rem; /* Reduced horizontal padding */
+}
+
+.sidebar.collapsed .nav-text,
+.sidebar.collapsed .badge-admin,
+.sidebar.collapsed .logo-text,
+.sidebar.collapsed .btn-text {
+    display: none;
+}
+
+.sidebar.collapsed .nav-item {
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.sidebar.collapsed .sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar.collapsed + .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+.sidebar-header {
+    margin-bottom: 3rem;
+}
+
+.logo-text {
+    font-family: 'Noto Serif', serif;
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.badge-admin {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    background: var(--surface-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: var(--primary-light);
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--on-surface);
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-item.active, .nav-item:hover {
+    background-color: var(--surface-dark);
+    color: var(--primary);
+}
+
+/* --- Sidebar Footer & Logout Button --- */
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(114, 86, 76, 0.1); /* Subtle divider */
+    margin-top: auto; /* Pushes footer to the bottom of the sidebar */
+}
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+    background: #964261; /* Deep berry/red for logout */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.logout-btn:hover {
+    background: #7a354f; /* Slightly darker on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(150, 66, 97, 0.2);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+/* Optional: Hide text on mobile for icon-only look */
+@media (max-width: 850px) {
+    .logout-btn {
+        padding: 12px;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        margin: 0 auto;
+    }
+    .logout-btn .btn-text {
+        display: none;
+    }
+
+    .sidebar {
+        width: var(--sidebar-collapsed-width);
+    }
+    .sidebar .nav-text, .sidebar .logo-text, .sidebar .badge-admin {
+        display: none;
+    }
+}
+
+/* Global Mobile Adjustments */
+@media (max-width: 850px) {
+    :root {
+        --sidebar-width: var(--sidebar-collapsed-width); /* Default to collapsed on mobile */
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-collapsed-width) !important; /* Force margin to match icon-only sidebar */
+        padding: 1.5rem; /* Reduce padding for smaller screens */
+    }
+
+    .top-bar {
+        flex-direction: column; /* Stack title and buttons vertically */
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    /* Hide text labels globally on mobile */
+    .nav-text, .logo-text, .badge-admin, .btn-text {
+        display: none !important;
+    }
+}
