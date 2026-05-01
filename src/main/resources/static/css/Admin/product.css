@@ -1,61 +1,42 @@
-#notification-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #72564c;
+    --primary-light: #8d6e63;
+    --surface: #fff9ec;
+    --surface-dark: #f4eedb;
+    --on-surface: #1e1c10;
+    --white: #ffffff;
 }
 
-.toast {
-    position: relative; /* Allows for absolute positioning of the close button if preferred */
-    min-width: 300px;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    border-radius: 12px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    animation: slideIn 0.5s ease-out forwards;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.toast.success {
-    background-color: #d4edda;
-    color: #155724;
-
+body::-webkit-scrollbar {
+    display: none;
 }
 
-.toast.error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-.toast-content {
+.admin-body {
+    background-color: var(--surface);
     display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
+    min-height: 100vh;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+/* Main Content Area */
+.main-content {
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease;
+    flex-grow: 1;
+    padding: 3rem;
 }
 
-@keyframes fadeOut {
-    to {
-        transform: translateY(20px);
-        opacity: 0;
-    }
+.top-bar {
+    margin-bottom: 3rem;
 }
 
 /* Product Table Container */
@@ -129,7 +110,6 @@
 }
 
 .icon-btn {
-    border: none;
     background: #fff;
     cursor: pointer;
     padding: 8px;
@@ -282,4 +262,26 @@ tr.out-of-stock .p-name {
     font-weight: bold;
     cursor: pointer;
     margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+    .table-container {
+        padding: 0.75rem;
+        border-radius: 1rem;
+    }
+
+    .admin-table th, .admin-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .table-img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .action-btns {
+        flex-direction: column; /* Stack Edit/Delete buttons on very small screens */
+        gap: 0.4rem;
+    }
 }

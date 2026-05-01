@@ -3,49 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Products | BakeNest Admin</title>
-    <link rel="stylesheet" th:href="@{/css/admin/dashboard.css}">
     <link rel="stylesheet" th:href="@{/css/admin/product.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/notification.css}">
 </head>
 <body class="admin-body">
 
-<!-- Reuse the Sidebar from Dashboard -->
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <h2 class="logo-text">BakeNest</h2>
-        <span class="badge-admin">Admin Panel</span>
-    </div>
-
-    <nav class="sidebar-nav">
-        <a th:href="@{/admin/dashboard}" class="nav-item">
-            <span class="material-symbols-outlined">dashboard</span>
-            Overview
-        </a>
-        <a href="#" class="nav-item">
-            <span class="material-symbols-outlined">delivery_truck_speed</span>
-            Orders
-        </a>
-        <a th:href="@{/admin/product}" class="nav-item active">
-            <span class="material-symbols-outlined">bakery_dining</span>
-            Products
-        </a>
-        <a href="#" class="nav-item">
-            <span class="material-symbols-outlined">group</span>
-            Customers
-        </a>
-        <!-- Only show if the loggedUser is actually the Super Admin -->
-        <a href="#" class="nav-item" th:if="${session.loggedUser != null and session.loggedUser.isSuperAdmin}">
-            <span class="material-symbols-outlined">admin_panel_settings</span>
-            Admin Management
-        </a>
-    </nav>
-
-    <div class="sidebar-footer">
-        <a th:href="@{/auth/logout}" class="btn-logout">
-            <span class="material-symbols-outlined">logout</span>
-            Sign Out
-        </a>
-    </div>
-</aside>
+<div th:replace="~{Admin/fragments/sidebar :: admin-sidebar}"></div>
 
 <main class="main-content">
     <header class="top-bar">
@@ -117,21 +81,7 @@
 </main>
 
 <!-- Notification Container -->
-<div id="notification-container">
-    <div th:if="${error}" class="toast error">
-        <div class="toast-content">
-            <span class="material-symbols-outlined">error</span>
-            <span th:text="${error}">Error message</span>
-        </div>
-    </div>
-
-    <div th:if="${success}" class="toast success">
-        <div class="toast-content">
-            <span class="material-symbols-outlined">check_circle</span>
-            <span th:text="${success}">Product updated successfully!</span>
-        </div>
-    </div>
-</div>
+<div th:replace="~{Admin/fragments/notification :: admin-notification}"></div>
 
 <!-- Add Product Modal -->
 <div id="addProductModal" class="modal">
@@ -282,6 +232,35 @@
             closeModal();
         }
     }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        // 1. Check localStorage on page load
+        const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+
+        // 2. Apply the saved state immediately
+        if (isCollapsed) {
+            sidebar.classList.add('collapsed');
+            toggleIcon.innerText = 'menu';
+        }
+
+        // 3. Update the toggle function to save the state
+        window.toggleSidebar = function() {
+            sidebar.classList.toggle('collapsed');
+
+            const nowCollapsed = sidebar.classList.contains('collapsed');
+
+            // Update icon
+            toggleIcon.innerText = nowCollapsed ? 'menu' : 'menu_open';
+
+            // Save the current state to localStorage
+            localStorage.setItem('sidebar-collapsed', nowCollapsed);
+        };
+    });
 </script>
 </body>
 </html>

@@ -17,83 +17,23 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .admin-body {
     background-color: var(--surface);
     display: flex;
     min-height: 100vh;
 }
 
-/* Sidebar Styling */
-.sidebar {
-    width: 280px;
-    background-color: var(--white);
-    border-right: 1px solid rgba(114, 86, 76, 0.1);
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    position: fixed;
-    height: 100vh;
-}
-
-.sidebar-header {
-    margin-bottom: 3rem;
-}
-
-.logo-text {
-    font-family: 'Noto Serif', serif;
-    color: var(--primary);
-    font-size: 1.5rem;
-}
-
-.badge-admin {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    background: var(--surface-dark);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    color: var(--primary-light);
-}
-
-.sidebar-nav {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    text-decoration: none;
-    color: var(--on-surface);
-    border-radius: 0.75rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.nav-item.active, .nav-item:hover {
-    background-color: var(--surface-dark);
-    color: var(--primary);
-}
-
-.btn-logout {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #d32f2f;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
 /* Main Content Area */
 .main-content {
-    margin-left: 280px;
+
     flex-grow: 1;
     padding: 3rem;
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease;
 }
 
 .top-bar {
@@ -151,4 +91,15 @@
 
 .empty-state .material-symbols-outlined {
     font-size: 3rem;
+}
+
+@media (max-width: 850px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+        gap: 1rem;
+    }
+
+    .welcome-msg h1 {
+        font-size: 1.5rem;
+    }
 }
