@@ -5,23 +5,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>The Artisanal Bakery | Product Gateway</title>
     <link rel="stylesheet" th:href="@{/css/customer/product.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/navbar.css}">
 
 </head>
 <body>
-<!-- TopNavBar -->
-<nav class="navbar">
-    <div class="nav-container">
-        <!-- Brand Identity -->
-        <a class="brand" href="#">
-            The Artisanal Bakery
-        </a>
-        <!-- Desktop Links -->
-        <div class="nav-links">
-            <a class="nav-link active" href="#">Products</a>
-            <a class="nav-link" href="#">Contact Us</a>
-        </div>
-    </div>
-</nav>
+
+<div th:replace="~{Customer/fragments/navbar :: header-nav}"></div>
+
 <!-- Main Content -->
 <main>
     <!-- Gateway Bento Layout -->

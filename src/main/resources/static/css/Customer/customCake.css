@@ -77,103 +77,6 @@ img {
     padding: 0 1.5rem;
 }
 
-/* Navigation */
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(255, 249, 236, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.nav-content {
-    display: flex;
-    justify-content: space-between;
-    items-center: center;
-    padding: 1rem 2rem;
-    max-width: 1280px;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.logo {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: -0.025em;
-}
-
-.nav-links {
-    display: none;
-    gap: 2rem;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.nav-icons {
-    display: flex;
-    gap: 1rem;
-    color: var(--on-surface);
-}
-
-.auth-buttons {
-    display: none;
-    gap: 1rem;
-}
-
-.btn-signin {
-    background: transparent;
-    font-weight: 500;
-    font-size: 0.875rem;
-}
-
-.btn-signup {
-    background: var(--primary);
-    color: white;
-    padding: 0.5rem 1.25rem;
-    border-radius: var(--radius-lg);
-    font-weight: 600;
-    font-size: 0.875rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-/* Hero Header */
-.hero {
-    text-align: center;
-    padding: 3rem 0;
-}
-
-.badge {
-    display: block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--primary);
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.hero h1 {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-}
-
-.hero p {
-    max-width: 42rem;
-    margin: 0 auto;
-    color: var(--on-surface-variant);
-    font-size: 1.125rem;
-    line-height: 1.7;
-}
-
 /* Section Layout */
 /* Update Image Side to act as a relative container (Required) */
 .image-side {
@@ -235,7 +138,7 @@ nav {
 .custom-cake-section {
     max-width: 80rem; /* 7xl */
     margin: 0 auto;
-    padding: 2rem 2rem;
+    padding: 8rem 2rem;
 }
 
 .atelier-card {

@@ -59,15 +59,6 @@
         </button>
     </header>
 
-    <!-- Success/Error Alerts -->
-    <div th:if="${error}" style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-        <span th:text="${error}"></span>
-    </div>
-
-    <div th:if="${success}" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-        <span th:text="${success}"></span>
-    </div>
-
     <section class="table-container">
         <table class="admin-table">
             <thead>
@@ -91,7 +82,7 @@
                     </div>
                 </td>
                 <td><span class="category-pill" th:text="${product.category}">Sourdough</span></td>
-                <td th:text="'Rs. ' + ${product.price}">Rs. 1,250</td>
+                <td th:text="'Rs. ' + ${#numbers.formatDecimal(product.price, 1, 'COMMA', 2, 'POINT')}">Rs. 1,250</td>
                 <td>
                     <div class="action-btns">
                         <!-- Availability Toggle Form -->
@@ -124,6 +115,23 @@
         </table>
     </section>
 </main>
+
+<!-- Notification Container -->
+<div id="notification-container">
+    <div th:if="${error}" class="toast error">
+        <div class="toast-content">
+            <span class="material-symbols-outlined">error</span>
+            <span th:text="${error}">Error message</span>
+        </div>
+    </div>
+
+    <div th:if="${success}" class="toast success">
+        <div class="toast-content">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span th:text="${success}">Product updated successfully!</span>
+        </div>
+    </div>
+</div>
 
 <!-- Add Product Modal -->
 <div id="addProductModal" class="modal">
@@ -217,6 +225,21 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.toast');
+
+        toasts.forEach(toast => {
+            // Set a timeout to remove the toast after 5000ms (5 seconds)
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.5s ease-in forwards';
+                // Wait for the fadeOut animation to finish before removing from DOM
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 5000);
+        });
+    });
+
     const editModal = document.getElementById("editProductModal");
 
     function openEditModal(id, name, category, price, imageUrl, description) {

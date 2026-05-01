@@ -5,27 +5,10 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Custom Cake Booking | The Flourished Hearth</title>
     <link rel="stylesheet" th:href="@{/css/customer/customCake.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/navbar.css}">
 </head>
 <body>
-<nav>
-    <div class="nav-content">
-        <div class="logo">The Flourished Hearth</div>
-        <div class="nav-links">
-            <a href="#">Products</a>
-            <a href="#">Contact Us</a>
-        </div>
-        <div class="nav-actions">
-            <div class="nav-icons">
-                <span class="material-symbols-outlined">search</span>
-                <span class="material-symbols-outlined">shopping_cart</span>
-            </div>
-            <div class="auth-buttons">
-                <button class="btn-signin">Sign In</button>
-                <button class="btn-signup">Sign Up</button>
-            </div>
-        </div>
-    </div>
-</nav>
+<div th:replace="~{Customer/fragments/navbar :: header-nav}"></div>
 <main class="container">
     <!-- Custom Cake Booking Section -->
     <section class="custom-cake-section">
@@ -76,10 +59,11 @@
                             </select>
                         </div>
                         <div>
-                            <label class="form-label">Decoration Style</label>
+                            <label class="form-label">Cake Type</label>
                             <select class="select-input">
-                                <option>Pressed Wildflowers</option>
-                                <option>Vintage Lambeth Piping</option>
+                                <option>Butter Cake</option>
+                                <option>Ribbon Cake</option>
+                                <option>Chocolate Cake</option>
                             </select>
                         </div>
                     </div>
