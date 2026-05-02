@@ -5,6 +5,7 @@ import com.bakenest.Model.Customer;
 import com.bakenest.Repository.CustomerRepository;
 import com.bakenest.Service.AdminService;
 import com.bakenest.Service.CustomerService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,36 +50,40 @@ public class CustomerController {
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
-                        HttpSession session,
+                        HttpServletRequest request,
                         Model model) {
 
-        // 1. Check Admin first
+        // 1. Get the current session and invalidate it
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        // 2. CRITICAL: Create a brand new session for the new login
+        session = request.getSession(true);
+
+        // 3. Now you can safely use session.setAttribute
         Optional<Admin> admin = adminService.authenticate(email, password);
         if (admin.isPresent()) {
-            session.setAttribute("loggedUser", admin.get()); // Saves Admin Object
+            session.setAttribute("loggedUser", admin.get()); // This won't crash now
             session.setAttribute("role", "ADMIN");
             return "redirect:/admin/dashboard";
         }
 
-        // 2. Check Customer
+        // Handle Customer login
         Optional<Customer> customerOpt = customerService.authenticate(email, password);
         if (customerOpt.isPresent()) {
             Customer customer = customerOpt.get();
-
-            // Check if account is active
             if (!customer.isActive()) {
-                model.addAttribute("loginError", "Your account has been deactivated. Please contact support.");
-                model.addAttribute("customer", new Customer());
+                model.addAttribute("loginError", "Your account has been deactivated.");
                 return "login";
             }
-
             session.setAttribute("loggedUser", customer);
             session.setAttribute("role", "CUSTOMER");
             return "redirect:/customer/product";
         }
 
         model.addAttribute("loginError", "Invalid email or password");
-        model.addAttribute("customer", new Customer());
         return "login";
     }
 
@@ -91,5 +96,47 @@ public class CustomerController {
             ra.addFlashAttribute("success", "Customer " + status + " successfully!");
         });
         return "redirect:/admin/customers";
+    }
+
+    @PostMapping("/customer/profile/update")
+    public String updateProfile(@Valid @ModelAttribute("user") Customer updatedUser,
+                                BindingResult result,
+                                HttpSession session,
+                                RedirectAttributes redirectAttributes,
+                                Model model) {
+
+        Customer currentUser = (Customer) session.getAttribute("loggedUser");
+
+        // 1. Check for standard @Valid errors
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("error", "Please check your input formats.");
+            return "redirect:/customer/profile";
+        }
+
+        // 2. Manual Unique Checks - Send to Notification Pill
+        if (!updatedUser.getEmail().equalsIgnoreCase(currentUser.getEmail()) &&
+                customerRepository.existsByEmail(updatedUser.getEmail())) {
+            redirectAttributes.addFlashAttribute("error", "Email is already registered to another account.");
+            return "redirect:/customer/profile";
+        }
+
+        if (!updatedUser.getNic().equalsIgnoreCase(currentUser.getNic()) &&
+                customerRepository.existsByNic(updatedUser.getNic())) {
+            redirectAttributes.addFlashAttribute("error", "This NIC number is already in use.");
+            return "redirect:/customer/profile";
+        }
+
+        if (!updatedUser.getPhoneNumber().equals(currentUser.getPhoneNumber()) &&
+                customerRepository.existsByPhoneNumber(updatedUser.getPhoneNumber())) {
+            redirectAttributes.addFlashAttribute("error", "This phone number is already registered.");
+            return "redirect:/customer/profile";
+        }
+
+        // 3. Perform the update if all checks pass
+        customerService.updateCustomerProfile(updatedUser, currentUser);
+        session.setAttribute("loggedUser", currentUser);
+
+        redirectAttributes.addFlashAttribute("success", "Profile updated successfully!");
+        return "redirect:/customer/profile";
     }
 }

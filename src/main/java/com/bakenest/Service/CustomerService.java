@@ -45,4 +45,21 @@ public class CustomerService {
         return customerRepository.findByEmail(email)
                 .filter(c -> c.getPassword().equals(password));
     }
+
+    public void updateCustomerProfile(Customer updatedData, Customer currentUser) {
+        // 1. Update personal details
+        currentUser.setFirstName(updatedData.getFirstName());
+        currentUser.setLastName(updatedData.getLastName());
+        currentUser.setEmail(updatedData.getEmail());
+        currentUser.setPhoneNumber(updatedData.getPhoneNumber());
+
+        // 2. Update NIC and location details
+        currentUser.setNic(updatedData.getNic());
+        currentUser.setAddress(updatedData.getAddress());
+        currentUser.setCity(updatedData.getCity());
+        currentUser.setZipCode(updatedData.getZipCode());
+
+        // 3. Persist changes
+        customerRepository.save(currentUser);
+    }
 }

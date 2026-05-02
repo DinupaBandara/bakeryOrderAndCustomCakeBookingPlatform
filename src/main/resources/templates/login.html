@@ -88,7 +88,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="label">Phone</label>
-                                <input class="input" th:field="*{phoneNumber}" placeholder="0771234567" required type="tel"/>
+                                <input class="input"  pattern="^(?:0|94|\\+94)?(7[0-9]{8})$" th:field="*{phoneNumber}" placeholder="0771234567" required type="tel"/>
                             </div>
                         </div>
                         <div class="form-group">
