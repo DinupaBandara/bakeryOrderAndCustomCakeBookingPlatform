@@ -52,6 +52,7 @@
 }
 
 .cart-btn {
+    text-decoration: none;
     background: #72564c;
     color: white;
 }

@@ -18,13 +18,14 @@
                 </div>
             </a>
 
-            <button th:if="${user != null}" class="cart-btn">
+            <a th:href="@{/customer/cart}" th:if="${user != null}" class="cart-btn">
                 <span class="material-symbols-outlined">shopping_cart</span>
                 <span class="btn-text">Cart</span>
-            </button>
+            </a>
 
             <!-- Profile Button -->
-            <a th:href="@{/customer/profile}" class="profile-btn-link">
+            <a th:href="${user != null ? '/customer/profile' : '/login'}"
+               class="profile-btn-link">
                 <div class="user-profile-button">
                     <!-- Dynamic Online Avatar Link -->
                     <div class="profile-avatar-container">
