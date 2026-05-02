@@ -61,70 +61,88 @@ public class ViewController {
         return "login";
     }
 
+    // --- Main Product Catalog ---
     @GetMapping("/customer/product")
     public String showProductPage(Model model, HttpSession session) {
         Object sessionUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        if (sessionUser instanceof Customer) {
+        // Strictly check for Customer type and role
+        if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
             model.addAttribute("user", (Customer) sessionUser);
         } else {
-            model.addAttribute("user", null);
+            model.addAttribute("user", null); // Handled as Guest in navbar
         }
-
         return "/customer/product";
     }
 
+    // --- Custom Cake Page ---
     @GetMapping("/customer/product/customcake")
     public String showCustomCakePage(Model model, HttpSession session) {
         Object sessionUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        if (sessionUser instanceof Customer) {
+        // These pages MUST have a valid Customer session
+        if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
             model.addAttribute("user", (Customer) sessionUser);
-        } else {
-            model.addAttribute("user", null);
+            return "/customer/customCake";
         }
 
-        return "/customer/customeCake";
+        return "redirect:/login";
     }
 
+    // --- Bakery Items with Category Filtering ---
     @GetMapping("/customer/product/bakeryitems")
     public String showBakeryItemPage(@RequestParam(required = false) String category,
                                      Model model,
                                      HttpSession session) {
-
-        // Retrieve from session safely
         Object sessionUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        if (sessionUser instanceof Customer) {
-            Customer loggedInUser = (Customer) sessionUser;
-            model.addAttribute("user", loggedInUser);
+        if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
+            model.addAttribute("user", (Customer) sessionUser);
         } else {
-            model.addAttribute("user", null); // Shows 'Guest' in your header logic
+            model.addAttribute("user", null);
         }
 
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
 
-        // 3. Extract unique categories that have products
         Set<String> activeCategories = products.stream()
                 .map(Product::getCategory)
                 .collect(Collectors.toSet());
-
         model.addAttribute("activeCategories", activeCategories);
 
         return "/customer/bakeryItem";
     }
 
+    // --- Customer Profile Page ---
     @GetMapping("/customer/profile")
     public String showCustomerProfile(Model model, HttpSession session) {
         Object sessionUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        if (sessionUser instanceof Customer) {
+        // These pages MUST have a valid Customer session
+        if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
             model.addAttribute("user", (Customer) sessionUser);
             return "/customer/profile";
         }
 
-        return "redirect:/login"; // Redirect guests away from the profile page
+        return "redirect:/login";
+    }
+
+    // --- Customer Cart Page ---
+    @GetMapping("/customer/cart")
+    public String showCustomerCart(Model model, HttpSession session) {
+        Object sessionUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
+
+        if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
+            model.addAttribute("user", (Customer) sessionUser);
+            return "/customer/cart";
+        }
+
+        return "redirect:/login";
     }
 
     // --- Admin Dashboard ---
