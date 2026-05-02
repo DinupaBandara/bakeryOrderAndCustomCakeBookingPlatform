@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const nowCollapsed = sidebar.classList.contains('collapsed');
         const isMobile = window.innerWidth <= 850;
 
+        if (toggleIcon) {
+            toggleIcon.innerText = nowCollapsed ? 'menu' : 'menu_open';
+        }
+
         if (overlay && isMobile) {
             // Only show overlay if the sidebar is NOT collapsed
             overlay.style.display = nowCollapsed ? 'none' : 'block';
