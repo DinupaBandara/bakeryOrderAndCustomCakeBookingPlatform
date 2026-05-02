@@ -14,12 +14,17 @@
 <main class="container">
     <div class="filter-row">
         <div class="filters">
-            <!-- Added onclick to filter function -->
+            <!-- Always show 'All' button -->
             <button class="filter-btn active" onclick="filterSelection('all')">All Creations</button>
-            <button class="filter-btn" onclick="filterSelection('Bread')">Breads</button>
-            <button class="filter-btn" onclick="filterSelection('Patisserie')">Patisserie</button>
-            <button class="filter-btn" onclick="filterSelection('Viennoiserie')">Viennoiserie</button>
-            <button class="filter-btn" onclick="filterSelection('Cakes')">Cakes</button>
+
+            <!-- Use data-category to store the value and pass 'this' to the function -->
+            <th:block th:each="cat : ${activeCategories}">
+                <button class="filter-btn"
+                        th:data-category="${cat}"
+                        onclick="filterSelection(this.getAttribute('data-category'))"
+                        th:text="${cat}">
+                </button>
+            </th:block>
         </div>
 
         <div class="back-home-container">
@@ -50,7 +55,10 @@
                 <p class="product-description" th:text="${product.description}">Description</p>
 
                 <div class="card-footer">
-                    <button class="btn-add-cart">
+                    <!-- Store login status in a data attribute instead of th:onclick -->
+                    <button class="btn-add-cart"
+                            th:data-logged-in="${user != null}"
+                            onclick="handleAddToCart(this)">
                         <span class="material-symbols-outlined">shopping_bag</span>
                         Add to Cart
                     </button>
@@ -68,6 +76,21 @@
         </p>
     </div>
 </footer>
+
+<!-- Login Required Modal -->
+<div id="loginPromptModal" class="auth-modal">
+    <div class="auth-modal-content">
+        <div class="auth-modal-header">
+            <span class="material-symbols-outlined warning-icon">lock</span>
+            <h2>Sign In Required</h2>
+            <p>You need to be logged in to add items to your cart and place orders.</p>
+        </div>
+        <div class="auth-modal-footer">
+            <button class="btn-secondary" onclick="closeLoginModal()">Maybe Later</button>
+            <a th:href="@{/login}" class="btn-primary-link">Sign In Now</a>
+        </div>
+    </div>
+</div>
 
 <script>
     function filterSelection(category) {
@@ -91,6 +114,36 @@
             } else {
                 card.style.display = "none";
             }
+        }
+    }
+
+
+    //Add to cart Button
+    function handleAddToCart(buttonElement) {
+        // Note: getAttribute returns a string "true" or "false"
+        const isLoggedIn = buttonElement.getAttribute('data-logged-in') === 'true';
+
+        if (!isLoggedIn) {
+            // Show the login prompt modal
+            const modal = document.getElementById('loginPromptModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        } else {
+            // User is logged in, perform add to cart logic
+            console.log("Product added to cart successfully!");
+        }
+    }
+
+    function closeLoginModal() {
+        document.getElementById('loginPromptModal').style.display = 'none';
+    }
+
+    // Ensure the modal closes when clicking outside the content box
+    window.onclick = function(event) {
+        const modal = document.getElementById('loginPromptModal');
+        if (event.target === modal) {
+            closeLoginModal();
         }
     }
 </script>

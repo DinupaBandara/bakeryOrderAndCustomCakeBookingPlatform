@@ -265,6 +265,85 @@ body::-webkit-scrollbar {
     color: white;
 }
 
+/* Auth Modal Background */
+.auth-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 28, 16, 0.6); /* Using your --on-surface color with alpha */
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal Box */
+.auth-modal-content {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.warning-icon {
+    font-size: 48px;
+    color: #72564c; /* Your primary color */
+    margin-bottom: 1rem;
+}
+
+.auth-modal-header h2 {
+    color: #1e1c10;
+    margin-bottom: 0.5rem;
+}
+
+.auth-modal-header p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+.auth-modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Buttons */
+.btn-primary-link {
+    background: #72564c;
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-secondary {
+    background: #f4eedb;
+    color: #72564c;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary-link:hover { background: #5d463e; }
+
 /* Footer */
 footer {
     background-color: #FAF3E0;
