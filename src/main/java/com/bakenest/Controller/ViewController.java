@@ -79,16 +79,20 @@ public class ViewController {
     // --- Custom Cake Page ---
     @GetMapping("/customer/product/customcake")
     public String showCustomCakePage(Model model, HttpSession session) {
+        // 1. Retrieve the session user and their role safely
         Object sessionUser = session.getAttribute("loggedUser");
         String role = (String) session.getAttribute("role");
 
-        // These pages MUST have a valid Customer session
+        // 2. Validate that the logged-in user is specifically a Customer
         if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
             model.addAttribute("user", (Customer) sessionUser);
-            return "/customer/customCake";
+        } else {
+            // 3. Set user to null for Guest view if no customer session is active
+            model.addAttribute("user", null);
         }
 
-        return "redirect:/login";
+        // 4. Return the path to your custom cake template
+        return "/customer/customeCake";
     }
 
     // --- Bakery Items with Category Filtering ---
@@ -132,17 +136,35 @@ public class ViewController {
     }
 
     // --- Customer Cart Page ---
+//    @GetMapping("/customer/cart")
+//    public String showCustomerCart(Model model, HttpSession session) {
+//        Object sessionUser = session.getAttribute("loggedUser");
+//        String role = (String) session.getAttribute("role");
+//
+//        if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
+//            model.addAttribute("user", (Customer) sessionUser);
+//            return "/customer/cart";
+//        }
+//
+//        return "redirect:/login";
+//    }
+
     @GetMapping("/customer/cart")
     public String showCustomerCart(Model model, HttpSession session) {
+        // 1. Retrieve data from session safely
         Object sessionUser = session.getAttribute("loggedUser");
         String role = (String) session.getAttribute("role");
 
+        // 2. Check if the user is a valid Customer
         if (sessionUser instanceof Customer && "CUSTOMER".equals(role)) {
             model.addAttribute("user", (Customer) sessionUser);
-            return "/customer/cart";
+        } else {
+            // 3. For testing: allow guests (null user) instead of redirecting
+            model.addAttribute("user", null);
         }
 
-        return "redirect:/login";
+        // 4. Return the view directly
+        return "/customer/cart";
     }
 
     // --- Admin Dashboard ---

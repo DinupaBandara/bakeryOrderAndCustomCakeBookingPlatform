@@ -53,29 +53,27 @@ public class CustomerController {
                         HttpServletRequest request,
                         Model model) {
 
-        // 1. Get the current session and invalidate it
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
 
-        // 2. CRITICAL: Create a brand new session for the new login
         session = request.getSession(true);
 
-        // 3. Now you can safely use session.setAttribute
         Optional<Admin> admin = adminService.authenticate(email, password);
         if (admin.isPresent()) {
-            session.setAttribute("loggedUser", admin.get()); // This won't crash now
+            session.setAttribute("loggedUser", admin.get());
             session.setAttribute("role", "ADMIN");
             return "redirect:/admin/dashboard";
         }
 
-        // Handle Customer login
         Optional<Customer> customerOpt = customerService.authenticate(email, password);
         if (customerOpt.isPresent()) {
             Customer customer = customerOpt.get();
             if (!customer.isActive()) {
                 model.addAttribute("loginError", "Your account has been deactivated.");
+                // FIX: Add empty object for Thymeleaf binding
+                model.addAttribute("customer", new Customer());
                 return "login";
             }
             session.setAttribute("loggedUser", customer);
@@ -84,6 +82,8 @@ public class CustomerController {
         }
 
         model.addAttribute("loginError", "Invalid email or password");
+        // FIX: Add empty object for Thymeleaf binding
+        model.addAttribute("customer", new Customer());
         return "login";
     }
 
