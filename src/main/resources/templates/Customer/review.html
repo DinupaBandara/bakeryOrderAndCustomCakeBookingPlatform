@@ -1,334 +1,293 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Share your experience at Sweet Crumbs Bakery. Leave a review and read what our customers love about us."
+    />
+    <title>Sweet Crumbs Bakery — Customer Reviews</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+      <link rel="stylesheet" th:href="@{/css/customer/review.css}">
+  </head>
 
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap"
-          rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-          rel="stylesheet"/>
-    <link rel="stylesheet" th:href="@{/css/customer/review.css}">
+  <body>
+    <!-- ── Page Header ── -->
+    <header class="site-header">
+      <div class="header-inner">
+        <span class="header-logo">🥐</span>
+        <div>
+          <p class="header-tagline">EST. 2008 · ARTISAN BAKERY</p>
+          <h1 class="header-title">Sweet Crumbs Bakery</h1>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+    </header>
 
-</head>
-<body>
-<header>
-    <div class="header-content max-w-7xl">
-        <a class="logo" href="#">Bake Nest</a>
-        <nav class="main-nav">
-            <a class="nav-link" href="#">Dashboard</a>
-            <a class="nav-link active" href="#">Reviews  and  feedback</a>
-            <a class="nav-link" href="#">Products</a>
-            <a class="nav-link" href="#">(Orders)</a>
-            <a class="nav-link" href="#">(Insights)</a>
-        </nav>
-        <div class="header-actions">
-            <div class="search-container">
-                <span class="material-symbols-outlined">search</span>
-                <input class="search-input" placeholder="Search reviews..." type="text"/>
+    <!-- ── Main Container ── -->
+    <main class="container">
+
+      <!-- ── Section Title ── -->
+      <section class="section-hero">
+        <h2 class="section-heading">🍰 Customer Reviews</h2>
+        <p class="section-subtext">
+          Every bite tells a story. Share yours with our little bakery family.
+        </p>
+      </section>
+
+      <!-- ── Review Form ── -->
+      <section class="card form-card" aria-labelledby="form-heading">
+        <div class="card-badge">✦ Leave a Review</div>
+        <h3 class="card-title" id="form-heading">Share Your Experience</h3>
+        <p class="card-subtitle">
+          We bake with love — tell us how we did!
+        </p>
+
+        <form class="review-form" action="#" method="post">
+          <!-- Customer Name -->
+          <div class="field-group">
+            <label class="field-label" for="customer-name">
+              Your Name
+            </label>
+            <input
+              class="field-input"
+              type="text"
+              id="customer-name"
+              name="customer-name"
+              placeholder="e.g. Emma Thompson"
+              autocomplete="name"
+            />
+          </div>
+
+          <!-- Rating -->
+          <div class="field-group">
+            <label class="field-label" for="rating">
+              Rating
+            </label>
+            <div class="select-wrapper">
+              <select class="field-input field-select" id="rating" name="rating">
+                <option value="" disabled selected>Choose your rating…</option>
+                <option value="5">★★★★★ — Outstanding (5/5)</option>
+                <option value="4">★★★★☆ — Loved it (4/5)</option>
+                <option value="3">★★★☆☆ — Pretty good (3/5)</option>
+                <option value="2">★★☆☆☆ — Could be better (2/5)</option>
+                <option value="1">★☆☆☆☆ — Disappointed (1/5)</option>
+              </select>
+              <span class="select-arrow">▾</span>
             </div>
-            <button class="icon-btn">
-                <span class="material-symbols-outlined">notifications</span>
-            </button>
-            <button class="icon-btn">
-                <span class="material-symbols-outlined">settings</span>
-            </button>
-            <img alt="Bakery Owner Profile" class="profile-img"
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI4XeKgBY6LkXTkshOt5NzCxxHKb_P3BtqVJBNUNcM-_NFM9y4n6Gy-16qPOulymYyKe5kMnU_AHeM3GYU5mp5U4zXDC9gaHbAHRIy8CS7JddyW1-Zzqn9m6lHANjEu-Xm6f6dKv_mCOuHTTnYSnAGPDri9uZqZuN34KJLnmy8VzV4SgQdMJD5ykhZk4tlHKOdW0xOwT-jtTSdrapA96G4BK54FOeKrgmiPU7Cx4cMqNS6T-Y6gGP0dcYzIp5n6ZzHig9nUtrXu5YF"/>
+          </div>
+
+          <!-- Comment -->
+          <div class="field-group">
+            <label class="field-label" for="comment">
+              Your Comment
+            </label>
+            <textarea
+              class="field-input field-textarea"
+              id="comment"
+              name="comment"
+              rows="4"
+              placeholder="Tell us about your favourite pastry, the atmosphere, or anything that made your visit special…"
+            ></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button class="btn btn-primary" type="submit" id="submit-review">
+            🍪 Submit My Review
+          </button>
+        </form>
+      </section>
+
+      <!-- ── Stats Strip ── -->
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-number">4.9</span>
+          <span class="stat-label">Average Rating</span>
         </div>
-    </div>
-</header>
-<main class="max-w-7xl">
-    <!-- Header & Stats -->
-    <section>
-        <div class="hero-header">
-            <div>
-                <h1 class="hero-title">Feedback Insights</h1>
-                <p class="hero-subtitle">Manage and respond to your customers' culinary experiences.</p>
-            </div>
-            <button class="btn-primary">
-                <span class="material-symbols-outlined" style="font-size: 1rem;">download</span>
-                Export Report
-            </button>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">★★★★★</span>
+          <span class="stat-label">Overall Score</span>
         </div>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-label">Average Rating</span>
-                <div class="stat-value">4.8</div>
-                <div class="stat-stars">
-                    <span class="material-symbols-outlined filled-icon">star</span>
-                    <span class="material-symbols-outlined filled-icon">star</span>
-                    <span class="material-symbols-outlined filled-icon">star</span>
-                    <span class="material-symbols-outlined filled-icon">star</span>
-                    <span class="material-symbols-outlined filled-icon" style="font-variation-settings: 'FILL' 0.8;">star_half</span>
-                </div>
-                <p class="stat-delta">+0.2 from last month</p>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Total Reviews</span>
-                <div class="stat-value">1,284</div>
-                <p class="stat-delta">Across all platforms</p>
-            </div>
-            <div class="stat-card stat-card-wide">
-                <span class="stat-label">Sentiment Breakdown</span>
-                <div class="sentiment-container">
-                    <div class="sentiment-row">
-                        <div class="sentiment-info">
-                            <span style="color: var(--on-surface);">Positive (88%)</span>
-                            <span style="color: var(--outline);">1,130 reviews</span>
-                        </div>
-                        <div class="sentiment-bar-bg">
-                            <div class="sentiment-bar-fill" style="background-color: var(--primary); width: 88%;"></div>
-                        </div>
-                    </div>
-                    <div class="sentiment-row">
-                        <div class="sentiment-info">
-                            <span style="color: var(--on-surface);">Neutral (9%)</span>
-                            <span style="color: var(--outline);">115 reviews</span>
-                        </div>
-                        <div class="sentiment-bar-bg">
-                            <div class="sentiment-bar-fill"
-                                 style="background-color: var(--secondary-container); width: 9%;"></div>
-                        </div>
-                    </div>
-                    <div class="sentiment-row">
-                        <div class="sentiment-info">
-                            <span style="color: var(--on-surface);">Negative (3%)</span>
-                            <span style="color: var(--outline);">39 reviews</span>
-                        </div>
-                        <div class="sentiment-bar-bg">
-                            <div class="sentiment-bar-fill" style="background-color: var(--error); width: 3%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">248</span>
+          <span class="stat-label">Happy Customers</span>
         </div>
-    </section>
-    <!-- Main Content Section -->
-    <div class="content-grid">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="filter-section">
-                <h3 class="filter-title">Filters</h3>
-                <div>
-                    <span class="filter-group-label">Rating Range</span>
-                    <label class="checkbox-label">
-                        <input checked="" type="checkbox"/>
-                        <span>5 Stars <span class="material-symbols-outlined filled-icon"
-                                            style="color: var(--secondary-container); font-size: 0.75rem;">star</span></span>
-                    </label>
-                    <label class="checkbox-label">
-                        <input checked="" type="checkbox"/>
-                        <span>4 Stars <span class="material-symbols-outlined filled-icon"
-                                            style="color: var(--secondary-container); font-size: 0.75rem;">star</span></span>
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox"/>
-                        <span>3 Stars and below</span>
-                    </label>
-                </div>
-                <div>
-                    <span class="filter-group-label">Product Category</span>
-                    <select class="select-input">
-                        <option>All Products</option>
-                        <option>Sourdough Breads</option>
-                        <option>Pastries &amp; Croissants</option>
-                        <option>Seasonal Cakes</option>
-                        <option>Gluten-Free Range</option>
-                    </select>
-                </div>
-                <div>
-                    <span class="filter-group-label">Time Period</span>
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <button class="time-btn active">Last 30 Days</button>
-                        <button class="time-btn">Last 3 Months</button>
-                        <button class="time-btn">This Year</button>
-                    </div>
-                </div>
-                <button class="reset-btn">Reset All Filters</button>
-            </div>
-            <div class="trending-box">
-                <h4 style="font-size: 0.875rem; font-weight: 600; color: var(--tertiary); margin-bottom: 1rem;">Trending
-                    Feedback Topics</h4>
-                <div class="tag-cloud">
-                    <span class="tag"><div class="tag-dot"></div> Sourdough Texture</span>
-                    <span class="tag"><div class="tag-dot"></div> Morning Freshness</span>
-                    <span class="tag"><div class="tag-dot"></div> Eco-Packaging</span>
-                    <span class="tag"><div class="tag-dot"></div> Almond Croissants</span>
-                </div>
-            </div>
-        </aside>
-        <!-- Reviews List -->
-        <section>
-            <div class="review-list-header">
-                <h2 class="font-serif" style="font-size: 2rem; color: var(--primary);">Recent Reviews</h2>
-                <span style="font-size: 0.875rem; color: var(--outline);">Showing 24 of 1,284 reviews</span>
-            </div>
-            <!-- Review Card 1 -->
-            <article class="review-card">
-                <div class="card-inner">
-                    <img alt="Customer Profile" class="customer-avatar"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_R1pRgangDCUfDHdwjF_xDnWtBpB0WTUhCsi7gx11O6JCwkgFTn6ElFlDXsfU41KA_rdIAD6j1olQ2RYBHlCMS0pOZVmxmxVBIPyG3bXCrBFg4k8SUHi2xxt8oyEShe0RVGPBerblCPQtxrLs3WWxn6W_SIQk1vL6eOmIVI39B6xslU4udGUk5_5UBFPC7f2DbYJEZX-tK-GFCXi78eRsaiplzrxy7jnfFKqoV16z7W4KxGmdOmPLrFdnZfqiCwlOlXhhqPe7vGsR"/>
-                    <div class="review-content">
-                        <div class="review-meta">
-                            <div>
-                                <h4 class="customer-name">Eleanor Vance</h4>
-                                <div style="display: flex; align-items: center;">
-                                    <div class="rating-stars">
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                    </div>
-                                    <span class="review-date">2 hours ago</span>
-                                </div>
-                            </div>
-                            <span class="product-badge">Product: Signature Sourdough</span>
-                        </div>
-                        <p class="review-text">
-                            The crust on this sourdough is absolutely divine—perfectly crackly with that characteristic
-                            tang I've been searching for. It reminded me of a small bakery in the French countryside.
-                            Will definitely be a Saturday morning staple for us!
-                        </p>
-                        <div class="customer-photo-container">
-                            <img alt="Sourdough" class="customer-photo"
-                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQBc3yE3g8byE4nhKEx532gPk1HXHJW2_JJQ4ABiUZ_C6ljvHpczSKg7Ct7ypMW3pWjJ2rVBwGnPf45G6J9XcKgczE-j2jsg2YriQr4EGPy4cDgdeZxXS2qA8oiqVeklkO4RoreMd0TF8Y3vY48G6xo0Ycus7FGMub_PaLSvLNgpBxqATuMit9-TF2Ldn9Z_CjxUjYbFHAoMrrIE5lzEeK3HqEGgJACLVdpxi_hj9Oq6-R0IzAwhY-_2GKvtlh10MyJV8moyS5Gl9p"/>
-                            <div class="photo-overlay">
-                                <span class="material-symbols-outlined">zoom_in</span>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <button class="action-btn action-btn-primary"><span class="material-symbols-outlined"
-                                                                                style="font-size: 1rem;">reply</span>
-                                Reply
-                            </button>
-                            <button class="action-btn action-btn-outline"><span class="material-symbols-outlined"
-                                                                                style="font-size: 1rem;">flag</span>
-                                Flag
-                            </button>
-                            <button class="action-btn action-btn-secondary"><span class="material-symbols-outlined"
-                                                                                  style="font-size: 1rem;">auto_awesome</span>
-                                Feature on Site
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <!-- Review Card 2 -->
-            <article class="review-card">
-                <div class="card-inner">
-                    <img alt="Customer Profile" class="customer-avatar"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiYUOOdqGEzBnj4W6cQ4kehzC5A9ODiNjng2HrlRshGPJTSY6rF7HarBfh1IZPd5CywqKU2O4JQjmilmqnPPAy6jYzmwnFs2bjj7VOhdPM_G2cDSraGwCXdPzIKVpWttuj2lvUb8cWL4bJuQjeOFyk-pnw0UZMtagd12bVED7SITz2goTMOA1WHiLvEvxK-p26l8TSCgTAzmglFJW9pFNTivYcZb1Djeg_YWF-o9Q8srA5ldrHtVJUJlhX3JcaNGVTuTVTUswwEZud"/>
-                    <div class="review-content">
-                        <div class="review-meta">
-                            <div>
-                                <h4 class="customer-name">Julian Thorne</h4>
-                                <div style="display: flex; align-items: center;">
-                                    <div class="rating-stars">
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined"
-                                              style="color: var(--outline);">star</span>
-                                    </div>
-                                    <span class="review-date">Yesterday</span>
-                                </div>
-                            </div>
-                            <span class="product-badge">Product: Almond Croissant</span>
-                        </div>
-                        <p class="review-text">
-                            Excellent flavor and very generous with the almond filling. My only small note was that it
-                            was a bit too sweet for my personal taste, but the flaky texture was spot on. I'll be back
-                            for the plain ones!
-                        </p>
-                        <div class="card-actions">
-                            <button class="action-btn action-btn-primary"><span class="material-symbols-outlined"
-                                                                                style="font-size: 1rem;">reply</span>
-                                Reply
-                            </button>
-                            <button class="action-btn action-btn-outline"><span class="material-symbols-outlined"
-                                                                                style="font-size: 1rem;">flag</span>
-                                Flag
-                            </button>
-                            <button class="action-btn action-btn-secondary"><span class="material-symbols-outlined"
-                                                                                  style="font-size: 1rem;">auto_awesome</span>
-                                Feature on Site
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <!-- Review Card 3 (Replied) -->
-            <article class="review-card replied">
-                <div class="card-inner">
-                    <img alt="Customer Profile" class="customer-avatar"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoJl-Z9lk3IhHHkKBFFgp0cb2H3g93IR6JDxi8dGxHbPb-0Ei_jBAyNy6iuo-lcri7AJPL294q93B0feyIQQO0qLVPiQ6WHY6T82oaGTm9Ry7z8yay-bgXfJa9u-F1RKh6QnxqwJZiGqpRZbyW5xX4hlHdzS8zTfT2NX29rCjcMLQy_YGDIECY-xfUMaC1AHKQ9JZ25Lxfu6FhfWHQUCyKz7JxA0dfXkBaUZyfylkshBkQ68_-32eoKPL4jqsbCQLElH8HgN8LqpgA"/>
-                    <div class="review-content">
-                        <div class="review-meta">
-                            <div>
-                                <h4 class="customer-name">Sarah Miller</h4>
-                                <div style="display: flex; align-items: center;">
-                                    <div class="rating-stars">
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                        <span class="material-symbols-outlined filled-icon">star</span>
-                                    </div>
-                                    <span class="review-date">3 days ago</span>
-                                </div>
-                            </div>
-                            <span class="product-badge">Product: Raspberry Tart</span>
-                        </div>
-                        <p class="review-text">
-                            Hands down the best tart in the city. The berries were so fresh they tasted like they were
-                            picked that morning.
-                        </p>
-                        <div class="reply-block">
-                            <div class="reply-pointer"></div>
-                            <div class="reply-header">
-                                <span class="material-symbols-outlined" style="font-size: 1rem;">chat_bubble</span>
-                                <span>Your Response</span>
-                                <span class="reply-date-small">2 days ago</span>
-                            </div>
-                            <p class="reply-body">
-                                "Thank you so much, Sarah! We source our raspberries daily from the local co-op, so
-                                we're thrilled you noticed the freshness. See you again soon!"
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <nav class="pagination">
-                <button class="page-btn"><span class="material-symbols-outlined">chevron_left</span></button>
-                <button class="page-btn page-btn-active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <span style="color: var(--outline); padding: 0 0.5rem;">...</span>
-                <button class="page-btn"><span class="material-symbols-outlined">chevron_right</span></button>
-            </nav>
-        </section>
-    </div>
-</main>
-<footer>
-    <div class="footer-content max-w-7xl">
-        <div style="text-align: center;">
-            <div class="footer-logo font-serif">Artisan Bakery</div>
-            <p class="footer-copy">© 2024 Artisan Bakery. Handcrafted with Care.</p>
+      </div>
+
+      <!-- ── Reviews List ── -->
+      <section aria-labelledby="reviews-heading">
+        <div class="reviews-header">
+          <h3 class="reviews-title" id="reviews-heading">
+            What Our Customers Say
+          </h3>
+          <span class="reviews-count">Showing 5 of 248 reviews</span>
         </div>
-        <nav class="footer-nav">
-            <a class="footer-link" href="#">Privacy Policy</a>
-            <a class="footer-link" href="#">Terms of Service</a>
-            <a class="footer-link" href="#">Support</a>
-            <a class="footer-link" href="#">Contact Us</a>
-        </nav>
-        <div class="social-btns">
-            <button class="social-btn"><span class="material-symbols-outlined">share</span></button>
-            <button class="social-btn"><span class="material-symbols-outlined">mail</span></button>
-        </div>
-    </div>
-</footer>
-</body>
+
+        <div class="reviews-grid">
+
+          <!-- Review Card 1 -->
+          <article class="card review-card" id="review-1">
+            <div class="review-card-top">
+              <div class="reviewer-avatar">S</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Sophie Laurent</span>
+                <time class="review-date" datetime="2026-04-28">April 28, 2026</time>
+              </div>
+              <button class="btn btn-edit" id="edit-review-1" aria-label="Edit Sophie's review">
+                ✎ Edit
+              </button>
+            </div>
+            <div class="star-row" aria-label="5 out of 5 stars">
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star-score">5.0</span>
+            </div>
+            <blockquote class="review-text">
+              "The almond croissants here are absolutely divine — flaky, buttery,
+              and perfectly golden. I've been to bakeries all over Paris, and
+              Sweet Crumbs holds its own. My Saturday morning ritual now!"
+            </blockquote>
+            <div class="review-tag">🥐 Almond Croissant</div>
+          </article>
+
+          <!-- Review Card 2 -->
+          <article class="card review-card" id="review-2">
+            <div class="review-card-top">
+              <div class="reviewer-avatar avatar--pink">M</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Marcus Reid</span>
+                <time class="review-date" datetime="2026-04-22">April 22, 2026</time>
+              </div>
+              <button class="btn btn-edit" id="edit-review-2" aria-label="Edit Marcus's review">
+                ✎ Edit
+              </button>
+            </div>
+            <div class="star-row" aria-label="4 out of 5 stars">
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--empty">★</span>
+              <span class="star-score">4.0</span>
+            </div>
+            <blockquote class="review-text">
+              "Incredible sourdough — thick crust, chewy inside, and that
+              gorgeous tangy flavour. The staff were warm and welcoming too.
+              Only giving 4 stars because the parking can get a little tricky
+              on weekends!"
+            </blockquote>
+            <div class="review-tag">🍞 Sourdough Loaf</div>
+          </article>
+
+          <!-- Review Card 3 -->
+          <article class="card review-card" id="review-3">
+            <div class="review-card-top">
+              <div class="reviewer-avatar avatar--mint">A</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Amara Osei</span>
+                <time class="review-date" datetime="2026-04-15">April 15, 2026</time>
+              </div>
+              <button class="btn btn-edit" id="edit-review-3" aria-label="Edit Amara's review">
+                ✎ Edit
+              </button>
+            </div>
+            <div class="star-row" aria-label="5 out of 5 stars">
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star-score">5.0</span>
+            </div>
+            <blockquote class="review-text">
+              "Ordered a custom birthday cake for my daughter — three tiers of
+              lemon sponge with elderflower cream. It looked stunning and tasted
+              even better. Everyone at the party was asking where it was from.
+              Will 100% be back!"
+            </blockquote>
+            <div class="review-tag">🎂 Custom Celebration Cake</div>
+          </article>
+
+          <!-- Review Card 4 -->
+          <article class="card review-card" id="review-4">
+            <div class="review-card-top">
+              <div class="reviewer-avatar avatar--lavender">J</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">James Whitfield</span>
+                <time class="review-date" datetime="2026-04-10">April 10, 2026</time>
+              </div>
+              <button class="btn btn-edit" id="edit-review-4" aria-label="Edit James's review">
+                ✎ Edit
+              </button>
+            </div>
+            <div class="star-row" aria-label="5 out of 5 stars">
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star-score">5.0</span>
+            </div>
+            <blockquote class="review-text">
+              "The cinnamon rolls are a religious experience. Warm, gooey,
+              loaded with cream cheese frosting — I dream about them. The
+              cosy shop atmosphere makes the whole experience feel like a hug.
+              A genuine hidden gem."
+            </blockquote>
+            <div class="review-tag">🌀 Cinnamon Roll</div>
+          </article>
+
+          <!-- Review Card 5 -->
+          <article class="card review-card" id="review-5">
+            <div class="review-card-top">
+              <div class="reviewer-avatar avatar--peach">L</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Lily Chen</span>
+                <time class="review-date" datetime="2026-04-03">April 3, 2026</time>
+              </div>
+              <button class="btn btn-edit" id="edit-review-5" aria-label="Edit Lily's review">
+                ✎ Edit
+              </button>
+            </div>
+            <div class="star-row" aria-label="3 out of 5 stars">
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--filled">★</span>
+              <span class="star star--empty">★</span>
+              <span class="star star--empty">★</span>
+              <span class="star-score">3.0</span>
+            </div>
+            <blockquote class="review-text">
+              "Nice flavours overall — the pistachio tart especially caught my
+              eye. My one note is that the queue can stretch out the door on
+              busy mornings. Worth the wait, but an online pre-order system
+              would be a lovely addition."
+            </blockquote>
+            <div class="review-tag">🥧 Pistachio Tart</div>
+          </article>
+
+        </div><!-- /.reviews-grid -->
+      </section>
+
+    </main><!-- /.container -->
+
+    <!-- ── Footer ── -->
+    <footer class="site-footer">
+      <p>🍰 Sweet Crumbs Bakery &nbsp;·&nbsp; Baked with love since 2008</p>
+      <p class="footer-sub">Reviews are moderated and reflect genuine customer experiences.</p>
+    </footer>
+
+  </body>
 </html>
