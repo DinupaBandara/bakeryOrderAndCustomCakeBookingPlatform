@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | BakeNest</title>
+    <link rel="stylesheet" th:href="@{/css/customer/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/notification.css}">
+
+    <script th:src="@{/js/customer/notification.js}" defer></script>
+</head>
+<body class="profile-body">
+
+<div th:replace="~{Customer/fragments/navbar :: header-nav}"></div>
+
+<main class="profile-container">
+    <!-- Profile Header Section -->
+    <header class="profile-hero">
+        <div class="profile-hero-content">
+            <div class="avatar-large">
+                <img th:src="'https://ui-avatars.com/api/?name=' + ${user.firstName} + '+' + ${user.lastName} + '&size=128&background=random&color=fff&bold=true'"
+                     alt="User Avatar">
+            </div>
+            <div class="user-meta">
+                <h1 th:text="${user.firstName + ' ' + user.lastName}">John Doe</h1>
+                <span class="status-badge" th:classappend="${user.active} ? 'status-active' : 'status-inactive'">
+                    <span class="material-symbols-outlined">verified_user</span>
+                    <span th:text="${user.active ? 'Active Member' : 'Inactive'}">Active</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div class="profile-grid">
+        <!-- Section 1: Personal Details -->
+        <section class="profile-card info-card">
+            <div class="card-header">
+                <span class="material-symbols-outlined">person</span>
+                <h2>Personal Information</h2>
+            </div>
+            <div class="details-list">
+                <div class="detail-item">
+                    <label>Email Address</label>
+                    <p th:text="${user.email}">user@example.com</p>
+                </div>
+                <div class="detail-item">
+                    <label>NIC Number</label>
+                    <p th:text="${user.nic}">123456789V</p>
+                </div>
+                <div class="detail-item">
+                    <label>Phone Number</label>
+                    <p th:text="${user.phoneNumber}">0771234567</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Shipping & Address -->
+        <section class="profile-card address-card">
+            <div class="card-header">
+                <span class="material-symbols-outlined">location_on</span>
+                <h2>Delivery Address</h2>
+            </div>
+            <div class="details-list">
+                <div class="detail-item full-width">
+                    <label>Street Address</label>
+                    <p th:text="${user.address != null && !user.address.isEmpty() ? user.address : 'No address provided'}">Street Details</p>
+                </div>
+                <div class="form-row">
+                    <div class="detail-item">
+                        <label>City</label>
+                        <p th:text="${user.city != null ? user.city : '—'}">City</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Zip Code</label>
+                        <p th:text="${user.zipCode != null ? user.zipCode : '—'}">12345</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Account Security -->
+        <section class="profile-card account-card">
+            <div class="card-header">
+                <span class="material-symbols-outlined">shield_lock</span>
+                <h2>Account Safety</h2>
+            </div>
+            <div class="account-actions">
+                <p class="join-date">Member since: <span th:text="${#temporals.format(user.createdAt, 'dd MMMM yyyy')}">January 2024</span></p>
+                <div class="btn-group">
+                    <button class="btn-edit">
+                        <span class="material-symbols-outlined">edit</span>
+                        Edit Profile
+                    </button>
+                    <a th:href="@{/customer/orders}" class="btn-orders">
+                        <span class="material-symbols-outlined">package_2</span>
+                        View Orders
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="modal" th:classappend="${activeTab == 'edit'} ? 'show-modal' : ''">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Edit Personal Details</h2>
+            <span class="close material-symbols-outlined" onclick="closeModal()">close</span>
+        </div>
+
+        <form th:action="@{/auth/customer/profile/update}" th:object="${user}" method="post" class="edit-form">
+            <div class="form-columns">
+                <!-- Left Column: Personal Info -->
+                <div class="column">
+                    <h3>Personal Info</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" th:field="*{firstName}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" th:field="*{lastName}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" th:field="*{email}" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel"  pattern="^(?:0|94|\\+94)?(7[0-9]{8})$" th:field="*{phoneNumber}" required maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label>NIC Number</label>
+                            <input type="text" th:field="*{nic}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Address Details -->
+                <div class="column">
+                    <h3>Address Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" th:field="*{city}">
+                        </div>
+                        <div class="form-group">
+                            <label>Zip Code</label>
+                            <input type="text" th:field="*{zipCode}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Street Address</label>
+                        <textarea th:field="*{address}" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-save">Update Profile</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Notification Container -->
+<div th:replace="~{customer/fragments/notification :: customer-notification}"></div>
+
+<script>
+    function openEditModal() {
+        document.getElementById('editProfileModal').classList.add('show-modal');
+    }
+
+    function closeModal() {
+        document.getElementById('editProfileModal').classList.remove('show-modal');
+    }
+
+    // Add event listener to your existing .btn-edit
+    document.querySelector('.btn-edit').addEventListener('click', openEditModal);
+</script>
+</body>
+</html>

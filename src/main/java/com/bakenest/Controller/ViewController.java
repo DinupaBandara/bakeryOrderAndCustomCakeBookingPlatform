@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -102,90 +104,110 @@ public class ViewController {
 
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
+
+        // 3. Extract unique categories that have products
+        Set<String> activeCategories = products.stream()
+                .map(Product::getCategory)
+                .collect(Collectors.toSet());
+
+        model.addAttribute("activeCategories", activeCategories);
+
         return "/customer/bakeryItem";
     }
 
+    @GetMapping("/customer/profile")
+    public String showCustomerProfile(Model model, HttpSession session) {
+        Object sessionUser = session.getAttribute("loggedUser");
+
+        if (sessionUser instanceof Customer) {
+            model.addAttribute("user", (Customer) sessionUser);
+            return "/customer/profile";
+        }
+
+        return "redirect:/login"; // Redirect guests away from the profile page
+    }
+
+    // --- Admin Dashboard ---
     @GetMapping("/admin/dashboard")
     public String showAdminDashboardPage(HttpSession session, Model model) {
         Object loggedUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        if (loggedUser == null) {
+        // Check if the user is an Admin and the role matches
+        if (!(loggedUser instanceof Admin) || !"ADMIN".equals(role)) {
             return "redirect:/login";
         }
 
-        // Adding it to the model allows you to use ${admin} if you prefer
         model.addAttribute("admin", loggedUser);
         model.addAttribute("activePage", "dashboard");
         return "admin/dashboard";
     }
 
+    // --- Product Management ---
     @GetMapping("/admin/product")
     public String showAdminProductPage(Model model, HttpSession session) {
         Object loggedUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        if (session.getAttribute("loggedUser") == null) {
+        if (!(loggedUser instanceof Admin) || !"ADMIN".equals(role)) {
             return "redirect:/login";
         }
 
-        List<Product> productList = productRepository.findAll();
-        model.addAttribute("products", productList);
+        model.addAttribute("products", productRepository.findAll());
         model.addAttribute("admin", loggedUser);
         model.addAttribute("activePage", "products");
-
         return "admin/product";
     }
 
+    // --- Admin Management (Super Admin Only) ---
     @GetMapping("/admin/adminManagement")
     public String showManagementPage(Model model, HttpSession session) {
+        Object loggedUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        // 1. Retrieve the session user
-        Admin loggedIn = (Admin) session.getAttribute("loggedUser");
-
-        // 2. Security Check: Block unauthorized access
-        if (loggedIn == null || !loggedIn.isSuperAdmin()) {
-            return "redirect:/admin/dashboard";
+        if (loggedUser instanceof Admin && "ADMIN".equals(role)) {
+            Admin loggedIn = (Admin) loggedUser;
+            // Check for Super Admin privileges
+            if (!loggedIn.isSuperAdmin()) {
+                return "redirect:/admin/dashboard";
+            }
+            model.addAttribute("admin", loggedIn);
+            model.addAttribute("admins", adminRepository.findAll());
+            model.addAttribute("activePage", "management");
+            return "Admin/adminManagement";
         }
 
-        // 3. Provide data to the view
-        model.addAttribute("admin", loggedIn);
-        model.addAttribute("admins", adminRepository.findAll());
-        model.addAttribute("activePage", "management");
-
-        return "Admin/adminManagement";
+        return "redirect:/login";
     }
 
+    // --- Admin Profile ---
     @GetMapping("/admin/profile")
     public String showProfilePage(Model model, HttpSession session) {
-        // 1. Retrieve the session user
-        Admin loggedIn = (Admin) session.getAttribute("loggedUser");
+        Object loggedUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        // 2. Security Check
-        if (loggedIn == null) {
+        if (!(loggedUser instanceof Admin) || !"ADMIN".equals(role)) {
             return "redirect:/login";
         }
 
-        // 3. Pass the logged-in admin to the view
-        model.addAttribute("admin", loggedIn);
+        model.addAttribute("admin", loggedUser);
         model.addAttribute("activePage", "profile");
-
         return "Admin/profile";
     }
 
+    // --- Customer Management ---
     @GetMapping("/admin/customers")
     public String showCustomerPage(Model model, HttpSession session) {
-        // 1. Retrieve the session user
-        Admin loggedIn = (Admin) session.getAttribute("loggedUser");
+        Object loggedUser = session.getAttribute("loggedUser");
+        String role = (String) session.getAttribute("role");
 
-        // 2. Security Check
-        if (loggedIn == null) {
+        if (!(loggedUser instanceof Admin) || !"ADMIN".equals(role)) {
             return "redirect:/login";
         }
 
-        // 3. Pass the logged-in admin to the view
-        model.addAttribute("admin", loggedIn);
+        model.addAttribute("admin", loggedUser);
         model.addAttribute("activePage", "customers");
         model.addAttribute("customers", customerRepository.findAll());
-
         return "admin/customers";
     }
 

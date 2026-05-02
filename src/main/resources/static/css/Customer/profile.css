@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+
+:root {
+    --primary: #72564c;
+    --surface: #fff9ec;
+    --surface-dark: #f4eedb;
+    --on-surface: #1e1c10;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.profile-body {
+    background-color: var(--surface);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--on-surface);
+}
+
+body::-webkit-scrollbar { display: none; }
+
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto; /* Centers the container horizontally */
+    padding: 7rem 2rem 2rem; /* Keeps your top padding for the floating nav */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Hero Section */
+.profile-hero {
+    width: 100%; /* Ensures it fills the 1000px container */
+    background: var(--white);
+    padding: 40px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 10px 30px rgba(114, 86, 76, 0.05);
+}
+
+.profile-hero-content {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.avatar-large img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    border: 4px solid var(--surface-dark);
+}
+
+.user-meta h1 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-active { background: #e8f5e9; color: #2e7d32; }
+
+/* Grid Layout */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    width: 100%;
+}
+
+.profile-card {
+    height: 100%;
+    background: var(--white);
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.account-card { grid-column: span 2; }
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    color: var(--primary);
+}
+
+.card-header h2 { font-size: 1.2rem; }
+
+/* Detail Items */
+.detail-item { margin-bottom: 20px; }
+.detail-item label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.detail-item p {
+    font-weight: 500;
+    color: var(--on-surface);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Buttons */
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-edit, .btn-orders {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-edit {
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+.btn-orders {
+    background: var(--surface-dark);
+    color: var(--primary);
+    border: none;
+}
+
+.btn-edit:hover { background: #5d463e; }
+
+/* --- Modal Overlay --- */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 28, 16, 0.4);
+    backdrop-filter: blur(6px);
+    z-index: 3000;
+    transition: all 0.3s ease;
+}
+
+.show-modal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Modal Container: Height Reduced & Width Optimized --- */
+.modal-content {
+    background: var(--white);
+    padding: 1.5rem 2.5rem; /* Compressed vertical padding */
+    border-radius: 28px;
+    width: 95%;
+    max-width: 850px; /* Slightly wider for side-by-side inputs */
+    box-shadow: 0 25px 50px rgba(114, 86, 76, 0.15);
+    animation: modalAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalAppear {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Compact Header --- */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem; /* Reduced margin */
+}
+
+.modal-header h2 {
+    font-family: 'Noto Serif', serif;
+    color: var(--primary);
+    font-size: 1.4rem;
+}
+
+.close {
+    font-size: 1.6rem;
+    color: #888;
+    cursor: pointer;
+}
+
+/* --- Two-Column Layout --- */
+.form-columns {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Tighter vertical gap between rows */
+}
+
+/* --- Row Management: Side-by-Side Inputs --- */
+.form-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.form-row .form-group {
+    flex: 1; /* Ensures equal width for inputs in a row */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.column h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 0.3rem;
+    border-bottom: 1px solid var(--surface-dark);
+    padding-bottom: 4px;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary);
+    padding-left: 2px;
+}
+
+/* --- Compact Inputs --- */
+.edit-form input,
+.edit-form textarea {
+    width: 100%;
+    padding: 10px 14px; /* Reduced internal padding */
+    border: 1.5px solid var(--surface-dark);
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--on-surface);
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.edit-form textarea {
+    resize: none;
+    min-height: 100px !important; /* Adjusted for reduced height */
+    flex-grow: 1;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+    border-color: var(--primary);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(114, 86, 76, 0.1);
+    outline: none;
+}
+
+/* --- Indicators & Validation --- */
+.edit-form input[required],
+.edit-form textarea[required] {
+    border: 1px solid var(--primary);
+}
+
+.edit-form input:invalid:focus { border-color: #d32f2f; }
+.edit-form input:valid:focus { border-color: #2e7d32; }
+
+/* --- Compact Footer --- */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--surface-dark);
+}
+
+.btn-cancel, .btn-save {
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-cancel {
+    background: var(--surface-dark);
+    color: var(--primary);
+}
+
+.btn-save {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(114, 86, 76, 0.15);
+}
+
+.btn-save:hover {
+    background-color: #5d463e;
+    transform: translateY(-2px);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .form-columns {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        flex-direction: column; /* Stack side-by-side inputs on mobile */
+        gap: 0.8rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+
+    .btn-save, .btn-cancel {
+        width: 100%;
+    }
+}
+/* Responsive */
+@media (max-width: 850px) {
+    .profile-container {
+        padding-top: 6rem; /* Slightly less top space on mobile */
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr; /* Stacks the cards */
+    }
+
+    .profile-hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
