@@ -1,4 +1,13 @@
+<div id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
 <aside th:fragment="admin-sidebar" class="sidebar" id="sidebar">
+    <script>
+        // Inline check to prevent UI flickering
+        if (localStorage.getItem('sidebar-collapsed') === 'true') {
+            document.getElementById('sidebar').classList.add('collapsed');
+        }
+    </script>
+
     <div class="sidebar-header">
         <div class="header-main">
             <h2 class="logo-text">BakeNest</h2>
