@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Cart &amp; Checkout | The Flourished Hearth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+          rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#8d6e63",
+                        "surface-container": "#f4eedb",
+                        "on-background": "#1e1c10",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#2b160f",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#24502c",
+                        "tertiary-fixed-dim": "#a2d3a4",
+                        "tertiary-fixed": "#bdefbe",
+                        "on-tertiary-container": "#f8fff4",
+                        "inverse-primary": "#e4beb2",
+                        "tertiary-container": "#527f57",
+                        "on-tertiary-fixed": "#002109",
+                        "outline-variant": "#d4c3be",
+                        "on-secondary-container": "#792b4a",
+                        "primary-fixed-dim": "#e4beb2",
+                        "on-secondary-fixed-variant": "#792b4a",
+                        "secondary-fixed": "#ffd9e2",
+                        "inverse-on-surface": "#f7f0dd",
+                        "surface-bright": "#fff9ec",
+                        "surface-container-low": "#faf3e0",
+                        "surface-container-highest": "#e9e2d0",
+                        "background": "#fff9ec",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e9e2d0",
+                        "on-surface": "#1e1c10",
+                        "secondary-container": "#fe97b9",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#3a6640",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe8d5",
+                        "on-surface-variant": "#504441",
+                        "on-primary-fixed-variant": "#5b4137",
+                        "on-secondary-fixed": "#3e001e",
+                        "primary-fixed": "#ffdbce",
+                        "primary": "#72564c",
+                        "on-primary-container": "#fffcff",
+                        "error-container": "#ffdad6",
+                        "outline": "#827470",
+                        "surface-dim": "#e0dac7",
+                        "secondary-fixed-dim": "#ffb0c9",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#fff9ec",
+                        "inverse-surface": "#333024",
+                        "secondary": "#964261",
+                        "surface-tint": "#75584d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-background font-body">
+
+<main class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Cart Items List -->
+        <div class="lg:col-span-8 space-y-8">
+            <!-- Product Card 1: Custom Cake -->
+            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm flex flex-col md:flex-row items-stretch transition-transform hover:scale-[1.01] duration-300">
+                <div class="w-full md:w-48 h-48 flex-shrink-0 relative">
+                    <img class="w-full h-full object-cover"
+                         data-alt="Close-up of a high-end custom layered chocolate cake with delicate gold leaf details and velvet-smooth ganache frosting"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOHvZ8zra3abSoikdDmVlmAYyJREMHUOQdbMOqkY7kw8GQ72EQ5R17gXcQ33t7WUr3gzcB3QHZ965SDPHqSN6t7mJvtG61i26ZnMhMNFUTeEaOqVSD2yuta8u_jWGOXwi2rOsXxibXz4kGUbuw2yS3rAPHtI2zIfAYEHyOPDGqR4DurXMCfZUXWYQrj0TJwk4vt-imJ6sR7Z72uAu4wFLSdXiSirbmkGzYfwI2ROks3Ycs9C-INQGNYrVkjqCoZLpeTymcfsHrMs8"/>
+                    <div class="absolute top-2 left-2">
+                        <span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Custom Order</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-primary">Midnight Velvet Tier</h3>
+                            <div class="text-primary/60 text-sm mt-1 space-y-0.5">
+                                <p><span class="font-semibold">Event:</span> Anniversary Celebration</p>
+                                <p><span class="font-semibold">Base:</span> Dark Cocoa &amp; Raspberry</p>
+                                <p><span class="font-semibold">Size/Weight:</span> 8 inch / 1.5kg</p>
+                                <p><span class="font-semibold">Style:</span> Gold Leaf &amp; Ganache Rosettes</p>
+                            </div>
+                        </div>
+                        <button class="text-outline hover:text-error transition-colors">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <div class="mt-6 flex justify-between items-end">
+                        <div class="flex items-center bg-surface-container-high rounded-lg p-1">
+                            <button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-md transition-colors">
+                                <span class="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <span class="w-10 text-center font-bold text-primary">1</span>
+                            <button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-md transition-colors">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                            </button>
+                        </div>
+                        <span class="font-headline text-2xl font-bold text-primary">Rs. 85.00</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 2: Bakery Goods -->
+            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm flex flex-col md:flex-row items-stretch transition-transform hover:scale-[1.01] duration-300">
+                <div class="w-full md:w-48 h-48 flex-shrink-0">
+                    <img class="w-full h-full object-cover"
+                         data-alt="A stack of perfectly flaky, golden brown croissants arranged on a marble platter in a sunlit bakery"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuC95MIIM7kgAh6ZGtKM_94eCFNNmuwi6lfwCZG8rft6MmcbamhScapyy0TwGgbuFaYwZpo8XUhrPxcJDtsuDItvgC3YTGVhcV-EQHpk2nAEJXc93La4eZkSRjxNmhCNZQLkpTSpCnjxJ-O3TjBkk-1uRyyQvOIX5yppP7ch9aJL479TTFq8RK5lm6ZLS3_sW7qciHaXo65YvwTa2cPZvJVDpdsu-BS6mqpuuJJCV1tDBjYlPF2xV1LofyTsWmS_mU2MKM25LAoyixA"/>
+                    <div class="absolute top-2 left-2">
+                        <span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Bread</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-primary">Artisan Croissant Box</h3>
+                            <p class="text-primary/60 text-sm mt-1">Pack of 6 • Butter &amp; Almond variety</p>
+                        </div>
+                        <button class="text-outline hover:text-error transition-colors">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <div class="mt-6 flex justify-between items-end">
+                        <div class="flex items-center bg-surface-container-high rounded-lg p-1">
+                            <button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-md transition-colors">
+                                <span class="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <span class="w-10 text-center font-bold text-primary">2</span>
+                            <button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-md transition-colors">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                            </button>
+                        </div>
+                        <span class="font-headline text-2xl font-bold text-primary">Rs. 48.00</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 3: Specialty Pastry -->
+            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm flex flex-col md:flex-row items-stretch transition-transform hover:scale-[1.01] duration-300">
+                <div class="w-full md:w-48 h-48 flex-shrink-0">
+                    <img class="w-full h-full object-cover"
+                         data-alt="Close-up of decorative floral macarons with delicate hand-painted pastel details on a warm cream background"
+                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuB84ZxXiw7c1ihL_Afa9i8tCeE2Dgy0If-TQxH0In3z_sLTmgcz7JbZcaJLO7vn4OiL-r0e9xPPZDHgcxDa-hhy3Racv9UjOlhpttGB5N4Nret9FQn0GXK6lUYpTxclHpIYTwPRbUTstA61KX-QehjK1OdI8LZW3R4Eod8orf4LHB2Ie-wcpAPAUFzCqe_UG_ykSKLV7syWOXqRdYIPwCxMV2VHQYxV1fMF6tKJ0MMs9STTfknBXmsb43rf5AL6QoDgcbBBRSRyDww"/>
+
+                    <div class="absolute top-2 left-2">
+                        <span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Pastry</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-primary">Floral Macaron Dozen</h3>
+                            <p class="text-primary/60 text-sm mt-1">Lavender, Rose, and Earl Grey fillings</p>
+                        </div>
+                        <button class="text-outline hover:text-error transition-colors">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <div class="mt-6 flex justify-between items-end">
+                        <div class="flex items-center bg-surface-container-high rounded-lg p-1">
+                            <button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-md transition-colors">
+                                <span class="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <span class="w-10 text-center font-bold text-primary">1</span>
+                            <button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-md transition-colors">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                            </button>
+                        </div>
+                        <span class="font-headline text-2xl font-bold text-primary">Rs. 32.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Summary Sidebar -->
+        <aside class="lg:col-span-4 sticky top-32">
+            <div class="bg-surface-container-low rounded-xl p-8 space-y-8">
+                <h2 class="font-headline text-2xl font-bold text-primary">Order Summary</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between text-primary/80">
+                        <span class="font-medium">Subtotal</span>
+                        <span class="font-bold">Rs. 165.00</span>
+                    </div>
+                    <div class="flex justify-between text-primary/80">
+                        <span class="font-medium">Artisanal Packaging</span>
+                        <span class="font-bold">Rs. 8.50</span>
+                    </div>
+                    <div class="flex justify-between text-primary/80">
+                        <span class="font-medium">Discount</span>
+                        <span class="font-bold">- Rs. 10.00</span>
+                    </div>
+                    <div class="flex justify-between text-primary/80">
+                        <span class="font-medium">Delivery</span>
+                        <span class="font-bold">Rs. 5.00</span>
+                    </div>
+                    <div class="flex justify-between text-primary/80">
+                        <span class="font-medium">Estimated Delivery</span>
+                        <span class="font-bold text-tertiary">Free</span>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-outline-variant/20">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <span class="font-headline text-2xl font-bold text-primary">Total</span>
+                        <span class="font-headline text-3xl font-bold text-primary tracking-tighter">Rs. 173.50</span>
+                    </div>
+                    <p class="text-[10px] text-primary/50 uppercase tracking-[0.2em] font-bold">Inclusive of all local
+                        taxes</p>
+                </div>
+                <div class="space-y-4">
+                    <button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold py-4 rounded-lg flex items-center justify-center space-x-2 transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                        <span class="material-symbols-outlined fill-icon text-xl">payments</span>
+                        <span>Proceed to Payment</span>
+                    </button>
+                    <div class="flex items-center justify-center space-x-4 text-primary/40">
+                        <span class="material-symbols-outlined text-lg">lock</span>
+                        <span class="text-xs font-medium uppercase tracking-widest">Secure Checkout</span>
+                    </div>
+                </div>
+                <!-- Promo Code -->
+            </div>
+            <!-- Trust Badges -->
+            <div class="mt-8 grid grid-cols-2 gap-4">
+                <div class="bg-surface-container-highest/50 p-4 rounded-xl flex flex-col items-center text-center">
+                    <span class="material-symbols-outlined text-tertiary mb-2">eco</span>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter text-primary/70">Organic Sourcing</span>
+                </div>
+                <div class="bg-surface-container-highest/50 p-4 rounded-xl flex flex-col items-center text-center">
+                    <span class="material-symbols-outlined text-primary mb-2">schedule</span>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter text-primary/70">Freshly Baked</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>
+
+</body>
+</html>

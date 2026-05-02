@@ -265,7 +265,11 @@ body::-webkit-scrollbar {
     color: white;
 }
 
-/* Auth Modal Background */
+/* ==========================================================================
+   BAKENEST UNIFIED MODAL SYSTEM
+   ========================================================================== */
+
+/* 1. Universal Overlay */
 .auth-modal {
     display: none;
     position: fixed;
@@ -273,23 +277,27 @@ body::-webkit-scrollbar {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(30, 28, 16, 0.6); /* Using your --on-surface color with alpha */
+    background: rgba(30, 28, 16, 0.6); /* --on-surface with alpha */
     backdrop-filter: blur(4px);
     z-index: 2000;
     align-items: center;
     justify-content: center;
 }
 
-/* Modal Box */
+/* 2. Base Modal Content - FIX FOR image_be51a2.png */
 .auth-modal-content {
-    background: #ffffff;
-    padding: 2.5rem;
+    background-color: #ffffff !important; /* Forces solid white background */
     border-radius: 20px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     animation: slideUp 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 400px; /* Default for login prompt */
 }
 
 @keyframes slideUp {
@@ -297,52 +305,207 @@ body::-webkit-scrollbar {
     to { transform: translateY(0); opacity: 1; }
 }
 
-.warning-icon {
-    font-size: 48px;
-    color: #72564c; /* Your primary color */
+/* 3. Detail Modal Overrides - SIDE-BY-SIDE LAYOUT */
+.auth-modal-content.detail-modal {
+    max-width: 500px;
+    padding: 1.5rem;
+    display: block; /* Changes from centered column to block for flex header */
+    text-align: left;
+}
+
+/* 4. Detail Modal Header */
+.modal-product-header {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.small-img-container {
+    flex-shrink: 0;
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+}
+
+.small-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-text-info {
+    flex-grow: 1;
+}
+
+.header-text-info h2 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--on-surface);
+    margin: 0 0 0.4rem 0;
+}
+
+.modal-description {
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.signin-modal-description {
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    line-height: 1.4;
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 
-.auth-modal-header h2 {
-    color: #1e1c10;
-    margin-bottom: 0.5rem;
+.modal-unit-price {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
 }
 
-.auth-modal-header p {
-    color: #666;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 2rem;
+/* 5. Detail Modal Controls Row */
+.modal-controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-top: 1px dashed var(--outline-variant);
+    margin-bottom: 1rem;
 }
 
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface-container);
+    padding: 0.4rem;
+    border-radius: 10px;
+}
+
+.qty-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.qty-btn:hover { background: #5d463e; }
+
+#itemQty {
+    width: 35px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--on-surface);
+}
+
+/* Remove the up/down arrows (spinners) that push the number to the left */
+#itemQty::-webkit-outer-spin-button,
+#itemQty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+#itemQty[type=number] {
+    -moz-appearance: textfield;
+}
+
+.total-display { text-align: right; }
+
+.total-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--on-surface-variant);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+#modalTotalPrice {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* 6. Shared Modal Footer & Buttons */
 .auth-modal-footer {
     display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-
-/* Buttons */
-.btn-primary-link {
-    background: #72564c;
-    color: white;
-    text-decoration: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 10px;
-    font-weight: 600;
-    transition: 0.3s;
+    gap: 0.75rem;
+    width: 100%;
 }
 
 .btn-secondary {
-    background: #f4eedb;
-    color: #72564c;
+    flex: 1;
+    background: var(--surface-container-high);
+    color: var(--on-surface-variant);
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem;
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
+    transition: var(--transition);
 }
 
-.btn-primary-link:hover { background: #5d463e; }
+.btn-primary-link {
+    flex: 2;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-signin-link {
+    flex: 1;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.warning-icon {
+    font-size: 48px;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* 7. Responsive Fixes */
+@media (max-width: 480px) {
+    .auth-modal-content.detail-modal {
+        padding: 1.25rem;
+    }
+    .modal-product-header { gap: 1rem; }
+    .small-img-container { width: 80px; height: 80px; }
+}
 
 /* Footer */
 footer {

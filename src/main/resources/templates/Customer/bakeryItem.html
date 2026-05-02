@@ -6,6 +6,9 @@
     <title>The Flourished Hearth | Buy Bakery Items</title>
     <link rel="stylesheet" th:href="@{/css/customer/bakeryItem.css}">
     <link rel="stylesheet" th:href="@{/css/customer/fragments/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/notification.css}">
+
+    <script th:src="@{/js/customer/notification.js}" defer></script>
 </head>
 <body>
 
@@ -57,6 +60,8 @@
                 <div class="card-footer">
                     <!-- Store login status in a data attribute instead of th:onclick -->
                     <button class="btn-add-cart"
+                            th:data-product-id="${product.id}"
+                            th:data-price="${product.price}"
                             th:data-logged-in="${user != null}"
                             onclick="handleAddToCart(this)">
                         <span class="material-symbols-outlined">shopping_bag</span>
@@ -77,17 +82,58 @@
     </div>
 </footer>
 
+<!-- Product Detail & Quantity Modal -->
+<div id="productModal" class="auth-modal">
+    <div class="auth-modal-content detail-modal">
+        <div class="modal-body-layout">
+            <!-- Header Section: Small Image + Title/Desc -->
+            <div class="modal-product-header">
+                <div class="small-img-container">
+                    <img id="modalImg" src="" alt="Product">
+                </div>
+                <div class="header-text-info">
+                    <h2 id="modalTitle">Product Name</h2>
+                    <p id="modalDesc" class="modal-description">Description goes here.</p>
+                    <p class="modal-unit-price">Unit Price: <span id="modalUnitPriceDisplay">Rs. 0.00</span></p>
+                </div>
+            </div>
+
+            <!-- Control Section: Qty on Left, Total on Right -->
+            <div class="modal-controls-row">
+                <div class="quantity-control">
+                    <button type="button" class="qty-btn" onclick="updateQty(-1)">-</button>
+                    <input type="number" id="itemQty" value="1" min="1" readonly>
+                    <button type="button" class="qty-btn" onclick="updateQty(1)">+</button>
+                </div>
+                <div class="total-display">
+                    <span class="total-label">Total Price:</span>
+                    <span id="modalTotalPrice">Rs. 0.00</span>
+                </div>
+            </div>
+
+            <!-- Footer Section: Buttons -->
+            <div class="auth-modal-footer">
+                <button class="btn-secondary" onclick="closeProductModal()">Cancel</button>
+                <button class="btn-primary-link" onclick="submitAddToCart()">Confirm Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Container -->
+<div th:replace="~{customer/fragments/notification :: customer-notification}"></div>
+
 <!-- Login Required Modal -->
 <div id="loginPromptModal" class="auth-modal">
     <div class="auth-modal-content">
         <div class="auth-modal-header">
             <span class="material-symbols-outlined warning-icon">lock</span>
             <h2>Sign In Required</h2>
-            <p>You need to be logged in to add items to your cart and place orders.</p>
+            <p class="signin-modal-description">You need to be logged in to add items to your cart and place orders.</p>
         </div>
         <div class="auth-modal-footer">
             <button class="btn-secondary" onclick="closeLoginModal()">Maybe Later</button>
-            <a th:href="@{/login}" class="btn-primary-link">Sign In Now</a>
+            <a th:href="@{/login}" class="btn-signin-link">Sign In Now</a>
         </div>
     </div>
 </div>
@@ -118,33 +164,95 @@
     }
 
 
-    //Add to cart Button
+    let currentProduct = null;
+
     function handleAddToCart(buttonElement) {
-        // Note: getAttribute returns a string "true" or "false"
         const isLoggedIn = buttonElement.getAttribute('data-logged-in') === 'true';
 
         if (!isLoggedIn) {
-            // Show the login prompt modal
-            const modal = document.getElementById('loginPromptModal');
-            if (modal) {
-                modal.style.display = 'flex';
-            }
-        } else {
-            // User is logged in, perform add to cart logic
-            console.log("Product added to cart successfully!");
+            document.getElementById('loginPromptModal').style.display = 'flex';
+            return;
         }
+
+        // Capture product data from the card attributes
+        const card = buttonElement.closest('.product-card');
+        currentProduct = {
+            id: buttonElement.getAttribute('data-product-id'),
+            name: card.querySelector('.product-title').innerText,
+            desc: card.querySelector('.product-description').innerText,
+            price: parseFloat(buttonElement.getAttribute('data-price')), // Add this attribute to button
+            img: card.querySelector('.product-img').src
+        };
+
+        // Populate Modal
+        document.getElementById('modalTitle').innerText = currentProduct.name;
+        document.getElementById('modalDesc').innerText = currentProduct.desc;
+        document.getElementById('modalImg').src = currentProduct.img;
+        document.getElementById('modalUnitPriceDisplay').innerText = `Rs. ${currentProduct.price.toFixed(2)}`;
+        document.getElementById('itemQty').value = 1;
+
+        updateTotalPrice();
+        document.getElementById('productModal').style.display = 'flex';
     }
+
+    function updateQty(change) {
+        const qtyInput = document.getElementById('itemQty');
+        let newQty = parseInt(qtyInput.value) + change;
+        if (newQty < 1) newQty = 1;
+        qtyInput.value = newQty;
+        updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+        const qty = parseInt(document.getElementById('itemQty').value);
+        const total = qty * currentProduct.price;
+        document.getElementById('modalTotalPrice').innerText = `Rs. ${total.toLocaleString('en-LK', {minimumFractionDigits: 2})}`;
+    }
+
+    function submitAddToCart() {
+        const qty = document.getElementById('itemQty').value;
+
+        // Use the form submission logic to trigger RedirectAttributes
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/customer/cart/add';
+
+        const inputs = {
+            productId: currentProduct.id,
+            quantity: qty
+        };
+
+        for (const [key, value] of Object.entries(inputs)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // Global window click to handle closing by clicking outside
+    window.onclick = function(event) {
+        const loginModal = document.getElementById('loginPromptModal');
+        const productModal = document.getElementById('productModal');
+
+        if (event.target === loginModal) {
+            closeLoginModal();
+        }
+        if (event.target === productModal) {
+            closeProductModal();
+        }
+    };
 
     function closeLoginModal() {
         document.getElementById('loginPromptModal').style.display = 'none';
     }
 
-    // Ensure the modal closes when clicking outside the content box
-    window.onclick = function(event) {
-        const modal = document.getElementById('loginPromptModal');
-        if (event.target === modal) {
-            closeLoginModal();
-        }
+    function closeProductModal() {
+        document.getElementById('productModal').style.display = 'none';
     }
 </script>
 </body>
