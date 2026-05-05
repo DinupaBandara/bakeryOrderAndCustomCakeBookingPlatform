@@ -18,23 +18,26 @@
                 <h2 class="headline">The Cake Atelier</h2>
                 <p class="description">Every milestone deserves a centerpiece. Customize your celebration cake with our artisanal flavors and hand-piped decorations.</p>
 
-                <form class="cake-form">
+                <form class="cake-form" th:action="@{/customer/cart/add-custom}" method="POST">
+                    <!-- Hidden input to store the selected weight -->
+                    <input type="hidden" name="weight" id="selectedWeight" value="1kg">
+
                     <div>
                         <label class="form-label">Select Weight</label>
                         <div class="weight-grid">
-                            <button class="weight-btn selected" type="button">
+                            <button class="weight-btn selected" type="button" onclick="selectWeight(this, '1kg')">
                                 <span style="font-bold">1kg</span>
                                 <span style="font-size: 10px; color: var(--on-surface-variant)">Serves 8-10</span>
                             </button>
-                            <button class="weight-btn" type="button">
+                            <button class="weight-btn" type="button" onclick="selectWeight(this, '2kg')">
                                 <span style="font-bold">2kg</span>
                                 <span style="font-size: 10px; color: var(--on-surface-variant)">Serves 15-20</span>
                             </button>
-                            <button class="weight-btn" type="button">
+                            <button class="weight-btn" type="button" onclick="selectWeight(this, '3kg')">
                                 <span style="font-bold">3kg</span>
                                 <span style="font-size: 10px; color: var(--on-surface-variant)">Serves 25-30</span>
                             </button>
-                            <button class="weight-btn" type="button">
+                            <button class="weight-btn" type="button" onclick="selectWeight(this, '5kg')">
                                 <span style="font-bold">5kg</span>
                                 <span style="font-size: 10px; color: var(--on-surface-variant)">Party Size</span>
                             </button>
@@ -43,37 +46,39 @@
 
                     <div>
                         <label class="form-label">Event Type</label>
-                        <select class="select-input">
-                            <option disabled selected>Select an event type...</option>
-                            <option>Birthday</option>
-                            <option>Wedding</option>
+                        <select name="eventType" class="select-input" required>
+                            <option disabled selected value="">Select an event type...</option>
+                            <option value="Birthday">Birthday</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Anniversary">Anniversary</option>
                         </select>
                     </div>
 
                     <div class="grid-cols-2">
                         <div>
-                            <label class="form-label">Base Flavor</label>
-                            <select class="select-input">
-                                <option>Tahitian Vanilla Bean</option>
-                                <option>Salted Dark Chocolate</option>
+                            <label class="form-label">Flavor Type</label>
+                            <select name="flavorType" class="select-input">
+                                <option value="Tahitian Vanilla Bean">Tahitian Vanilla Bean</option>
+                                <option value="Belgian Dark Chocolate">Belgian Dark Chocolate</option>
+                                <option value="Red Velvet">Red Velvet</option>
                             </select>
                         </div>
                         <div>
                             <label class="form-label">Cake Type</label>
-                            <select class="select-input">
-                                <option>Butter Cake</option>
-                                <option>Ribbon Cake</option>
-                                <option>Chocolate Cake</option>
+                            <select name="cakeType" class="select-input">
+                                <option value="Butter Cake">Butter Cake</option>
+                                <option value="Ribbon Cake">Ribbon Cake</option>
+                                <option value="Coffee Cake">Coffee Cake</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
                         <label class="form-label">Custom Inscription</label>
-                        <input class="text-input" placeholder="Happy Birthday, Evelyn..." type="text"/>
+                        <input name="inscription" class="text-input" placeholder="Happy Birthday, Evelyn..." type="text"/>
                     </div>
 
-                    <button class="submit-btn" type="submit">Request Custom Quote</button>
+                    <button class="submit-btn" type="submit">Add to Cart</button>
                 </form>
             </div>
 
@@ -109,5 +114,16 @@
         </p>
     </div>
 </footer>
+
+<script>
+    function selectWeight(btn, value) {
+        // Remove 'selected' class from all buttons
+        document.querySelectorAll('.weight-btn').forEach(b => b.classList.remove('selected'));
+        // Add to clicked button
+        btn.classList.add('selected');
+        // Update hidden input
+        document.getElementById('selectedWeight').value = value;
+    }
+</script>
 </body>
 </html>
