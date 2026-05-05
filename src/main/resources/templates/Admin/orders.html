@@ -118,8 +118,7 @@
                             <!-- Hidden Details Modal for each order -->
                             <div th:id="'modal-' + ${order.id}" class="modal-overlay" style="display: none;">
 
-                                <!-- Added 'receipt-modal' class to target this specific modal size -->
-                                <div class="modal-content receipt-modal">
+                                <div class="modal-content">
 
                                     <!-- Receipt Header -->
                                     <div class="modal-header">
@@ -132,17 +131,23 @@
 
                                     <div class="modal-body">
                                         <!-- Order Meta Data -->
-                                        <div class="receipt-meta-data">
+                                        <div class="receipt-meta">
                                             <div>
-                                                <p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.orderDate, 'MMM dd, yyyy - hh:mm a')}"></span></p>
-                                                <p><strong>Payment:</strong> <span th:text="${order.paymentMethod}"></span></p>
-                                                <p><strong>Status:</strong> <span class="receipt-status" th:text="${order.status}"></span></p>
+                                                <p><strong>Order Date:</strong> <span
+                                                        th:text="${#temporals.format(order.orderDate, 'MMM dd, yyyy - hh:mm a')}"></span>
+                                                </p>
+                                                <p><strong>Payment:</strong> <span
+                                                        th:text="${order.paymentMethod}"></span></p>
+                                                <p><strong>Status:</strong> <span class="receipt-status" th:text="${order.status}"></span>
+                                                </p>
                                             </div>
                                             <div class="receipt-meta-right">
-                                                <p><strong>Customer:</strong> <span th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></span></p>
+                                                <p><strong>Customer:</strong> <span
+                                                        th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></span>
+                                                </p>
                                                 <p><strong>Delivery Address:</strong></p>
-                                                <p class="receipt-address">
-                                                    <span th:text="${order.deliveryAddress}"></span><br>
+                                                <p class="receipt-address"><span
+                                                        th:text="${order.deliveryAddress}"></span><br>
                                                     <span th:text="${order.city + ' ' + order.zipCode}"></span>
                                                 </p>
                                             </div>
@@ -153,9 +158,11 @@
                                         <!-- Detailed Items Table -->
                                         <h3 class="receipt-section-title">Purchased Items</h3>
 
-                                        <!-- Scrollable Wrapper with thin scrollbar classes -->
+                                        <!-- Scrollable Wrapper -->
                                         <div class="receipt-table-wrapper">
                                             <table class="receipt-table">
+
+                                                <!-- Sticky Header -->
                                                 <thead>
                                                 <tr>
                                                     <th class="text-left">Item ID</th>
@@ -164,6 +171,7 @@
                                                     <th class="text-right">Line Total</th>
                                                 </tr>
                                                 </thead>
+
                                                 <tbody>
                                                 <tr th:each="item : ${order.orderItems}">
                                                     <!-- Smart ID -->

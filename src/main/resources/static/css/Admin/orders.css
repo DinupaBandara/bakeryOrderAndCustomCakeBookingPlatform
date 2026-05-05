@@ -275,6 +275,148 @@ body {
     color: #ba1a1a;
 }
 
+/* --- Receipt Modal Specific Styles --- */
+
+.receipt-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.receipt-status {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.receipt-meta-right {
+    text-align: right;
+}
+
+.receipt-address {
+    color: var(--on-surface-variant);
+}
+
+.receipt-divider {
+    margin: 1rem 0;
+    border: none;
+    border-top: 1px dashed var(--outline-variant);
+}
+
+.receipt-divider-small {
+    margin: 0.5rem 0;
+    border: none;
+    border-top: 1px dashed var(--outline-variant);
+}
+
+.receipt-section-title {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+/* --- Scrollable Table Wrapper & Thin Scrollbar --- */
+.receipt-table-wrapper {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--outline-variant) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+.receipt-table-wrapper::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.receipt-table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.receipt-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--outline-variant);
+    border-radius: 10px;
+}
+
+/* --- Receipt Table --- */
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.receipt-table thead {
+    background-color: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.receipt-table th {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 2px solid var(--outline-variant);
+}
+
+.receipt-table td {
+    padding: 0.75rem 0.5rem;
+}
+
+.receipt-table tbody tr {
+    border-bottom: 1px solid rgba(212, 195, 190, 0.3);
+}
+
+.receipt-item-id {
+    color: var(--on-surface-variant);
+    font-family: monospace;
+    font-weight: 600;
+}
+
+.receipt-item-price {
+    font-weight: 500;
+}
+
+/* --- Alignment Utilities --- */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* --- Financial Summary --- */
+.receipt-summary-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.receipt-summary-box {
+    width: 250px;
+    font-size: 0.95rem;
+}
+
+.receipt-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+}
+
+.receipt-summary-row.fee-row {
+    margin-bottom: 0.75rem;
+}
+
+.receipt-summary-label {
+    color: var(--on-surface-variant);
+}
+
+.receipt-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--primary);
+    margin-top: 0.5rem;
+}
+
 /* --- Filter Tabs --- */
 .filter-tabs {
     display: flex;

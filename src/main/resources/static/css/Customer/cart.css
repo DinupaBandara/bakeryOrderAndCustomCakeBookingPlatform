@@ -38,6 +38,8 @@ body {
     overflow-x: hidden;
 }
 
+body::-webkit-scrollbar { display: none; }
+
 .main-wrapper {
     max-width: 1280px;
     margin: 0 auto;
