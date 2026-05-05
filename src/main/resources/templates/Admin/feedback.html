@@ -73,7 +73,10 @@
                 <div class="feedback-header">
                     <div class="customer-info">
                         <!-- Generates an Avatar initial based on their name -->
-                        <div class="avatar" th:text="${#strings.substring(feedback.customer.firstName, 0, 1)}">C</div>
+                        <img class="avatar"
+                             th:src="'https://ui-avatars.com/api/?name=' + ${feedback.customer.firstName} + '+' + ${feedback.customer.lastName} + '&background=random&color=fff'"
+                             th:alt="${feedback.customer.firstName}"
+                             style="width: 40px; height: 40px; border-radius: 50%;">
                         <div>
                             <h3 th:text="${feedback.customer.firstName + ' ' + feedback.customer.lastName}">Customer Name</h3>
                             <span class="order-link" th:text="'Order #BN-' + ${feedback.order.id}">#BN-0000</span>
