@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
@@ -116,7 +117,7 @@ body::-webkit-scrollbar {
 }
 
 .sidebar-header {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .sidebar-header .header-main {
@@ -147,6 +148,14 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    overflow-y: auto;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    display: none;
 }
 
 .nav-item {
@@ -251,7 +260,7 @@ body::-webkit-scrollbar {
     }
 
     .sidebar-header {
-        margin-bottom: 1.5rem; /* Reduce spacing */
+        margin-bottom: 0.5rem; /* Reduce spacing */
     }
 
     /* 2. When collapsed on mobile, slide it away or keep it as a slim bar */

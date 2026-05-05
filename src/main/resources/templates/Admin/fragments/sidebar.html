@@ -24,7 +24,7 @@
             <span class="material-symbols-outlined">dashboard</span>
             <span class="nav-text">Overview</span>
         </a>
-        <a href="#" class="nav-item">
+        <a th:href="@{/admin/orders}" class="nav-item" th:classappend="${activePage == 'orders'} ? 'active' : ''">
             <span class="material-symbols-outlined">delivery_truck_speed</span>
             <span class="nav-text">Orders</span>
         </a>
@@ -35,6 +35,10 @@
         <a th:href="@{/admin/customers}" class="nav-item" th:classappend="${activePage == 'customers'} ? 'active' : ''">
             <span class="material-symbols-outlined">group</span>
             <span class="nav-text">Customers</span>
+        </a>
+        <a th:href="@{/admin/feedback}" class="nav-item" th:classappend="${activePage == 'feedback'} ? 'active' : ''">
+            <span class="material-symbols-outlined">feedback</span>
+            <span class="nav-text">Feedback</span>
         </a>
         <!-- Only show if the loggedUser is actually the Super Admin -->
         <a th:href="@{/admin/adminManagement}" class="nav-item" th:if="${session.loggedUser != null and session.loggedUser.superAdmin}" th:classappend="${activePage == 'management'} ? 'active' : ''">
