@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@400,0,0,24');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* --- 1. Base Variables & Reset --- */
+:root {
+    --primary: #72564c;
+    --on-primary: #ffffff;
+    --surface: #fff9ec;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #faf3e0;
+    --on-surface: #1e1c10;
+    --on-surface-variant: #504441;
+    --outline-variant: #d4c3be;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    line-height: 1.5;
+    overflow: hidden; /* We will handle scrolling in the specific containers */
+}
+
+/* --- 2. Admin Layout Structure (Independent) --- */
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2.5rem 3rem;
+    overflow-y: auto;
+    background-color: var(--surface);
+}
+
+/* --- 3. Page Header --- */
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.text-subtitle {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+/* --- 4. Metrics Dashboard --- */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.metric-card {
+    background: var(--surface-container-lowest);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    border: 1px solid rgba(114, 86, 76, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+.metric-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-icon .material-symbols-outlined {
+    font-size: 28px;
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 0.25rem;
+}
+
+/* --- 5. Feedback Grid & Cards --- */
+.feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.feedback-card {
+    background: var(--surface-container-lowest);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    border: 1px solid rgba(114, 86, 76, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.customer-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+}
+
+.customer-info h3 {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--on-surface);
+    font-weight: 600;
+}
+
+.order-link {
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    background: rgba(114, 86, 76, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 2px;
+}
+
+.feedback-date {
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
+    opacity: 0.8;
+}
+
+/* Stars */
+.stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 1rem;
+}
+
+.stars .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+.filled-star {
+    color: #f5b041;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.empty-star {
+    color: var(--outline-variant);
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.feedback-desc {
+    font-size: 0.9rem;
+    color: var(--on-surface-variant);
+    line-height: 1.6;
+    font-style: italic;
+    background: rgba(114, 86, 76, 0.03);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    flex-grow: 1; /* Pushes the card to be uniform height */
+    border: 1px dashed rgba(212, 195, 190, 0.5);
+}
+
+/* --- 6. Empty State --- */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--surface-container-lowest);
+    border-radius: 1rem;
+    border: 1px dashed var(--outline-variant);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state .material-symbols-outlined {
+    font-size: 48px;
+    color: var(--outline-variant);
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}

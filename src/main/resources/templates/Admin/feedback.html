@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback | Admin Dashboard</title>
+    <!-- Link your existing admin layout CSS here -->
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/feedback.css}">
+
+    <script th:src="@{/js/admin/sidebar.js}" defer></script>
+
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <!-- Sidebar Fragment -->
+    <div th:replace="~{Admin/fragments/sidebar :: admin-sidebar}"></div>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <h1>Customer Feedback</h1>
+                <p class="text-subtitle">Read what your customers are saying about their recent orders.</p>
+            </div>
+        </header>
+
+        <!-- Summary Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: rgba(245, 176, 65, 0.2); color: #d68910;">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                </div>
+                <div class="metric-info">
+                    <span class="metric-label">Average Rating</span>
+                    <!-- Formats to 1 decimal place (e.g., 4.8) -->
+                    <h2 class="metric-value" th:text="${#numbers.formatDecimal(averageRating, 1, 1)} + ' / 5.0'">0.0 / 5.0</h2>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: rgba(114, 86, 76, 0.1); color: var(--primary);">
+                    <span class="material-symbols-outlined">rate_review</span>
+                </div>
+                <div class="metric-info">
+                    <span class="metric-label">Total Reviews</span>
+                    <h2 class="metric-value" th:text="${totalReviews}">0</h2>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: rgba(82, 127, 87, 0.1); color: #24502c;">
+                    <span class="material-symbols-outlined">favorite</span>
+                </div>
+                <div class="metric-info">
+                    <span class="metric-label">5-Star Ratings</span>
+                    <h2 class="metric-value" th:text="${count5Star}">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div th:if="${#lists.isEmpty(feedbacks)}" class="empty-state">
+            <span class="material-symbols-outlined">speaker_notes_off</span>
+            <h3>No feedback yet</h3>
+            <p>Once customers start reviewing their delivered orders, they will appear here.</p>
+        </div>
+
+        <!-- Feedback Grid -->
+        <div class="feedback-grid" th:unless="${#lists.isEmpty(feedbacks)}">
+            <article class="feedback-card" th:each="feedback : ${feedbacks}">
+                <div class="feedback-header">
+                    <div class="customer-info">
+                        <!-- Generates an Avatar initial based on their name -->
+                        <div class="avatar" th:text="${#strings.substring(feedback.customer.firstName, 0, 1)}">C</div>
+                        <div>
+                            <h3 th:text="${feedback.customer.firstName + ' ' + feedback.customer.lastName}">Customer Name</h3>
+                            <span class="order-link" th:text="'Order #BN-' + ${feedback.order.id}">#BN-0000</span>
+                        </div>
+                    </div>
+                    <span class="feedback-date" th:text="${#temporals.format(feedback.createdAt, 'MMM dd, yyyy')}">Oct 14, 2024</span>
+                </div>
+
+                <div class="stars">
+                    <!-- Dynamic Stars -->
+                    <span th:each="i : ${#numbers.sequence(1, 5)}"
+                          class="material-symbols-outlined"
+                          th:classappend="${i <= feedback.rating ? 'filled-star' : 'empty-star'}">star</span>
+                </div>
+
+                <p class="feedback-desc" th:text="${feedback.description}">Customer review text goes here.</p>
+            </article>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
