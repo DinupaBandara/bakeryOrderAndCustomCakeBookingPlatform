@@ -3,45 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | The Flourished Hearth</title>
+    <title>Admin Dashboard | BakeNest</title>
     <link rel="stylesheet" th:href="@{/css/admin/dashboard.css}">
     <link rel="stylesheet" th:href="@{/css/admin/fragments/sidebar.css}">
 
     <script th:src="@{/js/admin/sidebar.js}" defer></script>
-    <script th:src="@{/js/admin/notification.js}" defer></script>
-
 </head>
 <body class="admin-body">
 
+<!-- Sidebar Fragment -->
 <div th:replace="~{Admin/fragments/sidebar :: admin-sidebar}"></div>
 
 <main class="main-content">
-    <header class="top-bar">
+    <header class="top-bar" style="margin-bottom: 2rem;">
         <div class="welcome-msg">
-            <h1>Welcome Back, <span th:text="${session.loggedUser.name}">Owner</span></h1>
-            <p>Here is what's happening at the bakery today.</p>
+            <h1 style="color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem;">
+                Welcome Back, <span th:text="${session.loggedUser.name}">Admin</span>!
+            </h1>
+            <p style="color: var(--on-surface-variant);">Here is what's happening at the bakery today.</p>
         </div>
     </header>
 
+    <!-- Dynamic Stats Grid -->
     <div class="stats-grid">
         <div class="stat-card">
             <h3>Total Orders</h3>
-            <p class="stat-number">124</p>
+            <p class="stat-number" th:text="${totalOrders}">0</p>
         </div>
         <div class="stat-card">
             <h3>Revenue</h3>
-            <p class="stat-number">Rs. 45,200</p>
+            <p class="stat-number" th:text="'Rs. ' + ${#numbers.formatDecimal(totalRevenue, 1, 'COMMA', 2, 'POINT')}">
+                Rs. 0.00</p>
         </div>
         <div class="stat-card">
-            <h3>New Customers</h3>
-            <p class="stat-number">12</p>
+            <h3>Total Customers</h3>
+            <p class="stat-number" th:text="${totalCustomers}">0</p>
         </div>
     </div>
 
-    <section class="content-placeholder">
-        <div class="empty-state">
-            <span class="material-symbols-outlined">construction</span>
-            <p>Admin tools are currently under construction.</p>
+    <!-- Replaced "Under Construction" with Recent Orders Preview -->
+    <section class="dashboard-preview-section">
+        <div class="section-header">
+            <h2 style="font-size: 1.25rem; color: var(--primary);">Recent Orders</h2>
+            <a th:href="@{/admin/orders}" class="view-all-link">View All Orders &rarr;</a>
+        </div>
+
+        <div class="table-responsive"
+             style="background: var(--white); border-radius: 1rem; box-shadow: 0 4px 12px rgba(114, 86, 76, 0.05); padding: 1.5rem;">
+            <table class="preview-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                <tr style="border-bottom: 2px solid rgba(114, 86, 76, 0.1); color: var(--on-surface-variant); font-size: 0.875rem; text-transform: uppercase;">
+                    <th style="padding: 1rem;">Order ID</th>
+                    <th style="padding: 1rem;">Customer</th>
+                    <th style="padding: 1rem;">Date</th>
+                    <th style="padding: 1rem;">Total</th>
+                    <th style="padding: 1rem;">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(recentOrders)}">
+                    <td colspan="5" style="text-align: center; padding: 2rem; color: var(--on-surface-variant);">No
+                        recent orders.
+                    </td>
+                </tr>
+                <tr th:each="order : ${recentOrders}" style="border-bottom: 1px solid rgba(114, 86, 76, 0.05);">
+                    <td style="padding: 1rem; font-weight: 700; color: var(--primary);"
+                        th:text="'#BN-' + ${order.id}"></td>
+                    <td style="padding: 1rem;"
+                        th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></td>
+                    <td style="padding: 1rem; color: var(--on-surface-variant);"
+                        th:text="${#temporals.format(order.orderDate, 'MMM dd, hh:mm a')}"></td>
+                    <td style="padding: 1rem; font-weight: 500;"
+                        th:text="'Rs. ' + ${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td style="padding: 1rem;">
+                        <!-- Reusing your colored pill logic -->
+                        <span style="padding: 4px 10px; border-radius: 99px; font-size: 0.75rem; font-weight: 700;"
+                              th:text="${order.status}"
+                              th:styleappend="${
+                                      order.status == 'PENDING' ? 'background: #fdf2e9; color: #d68910;' :
+                                      (order.status == 'CONFIRMED' ? 'background: #ebf5fb; color: #2e86c1;' :
+                                      (order.status == 'DELIVERED' ? 'background: #e9f7ef; color: #24502c;' :
+                                      (order.status == 'CANCELLED' ? 'background: #fdedec; color: #c0392b;' : 'background: #f4f6f7; color: #5d6d7e;')))
+                                  }">
+                            </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 </main>
