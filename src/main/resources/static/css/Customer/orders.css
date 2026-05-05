@@ -1,0 +1,618 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* Design System Variables & Base */
+:root {
+    --primary: #72564c;
+    --primary-container: #8d6e63;
+    --on-primary: #fff;
+    --secondary-container: #fe97b9;
+    --on-secondary-container: #792b4a;
+    --surface: #fff9ec;
+    --surface-container-low: #faf3e0;
+    --surface-container-highest: #e9e2d0;
+    --surface-container-lowest: #fff;
+    --outline-variant: #d4c3be;
+    --on-surface: #1e1c10;
+    --on-surface-variant: #504441;
+    --tertiary-container: #527f57;
+    --on-tertiary-container: #f8fff4;
+    --radius-md: 0.75rem;
+    --radius-xl: 1.5rem
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column
+}
+
+body::-webkit-scrollbar { display: none; }
+
+/* Typography Hierarchy */
+h1, h2, h3, .brand-logo {
+    font-family: "Noto Serif", serif;
+    letter-spacing: -0.02em
+}
+
+.display-lg {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary)
+}
+
+.title-md {
+    font-size: 1.5rem;
+    font-weight: 600
+}
+
+.label-md {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em
+}
+
+
+/* Layout Structure */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 1.5rem;
+    width: 100%
+}
+
+.page-header {
+    margin-bottom: 4rem;
+    text-align: left
+}
+
+/* Order Cards Styling */
+.order-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem
+}
+
+@media (min-width: 1024px) {
+    .order-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+}
+
+.section-title {
+    margin-bottom: 2rem;
+    color: var(--primary);
+    border-left: 4px solid var(--secondary-container);
+    padding-left: 1rem
+}
+
+.order-card {
+    background-color: var(--surface-container-lowest);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 40px rgba(30, 28, 16, 0.06);
+    display: flex;
+    flex-direction: column;
+}
+
+.order-card:hover {
+    transform: translatey(-4px)
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(212, 195, 190, 0.2);
+    padding-bottom: 1rem
+}
+
+.order-id {
+    color: var(--primary);
+    font-weight: 700
+}
+
+.order-date {
+    color: var(--on-surface-variant);
+    font-size: 0.875rem
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em
+}
+
+.status-active {
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container)
+}
+
+.status-completed {
+    background-color: var(--tertiary-container);
+    color: var(--on-tertiary-container)
+}
+
+.item-list {
+    margin: 1.5rem 0;
+    list-style: none
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: var(--on-surface)
+}
+
+.order-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(212, 195, 190, 0.2);
+    padding-top: 1rem;
+}
+
+.total-price {
+    font-family: "Noto Serif", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary)
+}
+
+/* --- Cancel Order Button --- */
+.btn-cancel-order {
+    background-color: transparent;
+    color: #ba1a1a; /* Danger Red */
+    border: 1px solid #ba1a1a;
+    padding: 0.5rem 1rem;
+    border-radius: 99px; /* Pill shape */
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-order:hover {
+    background-color: #ba1a1a;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(186, 26, 26, 0.2);
+}
+
+/* --- Leave Feedback Button --- */
+.btn-feedback {
+    background-color: transparent;
+    color: var(--primary); /* BakeNest Brown */
+    border: 1px solid var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 99px; /* Pill shape */
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-feedback:hover {
+    background-color: var(--primary);
+    color: var(--on-primary); /* White text on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(114, 86, 76, 0.2);
+}
+
+/* --- Toggle Switch Styles --- */
+.toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-flex;
+    background-color: rgba(114, 86, 76, 0.08); /* Subtle primary tint */
+    padding: 4px;
+    border-radius: 99px;
+}
+
+.toggle-bg {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    background-color: var(--surface-container-lowest); /* White pill */
+    border-radius: 99px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Moves the white pill to the right when "completed" is active */
+.toggle-switch[data-active="completed"] .toggle-bg {
+    transform: translateX(100%);
+}
+
+.toggle-btn {
+    position: relative;
+    z-index: 1;
+    padding: 0.75rem 2rem;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    border-radius: 99px;
+    min-width: 160px;
+}
+
+.toggle-btn.active {
+    color: var(--primary);
+}
+
+/* Shared Component: Footer */
+.footer {
+    background-color: var(--surface-container-low);
+    padding: 4rem 2rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(212, 195, 190, 0.2)
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center
+}
+
+@media (min-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr auto;
+        text-align: left
+    }
+}
+
+.footer-logo {
+    font-family: "Noto Serif", serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: block
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center
+}
+
+.footer-link {
+    text-decoration: none;
+    color: var(--primary-container);
+    font-size: 0.875rem;
+    transition: color 0.3s ease
+}
+
+.footer-link:hover {
+    color: var(--on-secondary-container);
+    transform: translatey(-2px)
+}
+
+.copyright {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: var(--on-surface-variant)
+}
+
+.material-symbols-outlined {
+    vertical-align: middle;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+}
+
+/* Updated Progress Bar & Card Styles */
+ .order-progress-wrapper {
+     margin-top: 1.5rem;
+     padding-bottom: 1.5rem;
+     border-bottom: 1px solid rgba(212, 195, 190, 0.2);
+ }
+
+.progress-bar-visual {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    height: 6px;
+}
+
+.progress-segment {
+    flex: 1;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: var(--surface-container-highest);
+}
+
+.progress-segment.active {
+    background-color: var(--primary);
+}
+
+.progress-segment.current {
+    background-color: var(--primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-segment.current::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.status-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--on-surface-variant);
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+}
+
+.order-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.order-info-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.order-icon-box {
+    padding: 0.75rem;
+    background-color: rgba(254, 151, 185, 0.2);
+    border-radius: 0.5rem;
+    color: var(--on-secondary-container);
+}
+
+.order-badge {
+    background-color: var(--tertiary-container);
+    color: var(--on-tertiary-container);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ordered-at {
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
+    margin-top: 0.125rem;
+}
+
+/* Modernized Completed Cards */
+.order-card {
+    border: 1px solid rgba(114, 86, 76, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.status-badge.status-completed {
+    background-color: rgba(82, 127, 87, 0.1);
+    color: #24502c;
+    border: 1px solid rgba(82, 127, 87, 0.2);
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-style: normal;
+}
+
+/* --- Modal Overlay & Content --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 28, 16, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--surface-container-lowest);
+    width: 90%;
+    max-width: 500px;
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: var(--surface-container-low);
+}
+
+/* --- Interactive Star Rating (CSS Only!) --- */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse; /* Reverses order so hover ~ targets previous stars */
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.star-rating input {
+    display: none; /* Hide the actual radio buttons */
+}
+
+.star-rating label {
+    font-size: 2.5rem;
+    color: var(--outline-variant); /* Empty star color */
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.1s ease;
+    /* Forces the icon to be filled when active */
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+}
+
+/* When a star is checked, or hovered, fill it and all stars before it */
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5b041; /* Golden Yellow */
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+}
+
+.star-rating label:hover {
+    transform: scale(1.1);
+}
+
+/* --- Display Feedback on Card --- */
+.feedback-display-box {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: rgba(114, 86, 76, 0.04); /* Very light primary tint */
+    border-radius: var(--radius-md);
+    border: 1px dashed rgba(212, 195, 190, 0.6);
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.feedback-header .label-md {
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+.feedback-stars-display {
+    display: flex;
+    gap: 2px;
+}
+
+.feedback-stars-display .material-symbols-outlined {
+    font-size: 1.125rem;
+}
+
+.feedback-stars-display .filled-star {
+    color: #f5b041; /* Golden Yellow */
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.feedback-stars-display .empty-star {
+    color: var(--outline-variant);
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.feedback-text {
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Styles for the new Date text */
+.feedback-date {
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+/* Styles for the small Delete Trash Can */
+.btn-delete-review {
+    background: transparent;
+    border: none;
+    color: #ba1a1a; /* Danger Red */
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.btn-delete-review:hover {
+    opacity: 1;
+    background-color: rgba(186, 26, 26, 0.1); /* Light red hover effect */
+    transform: scale(1.1);
+}

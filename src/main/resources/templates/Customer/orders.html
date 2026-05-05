@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Order History - BakeNest</title>
+    <link rel="stylesheet" th:href="@{/css/customer/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/navbar.css}">
+</head>
+<body>
+
+<div th:replace="~{Customer/fragments/navbar :: header-nav}"></div>
+
+<main class="container">
+    <!-- Toggle Switch Container -->
+    <div class="toggle-wrapper">
+        <div class="toggle-switch" data-active="ongoing">
+            <div class="toggle-bg"></div>
+            <button class="toggle-btn active" id="btn-ongoing" onclick="toggleOrders('ongoing')">Ongoing Orders</button>
+            <button class="toggle-btn" id="btn-completed" onclick="toggleOrders('completed')">Completed Orders</button>
+        </div>
+    </div>
+
+    <!-- Ongoing Orders -->
+    <section id="section-ongoing">
+        <!-- Show message if empty -->
+        <p th:if="${#lists.isEmpty(ongoingOrders)}"
+           style="text-align:center; padding: 2rem; color: var(--on-surface-variant);">
+            You have no ongoing orders right now.
+        </p>
+
+        <div class="order-grid" th:unless="${#lists.isEmpty(ongoingOrders)}">
+            <!-- Dynamic Loop for Ongoing Orders -->
+            <article class="order-card" th:each="order : ${ongoingOrders}">
+                <div class="order-card-top">
+                    <div class="order-info-group">
+                        <div class="order-icon-box">
+                            <!-- Dynamically change the icon based on the status -->
+                            <span class="material-symbols-outlined"
+                                  th:text="${order.status == 'PENDING' ? 'pending_actions' :
+                                             order.status == 'CONFIRMED' ? 'check_circle' :
+                                             order.status == 'PREPARING' ? 'bakery_dining' :
+                                             order.status == 'SHIPPED' ? 'delivery_truck_speed' : 'delivery_truck_speed'}">
+                                local_shipping
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="order-id" style="font-size: 1.125rem;" th:text="'Order #BN-' + ${order.id}">Order
+                                #BN-0000</h3>
+                            <!-- Format Date beautifully -->
+                            <p class="ordered-at"
+                               th:text="${#temporals.format(order.orderDate, 'MMM dd, yyyy - hh:mm a')}">Ordered today,
+                                10:45 AM</p>
+                        </div>
+                    </div>
+                    <span class="order-badge" th:text="${order.status}">PENDING</span>
+                </div>
+
+                <!-- Dynamic Progress Bar Logic -->
+                <div class="order-progress-wrapper">
+                    <div class="progress-bar-visual">
+                        <!-- Segment 1: Pending -->
+                        <div class="progress-segment"
+                             th:classappend="${order.status == 'PENDING' ? 'current' : 'active'}"></div>
+
+                        <!-- Segment 2: Confirmed -->
+                        <div class="progress-segment"
+                             th:classappend="${order.status == 'PENDING' ? '' : (order.status == 'CONFIRMED' ? 'current' : 'active')}"></div>
+
+                        <!-- Segment 3: Preparing -->
+                        <div class="progress-segment"
+                             th:classappend="${(order.status == 'PENDING' or order.status == 'CONFIRMED') ? '' : (order.status == 'PREPARING' ? 'current' : 'active')}"></div>
+
+                        <!-- Segment 4: Delivering / Shipped -->
+                        <div class="progress-segment"
+                             th:classappend="${order.status == 'DELIVERING' ? 'current' : ''}"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span class="status-label"
+                              th:style="${order.status == 'PENDING' ? 'opacity: 1; color: var(--primary);' : ''}">Pending</span>
+                        <span class="status-label"
+                              th:style="${order.status == 'CONFIRMED' ? 'opacity: 1; color: var(--primary);' : ''}">Confirmed</span>
+                        <span class="status-label"
+                              th:style="${order.status == 'PREPARING' ? 'opacity: 1; color: var(--primary);' : ''}">Preparing</span>
+                        <span class="status-label"
+                              th:style="${order.status == 'DELIVERING' ? 'opacity: 1; color: var(--primary);' : ''}">Delivering</span>
+                    </div>
+                </div>
+
+                <!-- Items List -->
+                <ul class="item-list">
+                    <li class="item-row" th:each="item : ${order.orderItems}">
+                        <!-- Item Name: Handle both Products and Custom Cakes -->
+                        <span th:text="${item.product != null ? item.product.name : 'Custom Cake: ' + item.customCake.flavorType + ' (' + item.customCake.weight + ')'}">Item Name</span>
+                        <span th:text="'x' + ${item.quantity}">x1</span>
+                    </li>
+                </ul>
+
+                <div class="order-footer">
+                    <!-- Group the text so it stays on the left -->
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="label-md">Total Amount</span>
+                        <span class="total-price"
+                              th:text="'Rs. ' + ${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">Rs. 0.00</span>
+                    </div>
+
+                    <!-- Cancel Button: ONLY show if status is PENDING or CONFIRMED -->
+                    <form th:if="${order.status == 'PENDING' or order.status == 'CONFIRMED'}"
+                          th:action="@{/customer/order/cancel/{id}(id=${order.id})}" method="POST"
+                          onsubmit="return confirm('Are you sure you want to cancel this order? This action cannot be undone.');">
+                        <button type="submit" class="btn-cancel-order">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">cancel</span>
+                            Cancel Order
+                        </button>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Completed Orders -->
+    <section id="section-completed" style="display: none;">
+        <!-- Show message if empty -->
+        <p th:if="${#lists.isEmpty(completedOrders)}"
+           style="text-align:center; padding: 2rem; color: var(--on-surface-variant);">
+            You have no completed orders yet.
+        </p>
+
+        <div class="order-grid" th:unless="${#lists.isEmpty(completedOrders)}">
+            <!-- Dynamic Loop for Completed Orders -->
+            <article class="order-card" th:each="order : ${completedOrders}">
+                <div class="card-header">
+                    <div>
+                        <span class="order-id" th:text="'#BN-' + ${order.id}">#BN-0000</span>
+                        <div class="order-date" th:text="${#temporals.format(order.orderDate, 'MMM dd, yyyy')}">Oct 12,
+                            2024
+                        </div>
+                    </div>
+                    <!-- Red badge if Cancelled, Green badge if Delivered -->
+                    <span class="status-badge status-completed"
+                          th:text="${order.status}"
+                          th:style="${order.status == 'CANCELLED'} ? 'background-color: #ffebee; color: #c62828; border-color: #ffcdd2;' : ''">
+                        Delivered
+                    </span>
+                </div>
+
+                <!-- Items List -->
+                <ul class="item-list">
+                    <li class="item-row" th:each="item : ${order.orderItems}">
+                        <span th:text="${item.product != null ? item.product.name : 'Custom Cake: ' + item.customCake.flavorType}">Item Name</span>
+                        <span th:text="'x' + ${item.quantity}">x1</span>
+                    </li>
+                </ul>
+
+                <div class="order-footer" style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
+                    <!-- Left Side: Payment & Total -->
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="label-md" th:text="'Paid via ' + (${order.paymentMethod == 'COD'} ? 'Cash' : (${order.paymentMethod == 'BOC_TRANSFER'} ? 'Transfer' : 'Card'))">Paid</span>
+                        <span class="total-price" th:text="'Rs. ' + ${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">Rs. 0.00</span>
+                    </div>
+
+                    <!-- Right Side: Action Buttons -->
+                    <div style="display: flex; gap: 0.5rem;">
+                        <!-- Show "Leave Feedback" if no feedback exists -->
+                        <button th:if="${order.status == 'DELIVERED' and order.feedback == null}"
+                                type="button"
+                                th:data-id="${order.id}"
+                                onclick="openFeedbackModal(this.getAttribute('data-id'))"
+                                class="btn-feedback">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">rate_review</span>
+                            Leave Feedback
+                        </button>
+
+                        <!-- Show "Update Feedback" if feedback ALREADY exists -->
+                        <button th:if="${order.status == 'DELIVERED' and order.feedback != null}"
+                                type="button"
+                                th:data-id="${order.id}"
+                                th:data-rating="${order.feedback.rating}"
+                                th:data-desc="${order.feedback.description}"
+                                onclick="openFeedbackModal(this.getAttribute('data-id'), this.getAttribute('data-rating'), this.getAttribute('data-desc'))"
+                                class="btn-feedback">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+                            Update Feedback
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Display Existing Feedback Box -->
+                <div th:if="${order.feedback != null}" class="feedback-display-box">
+                    <div class="feedback-header">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <span class="label-md">Your Review</span>
+                            <!-- NEW: Show the Date -->
+                            <span class="feedback-date" th:text="${#temporals.format(order.feedback.createdAt, 'MMM dd, yyyy')}">Oct 14, 2024</span>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <!-- The Stars -->
+                            <div class="feedback-stars-display">
+                            <span th:each="i : ${#numbers.sequence(1, 5)}"
+                                  class="material-symbols-outlined"
+                                  th:classappend="${i <= order.feedback.rating ? 'filled-star' : 'empty-star'}">star</span>
+                            </div>
+
+                            <!-- NEW: Delete Button inside the review box -->
+                            <form th:action="@{/customer/feedback/delete/{id}(id=${order.feedback.id})}" method="POST"
+                                  onsubmit="return confirm('Are you sure you want to delete your review?');" style="margin: 0; display: flex;">
+                                <button type="submit" class="btn-delete-review" title="Delete Review">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <p class="feedback-text" th:text="${order.feedback.description}"></p>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<!-- Feedback Modal -->
+<div id="feedbackModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="title-md">How was your order?</h2>
+            <button type="button" class="close-btn" onclick="closeFeedbackModal()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form th:action="@{/customer/feedback/submit}" method="POST">
+            <!-- Hidden input to store which order we are reviewing -->
+            <input type="hidden" id="modalOrderId" name="orderId" value="">
+
+            <div class="rating-group">
+                <p class="label-md" style="margin-bottom: 0.5rem; text-align: center;">Rate your treats</p>
+                <!-- CSS-only dynamic star rating -->
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5" required/><label for="star5" class="material-symbols-outlined">star</label>
+                    <input type="radio" id="star4" name="rating" value="4"/><label for="star4" class="material-symbols-outlined">star</label>
+                    <input type="radio" id="star3" name="rating" value="3"/><label for="star3" class="material-symbols-outlined">star</label>
+                    <input type="radio" id="star2" name="rating" value="2"/><label for="star2" class="material-symbols-outlined">star</label>
+                    <input type="radio" id="star1" name="rating" value="1"/><label for="star1" class="material-symbols-outlined">star</label>
+                </div>
+            </div>
+
+            <div class="input-group" style="margin-top: 1.5rem;">
+                <label for="description" class="label-md">Share your experience</label>
+                <textarea id="description" name="description" rows="4"
+                          placeholder="Tell us what you loved about your order!"
+                          style="width: 100%; padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--outline-variant); font-family: inherit; margin-top: 0.5rem; resize: vertical;" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-feedback" style="width: 100%; margin-top: 1.5rem; padding: 1rem; background-color: var(--primary); color: white; border: none; border-radius: 99px; font-weight: 700; cursor: pointer; transition: background-color 0.2s;">
+                Submit Review
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript to control the Modal -->
+<script>
+    function openFeedbackModal(orderId) {
+        document.getElementById('modalOrderId').value = orderId;
+        document.getElementById('feedbackModal').style.display = 'flex';
+        // Reset form
+        document.querySelector('#feedbackModal form').reset();
+    }
+
+    function closeFeedbackModal() {
+        document.getElementById('feedbackModal').style.display = 'none';
+    }
+
+    // Close if user clicks outside the modal
+    window.onclick = function(event) {
+        const modal = document.getElementById('feedbackModal');
+        if (event.target == modal) {
+            closeFeedbackModal();
+        }
+    }
+
+    //control the feedback model
+    function toggleOrders(view) {
+        const toggleSwitch = document.querySelector('.toggle-switch');
+        const btnOngoing = document.getElementById('btn-ongoing');
+        const btnCompleted = document.getElementById('btn-completed');
+        const secOngoing = document.getElementById('section-ongoing');
+        const secCompleted = document.getElementById('section-completed');
+
+        if (view === 'ongoing') {
+            // Update Toggle UI
+            toggleSwitch.setAttribute('data-active', 'ongoing');
+            btnOngoing.classList.add('active');
+            btnCompleted.classList.remove('active');
+
+            // Swap Visibility
+            secOngoing.style.display = 'block';
+            secCompleted.style.display = 'none';
+        } else {
+            // Update Toggle UI
+            toggleSwitch.setAttribute('data-active', 'completed');
+            btnCompleted.classList.add('active');
+            btnOngoing.classList.remove('active');
+
+            // Swap Visibility
+            secCompleted.style.display = 'block';
+            secOngoing.style.display = 'none';
+        }
+    }
+
+
+    // Open feedback model
+    function openFeedbackModal(orderId, existingRating = 0, existingDescription = '') {
+        document.getElementById('modalOrderId').value = orderId;
+
+        // Reset form first
+        document.querySelector('#feedbackModal form').reset();
+
+        // If we are updating existing feedback, pre-fill the form
+        if (existingRating > 0) {
+            // Check the correct star radio button
+            document.getElementById('star' + existingRating).checked = true;
+            // Fill the text area
+            document.getElementById('description').value = existingDescription;
+        }
+
+        document.getElementById('feedbackModal').style.display = 'flex';
+    }
+
+    function closeFeedbackModal() {
+        document.getElementById('feedbackModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('feedbackModal');
+        if (event.target == modal) {
+            closeFeedbackModal();
+        }
+    }
+</script>
+
+</body>
+</html>

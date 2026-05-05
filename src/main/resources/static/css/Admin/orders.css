@@ -1,0 +1,326 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@400,0,0,24');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* --- Base Layout --- */
+:root {
+    --primary: #72564c;
+    --on-primary: #ffffff;
+    --surface: #fff9ec;
+    --surface-container-lowest: #ffffff;
+    --on-surface: #1e1c10;
+    --on-surface-variant: #504441;
+    --outline-variant: #d4c3be;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    padding: 2.5rem 3rem;
+    overflow-y: auto;
+}
+
+.page-header h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.text-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+/* --- Global Fees Section --- */
+.fees-section {
+    background: var(--surface-container-lowest);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(114, 86, 76, 0.1);
+    margin-bottom: 2rem;
+}
+
+.fees-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.fees-form {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+}
+
+.input-group label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+}
+
+.input-group input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--outline-variant);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    height: fit-content;
+}
+
+.btn-primary:hover {
+    background: #5a423a;
+}
+
+/* --- Table Section --- */
+.table-section {
+    background: var(--surface-container-lowest);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(114, 86, 76, 0.1);
+}
+
+.section-title {
+    font-size: 1.25rem;
+    color: var(--on-surface);
+    margin-bottom: 1.5rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th {
+    padding: 1rem;
+    border-bottom: 2px solid rgba(114, 86, 76, 0.1);
+    color: var(--on-surface-variant);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(114, 86, 76, 0.05);
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(114, 86, 76, 0.02);
+}
+
+.customer-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-cell small {
+    color: var(--on-surface-variant);
+    font-size: 0.75rem;
+}
+
+/* Dynamic Status Dropdowns */
+.status-dropdown {
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    border: 1px solid var(--outline-variant);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+    background-color: var(--surface-container-lowest);
+}
+
+.status-pending {
+    color: #d68910;
+    border-color: #f5b041;
+    background: rgba(245, 176, 65, 0.1);
+}
+
+.status-confirmed {
+    color: #2e86c1;
+    border-color: #5dade2;
+    background: rgba(93, 173, 226, 0.1);
+}
+
+.status-preparing {
+    color: #884ea0;
+    border-color: #af7ac5;
+    background: rgba(175, 122, 197, 0.1);
+}
+
+.status-delivering {
+    color: #e67e22;
+    border-color: #eb984e;
+    background: rgba(235, 152, 78, 0.1);
+}
+
+.status-delivered {
+    color: #24502c;
+    border-color: #527f57;
+    background: rgba(82, 127, 87, 0.1);
+}
+
+.status-cancelled {
+    color: #ba1a1a;
+    border-color: #ffb4ab;
+    background: rgba(186, 26, 26, 0.1);
+}
+
+/* Action Buttons */
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.btn-icon:hover {
+    background: rgba(114, 86, 76, 0.1);
+}
+
+/* --- Modals --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--surface-container-lowest);
+    width: 90%;
+    max-width: 700px;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+    color: var(--primary);
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--on-surface-variant);
+}
+
+.close-btn:hover {
+    color: #ba1a1a;
+}
+
+/* --- Filter Tabs --- */
+.filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto; /* Makes it scrollable on small screens */
+    padding-bottom: 0.5rem;
+
+    /* Thin Scrollbar Styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--outline-variant) transparent;
+}
+
+.filter-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+.filter-tabs::-webkit-scrollbar-track {
+    background: transparent;
+}
+.filter-tabs::-webkit-scrollbar-thumb {
+    background-color: var(--outline-variant);
+    border-radius: 10px;
+}
+
+.filter-tab {
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    background-color: var(--surface);
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid var(--outline-variant);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.filter-tab:hover {
+    background-color: rgba(114, 86, 76, 0.05);
+}
+
+/* The highlighted state for the active filter */
+.filter-tab.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(114, 86, 76, 0.2);
+}
+
