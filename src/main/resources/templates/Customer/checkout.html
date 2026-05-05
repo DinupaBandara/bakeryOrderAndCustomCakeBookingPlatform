@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BakeNest - Finalize Your Order</title>
+    <link rel="stylesheet" th:href="@{/css/customer/checkout.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/customer/fragments/notification.css}">
+
+    <script th:src="@{/js/customer/notification.js}" defer></script>
+</head>
+<body>
+
+<!-- Your Custom Header -->
+<div th:replace="~{Customer/fragments/navbar :: header-nav}"></div>
+
+<!-- Main Checkout Wrapper (Added top padding to clear the fixed navbar) -->
+<main class="checkout-page-container">
+
+    <!-- LEFT COLUMN: FORMS -->
+    <section class="checkout-main-content">
+        <h1 class="checkout-title">Finalize Your Order</h1>
+        <p class="checkout-subtitle">Please provide your details for delivery and payment.</p>
+
+        <!-- The main form -->
+        <form id="checkoutForm" th:action="@{/customer/order/place}" method="POST">
+
+            <!-- STEP 1: DELIVERY -->
+            <div class="checkout-step">
+                <div class="step-header">
+                    <span class="step-badge">1</span>
+                    <h2>Delivery Address</h2>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">STREET ADDRESS</label>
+                    <input type="text" name="deliveryAddress" class="form-input"
+                           th:value="${user.address}" required placeholder="123 Pastry Lane">
+                </div>
+
+                <!-- 3-Column Layout to match your image exactly -->
+                <div class="input-row-3">
+                    <div class="input-group">
+                        <label class="input-label">CITY</label>
+                        <input type="text" name="city" class="form-input"
+                               th:value="${user.city}" required placeholder="Confection City">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">ZIP</label>
+                        <input type="text" name="zipCode" class="form-input"
+                               th:value="${user.zipCode}" placeholder="90210">
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: PAYMENT METHOD -->
+            <div class="checkout-step">
+                <div class="step-header">
+                    <span class="step-badge">2</span>
+                    <h2>Payment Method</h2>
+                </div>
+
+                <div class="payment-grid">
+                    <!-- Option 1: Card -->
+                    <label class="payment-method-box">
+                        <input type="radio" name="paymentMethod" value="CARD" checked>
+                        <div class="payment-box-content">
+                            <span class="material-symbols-outlined icon">credit_card</span>
+                            <div class="text">
+                                <span class="title">Credit Card</span>
+                                <span class="desc">Visa, Mastercard, Amex</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Option 2: Cash on Delivery -->
+                    <label class="payment-method-box">
+                        <input type="radio" name="paymentMethod" value="COD">
+                        <div class="payment-box-content">
+                            <span class="material-symbols-outlined icon">payments</span>
+                            <div class="text">
+                                <span class="title">Cash on Delivery</span>
+                                <span class="desc">Pay when you receive</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- RIGHT COLUMN: EXACT ORDER REVIEW MATCH -->
+    <aside class="checkout-sidebar">
+        <div class="order-review-card">
+            <h2 class="review-title">Order Review</h2>
+
+            <div class="review-items-list">
+                <!-- Dynamic Loop -->
+                <div class="review-item" th:each="item : ${cartItems}">
+                    <img class="review-item-img"
+                         th:src="${item.product != null ? item.product.imageUrl : 'https://i.ibb.co/N6WXtqby/Untitled-design.png'}"
+                         alt="Item Image">
+
+                    <div class="review-item-info">
+                        <h4 class="item-title" th:text="${item.product != null ? item.product.name : 'Custom Cake'}">Midnight Ganache Cake</h4>
+
+                        <p class="item-meta" th:if="${item.product != null}" th:text="'QTY: ' + ${item.quantity}">QTY: 1</p>
+                        <p class="item-meta" th:if="${item.customCake != null}"
+                           th:text="'SIZE: ' + ${item.customCake.weight} + ' / ' + ${item.customCake.flavorType}">SIZE: 8-INCH / VEGAN</p>
+
+                        <p class="item-price"
+                           th:text="'Rs. ' + ${#numbers.formatDecimal((item.product != null ? item.product.price : item.customCake.price) * item.quantity, 1, 'COMMA', 2, 'POINT')}">
+                            Rs. 72.00
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Totals Area -->
+            <div class="review-totals">
+                <div class="total-line">
+                    <span>Subtotal</span>
+                    <span th:text="'Rs. ' + ${subtotal}">Rs. 106.00</span>
+                </div>
+                <div class="total-line">
+                    <span>Packaging</span>
+                    <span th:text="'Rs. ' + ${#numbers.formatDecimal(packagingFee, 1, 'COMMA', 2, 'POINT')}">Rs. 8.48</span>
+                </div>
+                <div class="total-line">
+                    <span>Delivery</span>
+                    <span th:text="'Rs. ' + ${#numbers.formatDecimal(deliveryFee, 1, 'COMMA', 2, 'POINT')}">Rs. 12.50</span>
+                </div>
+
+                <div class="grand-total-line">
+                    <span>Total Amount</span>
+                    <span class="amount" th:text="'Rs. ' + ${total}">Rs. 126.98</span>
+                </div>
+            </div>
+
+            <!-- Submit Button linked to left form -->
+            <button type="submit" form="checkoutForm" class="btn-complete-purchase">
+                <span class="material-symbols-outlined" style="font-size: 18px; margin-right: 8px;">verified_user</span>
+                Complete Purchase
+            </button>
+
+            <p class="terms-disclaimer">
+                BY CLICKING PURCHASE, YOU AGREE TO OUR TERMS OF<br>SERVICE AND ARTISANAL CRAFTSMANSHIP POLICY.
+            </p>
+        </div>
+    </aside>
+</main>
+
+<div th:replace="~{customer/fragments/notification :: customer-notification}"></div>
+
+</body>
+</html>

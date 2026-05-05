@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-page: #FDFBF7;
+    --bg-sidebar: #F3EFE6;
+    --text-main: #4A3C31;
+    --text-muted: #7A6F68;
+    --input-bg: #EBE5D9;
+    --input-bg-white: #FFFFFF;
+    --btn-brown: #8A6B5D;
+    --btn-hover: #73574A;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+}
+
+body::-webkit-scrollbar { display: none; }
+
+/* Ensure content starts below the fixed navbar */
+.checkout-page-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 100px; /* Adjust this value if your navbar is taller */
+    min-height: 100vh;
+}
+
+/* --- LEFT COLUMN --- */
+.checkout-main-content {
+    flex: 1.2;
+    padding: 3rem 4rem;
+}
+
+.checkout-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.8rem;
+    color: #634C41;
+    margin-bottom: 0.5rem;
+}
+
+.checkout-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+
+.checkout-step {
+    margin-bottom: 3rem;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.step-badge {
+    background-color: var(--text-main);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.step-header h2 {
+    font-family: 'Georgia', serif;
+    font-size: 1.4rem;
+    color: #3D312A;
+    margin: 0;
+}
+
+/* Forms */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.input-row-3 {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.input-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.input-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+}
+
+.form-input {
+    background-color: var(--input-bg);
+    border: none;
+    padding: 1.2rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-family: inherit;
+    outline: none;
+}
+
+.form-input::placeholder {
+    color: #9C9086;
+}
+
+/* Payment Boxes */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-method-box input {
+    display: none;
+}
+
+.payment-box-content {
+    background-color: var(--input-bg-white);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+}
+
+.payment-box-content .icon {
+    color: var(--text-main);
+    font-size: 24px;
+}
+
+.payment-box-content .text {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-box-content .title {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.payment-box-content .desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.payment-method-box input:checked + .payment-box-content {
+    border-color: var(--text-main);
+}
+
+.payment-method-box input:checked + .payment-box-content .icon {
+    color: var(--text-main);
+}
+
+/* Expandable Card Box Details */
+.card-details-form {
+    background-color: var(--bg-sidebar);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.card-details-form .form-input {
+    background-color: var(--input-bg-white);
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon .form-input {
+    width: 100%;
+    padding-right: 3rem;
+}
+
+.input-with-icon .material-symbols-outlined {
+    position: absolute;
+    right: 1rem;
+    color: #9C9086;
+}
+
+/* --- RIGHT COLUMN (ORDER REVIEW) --- */
+.checkout-sidebar {
+    flex: 0.8;
+    padding: 3rem;
+    background-color: var(--bg-page);
+}
+
+.order-review-card {
+    background-color: var(--bg-sidebar);
+    border-radius: 20px;
+    padding: 2.5rem;
+}
+
+.review-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    color: #634C41;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #E2D9CD;
+}
+
+.review-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.review-item {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.review-item-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.review-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-title {
+    margin: 0 0 0.3rem 0;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.item-meta {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.item-price {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+/* Totals */
+.review-totals {
+    background-color: var(--input-bg-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    margin-bottom: 0.8rem;
+}
+
+.total-line:nth-last-child(2) {
+    margin-bottom: 1.5rem;
+}
+
+.grand-total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #E2D9CD;
+    padding-top: 1.5rem;
+}
+
+.grand-total-line span:first-child {
+    font-family: 'Georgia', serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #634C41;
+}
+
+.grand-total-line .amount {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Button */
+.btn-complete-purchase {
+    width: 100%;
+    background-color: var(--btn-brown);
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 12px rgba(138, 107, 93, 0.2);
+}
+
+.btn-complete-purchase:hover {
+    background-color: var(--btn-hover);
+}
+
+.terms-disclaimer {
+    text-align: center;
+    font-size: 0.6rem;
+    color: #9C9086;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+}
+/* Responsive */
+@media (max-width: 1024px) {
+    .checkout-page-container {
+        flex-direction: column;
+        padding-top: 80px;
+    }
+    .checkout-main-content {
+        padding: 2rem;
+    }
+    .checkout-sidebar {
+        padding: 2rem;
+    }
+    .input-row-3 {
+        grid-template-columns: 1fr;
+    }
+}
