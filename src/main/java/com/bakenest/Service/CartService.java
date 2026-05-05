@@ -4,9 +4,9 @@ import com.bakenest.Model.CartItem;
 import com.bakenest.Model.Customer;
 import com.bakenest.Model.Product;
 import com.bakenest.Repository.CartRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +33,15 @@ public class CartService {
         }
     }
 
+    @Transactional
+    public void addCustomCakeToCart(CartItem cartItem) {
+        // Ensure the price is calculated based on your logic before saving
+        if (cartItem.getCustomCake() != null) {
+            cartItem.getCustomCake().calculateAndSetPrice();
+        }
+        cartRepository.save(cartItem);
+    }
+
     public List<CartItem> getCartItems(Customer customer) {
         return cartRepository.findByCustomer(customer);
     }
@@ -43,7 +52,24 @@ public class CartService {
 
     public double calculateTotal(Customer customer) {
         return cartRepository.findByCustomer(customer).stream()
-                .mapToDouble(CartItem::getTotalPrice)
+                .mapToDouble(CartItem::getTotalPrice) // This now calls our fixed helper method
                 .sum();
+    }
+
+    @Transactional
+    public void clearCart(Customer customer) {
+        // Delete all cart items for the specific customer
+        cartRepository.deleteByCustomer(customer);
+    }
+
+    @Transactional
+    public void updateQuantity(Long cartItemId, int newQuantity) {
+        // Find the specific item in the database
+        CartItem item = cartRepository.findById(cartItemId)
+                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+
+        // Update the quantity and save it
+        item.setQuantity(newQuantity);
+        cartRepository.save(item);
     }
 }

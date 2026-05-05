@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* --- CSS Variable Definitions --- */
+:root {
+    --primary: #72564c;
+    --primary-container: #8d6e63;
+    --surface: #fff9ec;
+    --surface-container-low: #faf3e0;
+    --surface-container-high: #efe8d5;
+    --surface-container-highest: #e9e2d0;
+    --surface-container-lowest: #ffffff;
+    --on-background: #1e1c10;
+    --outline: #827470;
+    --outline-variant: #d4c3be;
+    --tertiary: #3a6640;
+    --tertiary-container: #527f57;
+    --on-tertiary-container: #f8fff4;
+    --on-primary: #ffffff;
+    --error: #ba1a1a;
+
+    --font-headline: 'Noto Serif', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--surface);
+    color: var(--on-background);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+.main-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 6rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Layout Logic --- */
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    flex-grow: 1;
+}
+
+@media (min-width: 1024px) {
+    .checkout-grid {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        height: calc(100vh - 14rem);
+        align-items: stretch;
+    }
+}
+
+/* --- Left Side: Product List (Scrollable) --- */
+.items-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding: 0 8px;
+    margin: 0 -8px;
+}
+
+@media (min-width: 1024px) {
+    .items-column {
+        grid-column: span 8;
+        overflow-y: auto;
+        height: 100%;
+        max-height: 100%;
+
+        padding: 0 1.5rem 2rem 8px;
+        margin: 0 0 0 -8px;
+
+        /* Custom Scrollbar Styling for Webkit */
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-container) transparent;
+    }
+
+    /* Webkit Scrollbar Styling (Chrome/Safari/Edge) */
+    .items-column::-webkit-scrollbar {
+        width: 8px;
+    }
+    .items-column::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .items-column::-webkit-scrollbar-thumb {
+        background-color: var(--primary-container);
+        border-radius: 20px;
+    }
+}
+
+/* --- Product Cards --- */
+.card {
+    background: var(--surface-container-lowest);
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+
+    /* CRITICAL FIX: This stops the cards from squishing to fit the height */
+    flex-shrink: 0;
+}
+
+.card:hover { transform: scale(1.01); }
+
+@media (min-width: 768px) {
+    .card { flex-direction: row; }
+}
+
+.img-box {
+    width: 100%;
+    height: 12rem;
+    position: relative;
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .img-box { width: 12rem; height: auto; }
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: #72564c;
+    color: var(--on-tertiary-container);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.card-meta {
+    font-size: 0.875rem;
+    color: rgba(114, 86, 76, 0.6);
+    margin-top: 0.25rem;
+}
+
+.card-meta p span { font-weight: 600; }
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    background: var(--surface-container-high);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+}
+
+.qty-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 0.25rem;
+}
+
+.qty-btn:hover { background: var(--surface-container-highest); }
+
+.price-text {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* --- Right Side: Sidebar --- */
+.summary-column {
+    grid-column: span 4;
+    position: sticky;
+    top: 8rem;
+    align-self: start;
+}
+
+.summary-card {
+    background: var(--surface-container-low);
+    border-radius: 0.75rem;
+    padding: 2rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: rgba(114, 86, 76, 0.8);
+}
+
+.total-row {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212, 195, 190, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: linear-gradient(to bottom right, var(--primary), var(--primary-container));
+    color: var(--on-primary);
+    border: none;
+    padding: 1rem;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.checkout-btn:hover { transform: scale(1.02); }
+
+.trust-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.badge-item {
+    background: rgba(233, 226, 208, 0.5);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+}
+
+.badge-item span:first-child { color: var(--tertiary); margin-bottom: 0.5rem; }
+.badge-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: rgba(114, 86, 76, 0.7); }
+
+.material-symbols-outlined { font-size: 24px; vertical-align: middle; }
