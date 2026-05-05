@@ -1,10 +1,13 @@
 # 🥐 BakeNest - Bakery Items & Custom Cake Order Management System
 
-![Java 17](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
-![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)
+![Java](https://img.shields.io/badge/Java-17-orange?logo=java)
+![Spring Boot](https://img.shields.io/badge/Spring--Boot-3.x-brightgreen?logo=springboot)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue?logo=mysql)
+![Maven](https://img.shields.io/badge/Build-Maven-red?logo=apachemaven)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+![Status](https://img.shields.io/badge/Status-Finished-brightgreen)
+![Build](https://img.shields.io/badge/Build-Passing-blue)
+
 
 BakeNest is a full-stack Spring Boot web application designed for a modern bakery. It provides a seamless shopping experience for customers to browse products, customize cakes, and place orders, while offering bakery owners a powerful admin dashboard to manage orders, customer feedback, and dynamic store fees.
 
