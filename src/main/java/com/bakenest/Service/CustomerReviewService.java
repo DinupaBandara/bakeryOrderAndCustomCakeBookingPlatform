@@ -31,7 +31,7 @@ public class CustomerReviewService {
         return customerReviewRepository.save(review);
     }
 
-    // Update operation: keeps the existing row id/created date and changes editable fields only.
+    // Update operation:  keeps the existing row id/created date and changes editable fields only.
     public CustomerReview updateReview(Long id, CustomerReview updatedReview, String ownerToken) {
         CustomerReview existingReview = getReviewById(id);
         validateOwner(existingReview, ownerToken);
