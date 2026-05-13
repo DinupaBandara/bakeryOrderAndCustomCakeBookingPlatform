@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Share your BakeNest bakery experience and manage customer reviews."
+    />
+    <title>BakeNest | Customer Reviews</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/Reviews-styles.css" th:href="@{/css/Reviews-styles.css}" />
+  </head>
+
+  <body>
+    <!-- Same top navigation structure used in index.html. -->
+    <header class="site-header">
+      <nav class="site-nav">
+        <div class="brand-logo">The Flourished Hearth</div>
+
+        <div class="nav-links">
+          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link" th:href="@{/reviews}">Reviews</a>
+        </div>
+
+        <div class="auth-actions">
+          <a class="nav-link sign-in-link" th:href="@{/login}">Sign In</a>
+          <a class="sign-up-btn" href="#">Sign Up</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page hero header: simple branding for the reviews module. -->
+    <header class="reviews-hero-header">
+      <div class="header-inner">
+        
+        <div>
+          <p class="header-tagline">CUSTOMER FEEDBACK</p>
+          <h1 class="header-title">BakeNest Reviews</h1>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+    </header>
+
+    <!-- Main container: create/edit form, summary stats, and review list. -->
+    <main class="container">
+
+      <!-- Page title shown above the CRUD form. -->
+      <section class="section-hero">
+        <h2 class="section-heading">Customer Reviews</h2>
+        
+      </section>
+
+      <!-- Flash messages from the controller after create, update, or delete. -->
+      <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+      <div th:if="${errorMessage}" class="alert alert-error" th:text="${errorMessage}"></div>
+
+      <!-- Review form: the same form is reused for Create and Update operations. -->
+      <section class="card form-card" aria-labelledby="form-heading">
+        <div class="card-badge" th:text="${editingMode ? 'Edit Review' : 'Leave a Review'}">
+          Leave a Review
+        </div>
+        <h3
+          class="card-title"
+          id="form-heading"
+          th:text="${editingMode ? 'Update Customer Review' : 'Share Your Experience'}"
+        >
+          Share Your Experience
+        </h3>
+
+
+        <form
+          class="review-form"
+          th:action="${formAction}"
+          th:object="${reviewForm}"
+          method="post"
+        >
+          <!-- Customer name is required because it identifies who wrote the review. -->
+          <div class="field-group">
+            <label class="field-label" for="customerName">Your Name</label>
+            <input
+              class="field-input"
+              type="text"
+              id="customerName"
+              th:field="*{customerName}"
+              placeholder="e.g. Emma Thompson"
+              autocomplete="name"
+              maxlength="80"
+              required
+            />
+          </div>
+
+          <!-- Favorite item is optional; it is shown as the small tag on each review card. -->
+          <div class="field-group">
+            <label class="field-label" for="favoriteItem">Favorite Bakery Item</label>
+            <input
+              class="field-input"
+              type="text"
+              id="favoriteItem"
+              th:field="*{favoriteItem}"
+              placeholder="e.g. Chocolate Cake"
+              maxlength="100"
+            />
+          </div>
+
+          <!-- Rating is stored as an integer from 1 to 5. -->
+          <div class="field-group">
+            <label class="field-label" for="rating">Rating</label>
+            <div class="select-wrapper">
+              <select class="field-input field-select" id="rating" th:field="*{rating}" required>
+                <option value="">Choose your rating...</option>
+                <option value="5">★★★★★ - Outstanding</option>
+                <option value="4">★★★★☆ - Loved it</option>
+                <option value="3">★★★☆☆ - Pretty good</option>
+                <option value="2">★★☆☆☆ - Could be better</option>
+                <option value="1">★☆☆☆☆ - Disappointed</option>
+
+              </select>
+              <span class="select-arrow" aria-hidden="true">v</span>
+            </div>
+          </div>
+
+          <!-- Comment is required because the review should contain useful feedback. -->
+          <div class="field-group">
+            <label class="field-label" for="comment">Your Comment</label>
+            <textarea
+              class="field-input field-textarea"
+              id="comment"
+              th:field="*{comment}"
+              rows="4"
+              placeholder="Tell us about your bakery experience..."
+              maxlength="1000"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Create mode shows submit; edit mode shows update and cancel. -->
+          <div class="form-actions">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              th:text="${editingMode ? 'Update Review' : 'Submit Review'}"
+            >
+              Submit Review
+            </button>
+            <a th:if="${editingMode}" class="btn btn-secondary" th:href="@{/reviews}">
+              Cancel Edit
+            </a>
+          </div>
+        </form>
+      </section>
+
+      <!-- Summary stats are calculated in the browser by the JavaScript at the bottom of this file. -->
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-number" id="average-rating-stat">0.0</span>
+          <span class="stat-label">Average Rating</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="max-score-stat">0</span>
+          <span class="stat-label">Max Score</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="review-count-stat">0</span>
+          <span class="stat-label">Reviews</span>
+        </div>
+      </div>
+
+      <!-- READ operation: displays all saved reviews from the database. -->
+      <section aria-labelledby="reviews-heading">
+        <div class="reviews-header">
+          <h3 class="reviews-title" id="reviews-heading">What Our Customers Say</h3>
+          <span class="reviews-count" id="reviews-count-label">Showing 0 reviews</span>
+        </div>
+
+        <!-- Empty state shown before the first customer review is created. -->
+        <div th:if="${#lists.isEmpty(reviews)}" class="card empty-state">
+          <h4>No reviews yet</h4>
+          <p>Use the form above to add the first customer review.</p>
+        </div>
+
+        <div class="reviews-grid" th:if="${!#lists.isEmpty(reviews)}">
+
+          <!-- One review card is rendered for each database record. -->
+          <article
+            class="card review-card"
+            th:each="review : ${reviews}"
+            th:id="'review-' + ${review.id}"
+            th:attr="data-rating=${review.rating}"
+          >
+            <div class="review-card-top">
+              <div class="reviewer-avatar" th:text="${review.avatarLetter}">A</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name" th:text="${review.customerName}">Customer Name</span>
+                <time class="review-date" th:text="${review.displayDate}">Just now</time>
+              </div>
+
+              <!-- Edit/Delete are shown only when this browser owns the review cookie token. -->
+              <div class="review-actions" th:if="${review.isOwnedBy(currentOwnerToken)}">
+                <a class="btn btn-edit" th:href="@{/reviews/edit/{id}(id=${review.id})}">
+                  Edit
+                </a>
+                <form
+                  th:action="@{/reviews/delete/{id}(id=${review.id})}"
+                  method="post"
+                  onsubmit="return confirm('Delete this review?');"
+                >
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="star-row" th:attr="aria-label=|${review.rating} out of 5 stars|">
+              <span
+                th:each="star : ${#numbers.sequence(1, 5)}"
+                class="star"
+                th:classappend="${star <= review.rating ? ' star--filled' : ' star--empty'}"
+              >
+                &#9733;
+              </span>
+              <span class="star-score" th:text="${#numbers.formatDecimal(review.rating, 1, 1)}">5.0</span>
+            </div>
+
+            <blockquote class="review-text" th:text="${review.comment}">
+              Review comment
+            </blockquote>
+
+            <div
+              class="review-tag"
+              th:text="${review.favoriteItem != null ? review.favoriteItem : 'Customer Review'}"
+            >
+              Customer Review
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer for the reviews module. -->
+    <footer class="site-footer">
+      <p>BakeNest Bakery - Customer Reviews</p>
+     
+    </footer>
+
+    <script>
+      // Calculates the review summary using only HTML data already rendered on this page.
+      // No Java calculation is used here; Java only sends the review cards to the template.
+      document.addEventListener('DOMContentLoaded', function () {
+        const reviewCards = Array.from(document.querySelectorAll('.review-card'));
+        const ratings = reviewCards
+          .map(function (card) {
+            return Number(card.dataset.rating);
+          })
+          .filter(function (rating) {
+            return Number.isFinite(rating);
+          });
+
+        const reviewCount = ratings.length;
+        const totalRating = ratings.reduce(function (total, rating) {
+          return total + rating;
+        }, 0);
+        const averageRating = reviewCount === 0 ? 0 : totalRating / reviewCount;
+        const maxScore = reviewCount === 0 ? 0 : Math.max.apply(null, ratings);
+
+        document.getElementById('average-rating-stat').textContent = averageRating.toFixed(1);
+        document.getElementById('max-score-stat').textContent = maxScore.toFixed(0);
+        document.getElementById('review-count-stat').textContent = reviewCount.toString();
+        document.getElementById('reviews-count-label').textContent =
+          'Showing ' + reviewCount + (reviewCount === 1 ? ' review' : ' reviews');
+      });
+    </script>
+  </body>
+</html>
