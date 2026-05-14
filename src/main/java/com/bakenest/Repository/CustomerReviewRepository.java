@@ -1,7 +1,7 @@
 package com.bakenest.Repository;
 
 import com.bakenest.Model.CustomerReview;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;//save,findbyid,findall,delitbyid
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

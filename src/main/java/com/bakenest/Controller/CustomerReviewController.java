@@ -41,7 +41,7 @@ public class CustomerReviewController {
         String currentOwnerToken = resolveOwnerToken(ownerToken, response);
 
         try {
-            customerReviewService.createReview(review, currentOwnerToken);
+            customerReviewService.createReview(review, currentOwnerToken);//polimophysm
             redirectAttributes.addFlashAttribute("successMessage", "Review saved successfully.");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
@@ -110,7 +110,7 @@ public class CustomerReviewController {
         return "redirect:/reviews";
     }
 
-    // Shared page model builder used by both create mode and edit mode.
+    // send review send form deta detect edit mood.
     private void addReviewPageData(Model model, CustomerReview reviewForm, boolean editingMode, String currentOwnerToken) {
         List<CustomerReview> reviews = customerReviewService.getAllReviews();
 
@@ -121,6 +121,7 @@ public class CustomerReviewController {
         model.addAttribute("currentOwnerToken", currentOwnerToken);
     }
 
+    //identfy owner,security,ownership chrking
     private String resolveOwnerToken(String ownerToken, HttpServletResponse response) {
         if (ownerToken != null && !ownerToken.isBlank()) {
             return ownerToken;

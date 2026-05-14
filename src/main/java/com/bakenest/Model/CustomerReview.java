@@ -41,7 +41,7 @@ public class CustomerReview {
         createdAt = LocalDateTime.now();
     }
 
-    // This helper keeps the Thymeleaf page simple when it needs an avatar letter.
+    // This helper keeps the Thymeleaf page simple when it needs an avatar letter(kasun-k)
     public String getAvatarLetter() {
         if (customerName == null || customerName.isBlank()) {
             return "?";
