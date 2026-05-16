@@ -12,6 +12,7 @@ public class ViewController {
 
     @GetMapping("/home")
     public String showHomePage(Model model) {
+        //Adds data to the model.
         model.addAttribute("backendMessage", "Hello! This data came from the Spring Backend.");
         return "index";
     }
