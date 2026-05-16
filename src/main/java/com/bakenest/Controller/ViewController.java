@@ -19,7 +19,7 @@ public class ViewController {
 
     @GetMapping("/login")
     public String showLoginPage(Model model) {
-        // THIS IS THE FIX: Pass an empty customer object for the register form
+        // THIS IS THE FIX: Pass an empty customer object for the register forms
         model.addAttribute("customer", new Customer());
         return "login";
     }
