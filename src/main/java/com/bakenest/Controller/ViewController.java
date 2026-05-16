@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+//Creates a controller class named ViewController
 @Controller
 public class ViewController {
 
