@@ -2,30 +2,64 @@ package com.bakenest.Service;
 
 import com.bakenest.Model.Customer;
 import com.bakenest.Repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor // Lombok generates the constructor for the repository
 public class CustomerService {
 
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    // Register a new customer
-    public Customer registerCustomer(Customer customer) {
-        // NOTE: In a real production app, you MUST encrypt the password here using
-        // BCryptPasswordEncoder before saving it to the database!
-        return customerRepository.save(customer);
+    public void registerCustomer(Customer customer, BindingResult result) {
+        // 1. Check for duplicate Email
+        if (customerRepository.existsByEmail(customer.getEmail())) {
+            result.rejectValue("email", "error.customer", "Email address is already registered.");
+        }
+
+        // 2. Check for duplicate NIC
+        if (customerRepository.existsByNic(customer.getNic())) {
+            result.rejectValue("nic", "error.customer", "National ID is already registered.");
+        }
+
+        if (customerRepository.existsByPhoneNumber(customer.getPhoneNumber())) {
+            result.rejectValue("phoneNumber", "error.customer", "Phone number is already registered.");
+        }
+
+        // 3. Validate password confirmation
+        if (customer.getPassword() != null && !customer.getPassword().equals(customer.getConfirmPassword())) {
+            result.rejectValue("confirmPassword", "error.customer", "Passwords do not match.");
+        }
+
+        // 4. Save only if there are no validation or business logic errors[cite: 1, 2]
+        if (!result.hasErrors()) {
+            // In a production app, hash the password here (e.g., using BCrypt)[cite: 2]
+            customerRepository.save(customer);
+        }
     }
 
-    // Authenticate user for login
-    public Customer authenticate(String email, String password) {
-        Customer customer = customerRepository.findByEmail(email);
+    public Optional<Customer> authenticate(String email, String password) {
+        return customerRepository.findByEmail(email)
+                .filter(c -> c.getPassword().equals(password));
+    }
 
-        // Check if customer exists AND password matches
-        if (customer != null && customer.getPassword().equals(password)) {
-            return customer;
-        }
-        return null; // Login failed
+    public void updateCustomerProfile(Customer updatedData, Customer currentUser) {
+        // 1. Update personal details
+        currentUser.setFirstName(updatedData.getFirstName());
+        currentUser.setLastName(updatedData.getLastName());
+        currentUser.setEmail(updatedData.getEmail());
+        currentUser.setPhoneNumber(updatedData.getPhoneNumber());
+
+        // 2. Update NIC and location details
+        currentUser.setNic(updatedData.getNic());
+        currentUser.setAddress(updatedData.getAddress());
+        currentUser.setCity(updatedData.getCity());
+        currentUser.setZipCode(updatedData.getZipCode());
+
+        // 3. Persist changes
+        customerRepository.save(currentUser);
     }
 }
