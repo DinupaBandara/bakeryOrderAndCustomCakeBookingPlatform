@@ -19,6 +19,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/auth")
+//Creates controller class named CustomerController.
 public class CustomerController {
 
     @Autowired
