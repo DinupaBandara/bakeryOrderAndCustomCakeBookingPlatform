@@ -30,6 +30,7 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    //Injects admin service.
     @Autowired
     private AdminService adminService;
 
@@ -50,6 +51,7 @@ public class CustomerController {
         return "redirect:/login?success";
     }
 
+    //Login method starts. Gets email and password from form fields.
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
