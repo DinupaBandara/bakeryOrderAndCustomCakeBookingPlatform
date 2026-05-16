@@ -26,6 +26,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    //Injects repository object.
     @Autowired
     private CustomerRepository customerRepository;
 
