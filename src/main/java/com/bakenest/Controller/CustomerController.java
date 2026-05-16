@@ -22,6 +22,7 @@ import java.util.Optional;
 //Creates controller class named CustomerController.
 public class CustomerController {
 
+    //Spring automatically injects CustomerService.
     @Autowired
     private CustomerService customerService;
 
