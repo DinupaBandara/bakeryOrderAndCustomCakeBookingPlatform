@@ -43,7 +43,7 @@ public class CartController {
             return "redirect:/login";
         }
 
-        // 2. Validate quantity (ensure it's at least 1)
+        // validate 
         if (quantity < 1) {
             redirectAttributes.addFlashAttribute("error", "Invalid quantity selected.");
             return "redirect:/customer/product/bakeryitems";
