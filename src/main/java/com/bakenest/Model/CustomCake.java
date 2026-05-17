@@ -85,7 +85,7 @@ public class CustomCake {
             }
         }
 
-        // 6. Final Calculation
+        // 6. Final Calculation of Custom Cake
         // We multiply the base by weight, then add the specific choice premiums
         this.price = (basePrice * weightMultiplier) + flavorPremium + typePremium + eventPremium;
     }
