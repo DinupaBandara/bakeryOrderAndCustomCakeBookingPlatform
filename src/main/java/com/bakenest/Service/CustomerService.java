@@ -34,7 +34,7 @@ public class CustomerService {
             result.rejectValue("confirmPassword", "error.customer", "Passwords do not match.");
         }
 
-        // 4. Save only if there are no validation or business logic errors[cite: 1, 2]
+        // 4. Save only if there are no validation or business logic errors-[cite: 1, 2]
         if (!result.hasErrors()) {
             // In a production app, hash the password here (e.g., using BCrypt)[cite: 2]
             customerRepository.save(customer);
