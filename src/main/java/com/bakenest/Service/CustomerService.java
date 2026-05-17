@@ -47,7 +47,7 @@ public class CustomerService {
     }
 
     public void updateCustomerProfile(Customer updatedData, Customer currentUser) {
-        // 1. Update personal details
+        // 1. Updating personal details
         currentUser.setFirstName(updatedData.getFirstName());
         currentUser.setLastName(updatedData.getLastName());
         currentUser.setEmail(updatedData.getEmail());
