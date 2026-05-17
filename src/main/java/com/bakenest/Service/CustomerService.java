@@ -53,7 +53,7 @@ public class CustomerService {
         currentUser.setEmail(updatedData.getEmail());
         currentUser.setPhoneNumber(updatedData.getPhoneNumber());
 
-        // 2. Update NIC and location details
+        // 2. Update NIC & location details
         currentUser.setNic(updatedData.getNic());
         currentUser.setAddress(updatedData.getAddress());
         currentUser.setCity(updatedData.getCity());
