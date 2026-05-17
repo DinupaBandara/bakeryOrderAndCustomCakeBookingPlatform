@@ -55,7 +55,7 @@ public class CustomCake {
         }
 
         // 3. Flavor Type Premiums (Ingredient-based costs)
-        if (this.flavorType != null) {
+        if (this.flavorType = null) {
             switch (this.flavorType) {
                 case "Tahitian Vanilla Bean" -> flavorPremium = 350.00; // Imported beans
                 case "Belgian Dark Chocolate" -> flavorPremium = 450.00;
