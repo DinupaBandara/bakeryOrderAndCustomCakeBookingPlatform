@@ -62,6 +62,6 @@ public class ProductController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/admin/product";
+        return "redirect:/admin/product"; //redirecting
     }
 }
