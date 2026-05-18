@@ -1,14 +1,13 @@
-package com.bakery.billing.model;
+package com.bakenest.model;
 
 public class CashPayment extends Payment {
 
     private double amountGiven;
-    private double changeReturned;
+    private double change;
 
-    public CashPayment(String paymentId, double amount, String paymentDate, double amountGiven) {
-        super(paymentId, amount, paymentDate);
+    public CashPayment(String paymentId, double amount, double amountGiven) {
+        super(paymentId, amount);
         this.amountGiven = amountGiven;
-        this.changeReturned = calculateChange();
     }
 
     @Override
@@ -18,37 +17,31 @@ public class CashPayment extends Payment {
 
     @Override
     public double calculateTotal() {
-        return getAmount();
-    }
-
-    public double calculateChange() {
-        double change = amountGiven - getAmount();
-        return change >= 0 ? change : 0;
+        return amount;
     }
 
     @Override
     public String processPayment() {
-        if (amountGiven < getAmount()) {
-            return "Insufficient cash! Amount due: Rs. " + getAmount() +
-                   " | Amount given: Rs. " + amountGiven;
+
+        if ("PAID".equals(status)) {
+            return "Already processed.";
         }
-        setStatus("PAID");
-        this.changeReturned = calculateChange();
-        return "Cash payment received. Change returned: Rs. " + changeReturned;
-    }
 
-    public double getAmountGiven() { return amountGiven; }
-    public void setAmountGiven(double amountGiven) {
-        this.amountGiven = amountGiven;
-        this.changeReturned = calculateChange();
-    }
+        if (amountGiven < amount) {
+            return "Insufficient cash. Required : Rs. " + amount +
+                   "\n Given : Rs. " + amountGiven;
+        }
 
-    public double getChangeReturned() { return changeReturned; }
+        status = "PAID";
+        change = amountGiven - amount;
+
+        return "Cash payment successful"+"\n"+"Change : Rs. " + change;
+    }
 
     @Override
     public String toString() {
         return super.toString() +
-               " | Cash Given: Rs. " + amountGiven +
-               " | Change: Rs. " + changeReturned;
+               "\n Cash Given: Rs. " + amountGiven +
+               "\n Change: Rs. " + change;
     }
 }
