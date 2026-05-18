@@ -66,7 +66,7 @@ public class CartController {
             redirectAttributes.addFlashAttribute("error", "The selected product could not be found.");
         }
 
-        // 4. Redirect back to the shop to trigger the notification script
+        // 4. Redirect back  to the shop to trigger the notification script
         return "redirect:/customer/product/bakeryitems";
     }
 
