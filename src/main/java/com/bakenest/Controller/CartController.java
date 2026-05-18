@@ -85,7 +85,7 @@ public class CartController {
     @ResponseBody // <-- CRITICAL: This tells Spring NOT to look for an HTML page
     public ResponseEntity<String> updateQuantity(@PathVariable Long id, @RequestParam int quantity) {
         try {
-            // Call the service method we just created
+            // Call the service method just we created 
             cartService.updateQuantity(id, quantity);
             return ResponseEntity.ok("Quantity updated in database");
         } catch (Exception e) {
