@@ -33,7 +33,7 @@ public class CartController {
                             HttpSession session,
                             RedirectAttributes redirectAttributes) {
 
-        // 1. Retrieve and validate session user and role
+        // 1. Retrieve and validate session from user role 
         Customer customer = (Customer) session.getAttribute("loggedUser");
         String role = (String) session.getAttribute("role");
 
