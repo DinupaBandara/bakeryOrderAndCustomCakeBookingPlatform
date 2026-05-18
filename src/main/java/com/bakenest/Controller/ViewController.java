@@ -61,6 +61,10 @@ public class ViewController {
             model.addAttribute("user", null);
         }
 
+        // NEW: Fetch the 5 most recent feedbacks
+        List<Feedback> recentFeedbacks = feedbackRepository.findTop5ByOrderByCreatedAtDesc();
+        model.addAttribute("feedbacks", recentFeedbacks);
+
         model.addAttribute("backendMessage", "Hello! This data came from the Spring Backend.");
         return "index";
     }

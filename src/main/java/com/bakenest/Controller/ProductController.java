@@ -33,12 +33,12 @@ public class ProductController {
         return "redirect:/admin/product";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        productRepository.deleteById(id);
-        redirectAttributes.addFlashAttribute("success", "Product deleted successfully!");
-        return "redirect:/admin/product";
-    }
+//    @PostMapping("/delete/{id}")
+//    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+//        productRepository.deleteById(id);
+//        redirectAttributes.addFlashAttribute("success", "Product deleted successfully!");
+//        return "redirect:/admin/product";
+//    }
 
     @PostMapping("/add-product")
     public String addProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {

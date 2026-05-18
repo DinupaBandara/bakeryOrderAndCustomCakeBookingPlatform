@@ -338,6 +338,17 @@
             closeFeedbackModal();
         }
     }
+
+    // --- NEW: Check URL for tab state on page load ---
+    document.addEventListener("DOMContentLoaded", function() {
+        // Read the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // If the URL has ?tab=completed, switch to that tab
+        if (urlParams.get('tab') === 'completed') {
+            toggleOrders('completed');
+        }
+    });
 </script>
 
 </body>
