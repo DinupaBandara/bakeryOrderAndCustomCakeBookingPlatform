@@ -139,4 +139,47 @@ public class CustomerController {
         redirectAttributes.addFlashAttribute("success", "Profile updated successfully!");
         return "redirect:/customer/profile";
     }
+
+    // --- 1. Update Password Endpoint ---
+    @PostMapping("/customer/profile/update-password")
+    public String updatePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 HttpSession session,
+                                 RedirectAttributes redirectAttributes) {
+
+        Customer currentUser = (Customer) session.getAttribute("loggedUser");
+
+        // 1. Verify new passwords match
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "New passwords do not match!");
+            return "redirect:/customer/profile";
+        }
+
+        // 2. Try to update via service
+        boolean isUpdated = customerService.changeCustomerPassword(currentUser, currentPassword, newPassword);
+
+        if (!isUpdated) {
+            redirectAttributes.addFlashAttribute("error", "The current password you entered is incorrect.");
+            return "redirect:/customer/profile";
+        }
+
+        redirectAttributes.addFlashAttribute("success", "Password successfully changed!");
+        return "redirect:/customer/profile";
+    }
+
+    // --- 2. Deactivate Account Endpoint ---
+    @PostMapping("/customer/profile/deactivate")
+    public String deactivateAccount(HttpSession session, RedirectAttributes redirectAttributes) {
+        Customer currentUser = (Customer) session.getAttribute("loggedUser");
+
+        if (currentUser != null) {
+            customerService.deactivateAccount(currentUser);
+            // Destroy the session so they are logged out immediately
+            session.invalidate();
+        }
+
+        // Redirect them to the login page (or homepage) with a parting message
+        return "redirect:/login?deactivated=true";
+    }
 }

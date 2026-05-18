@@ -62,4 +62,23 @@ public class CustomerService {
         // 3. Persist changes
         customerRepository.save(currentUser);
     }
+
+    // --- 1. Change Password Logic ---
+    public boolean changeCustomerPassword(Customer currentUser, String currentPassword, String newPassword) {
+        // Check if the current password they typed exactly matches the plain text one in the database
+        if (!currentUser.getPassword().equals(currentPassword)) {
+            return false; // Old password doesn't match!
+        }
+
+        // Save the new password exactly as they typed it
+        currentUser.setPassword(newPassword);
+        customerRepository.save(currentUser);
+        return true;
+    }
+
+    // --- 2. Deactivate Account Logic ---
+    public void deactivateAccount(Customer currentUser) {
+        currentUser.setActive(false);
+        customerRepository.save(currentUser);
+    }
 }

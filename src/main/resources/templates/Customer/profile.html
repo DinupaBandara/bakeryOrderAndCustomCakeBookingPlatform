@@ -87,20 +87,57 @@
             </div>
             <div class="account-actions">
                 <p class="join-date">Member since: <span th:text="${#temporals.format(user.createdAt, 'dd MMMM yyyy')}">January 2024</span></p>
-                <div class="btn-group">
-                    <button class="btn-edit">
+
+                <div class="btn-group action-buttons-wrap">
+                    <button type="button" class="btn-edit" onclick="openEditModal()">
                         <span class="material-symbols-outlined">edit</span>
                         Edit Profile
                     </button>
-                    <a th:href="@{/customer/orders}" class="btn-orders">
-                        <span class="material-symbols-outlined">package_2</span>
-                        View Orders
-                    </a>
+                    <button type="button" class="btn-edit" onclick="openPasswordModal()">
+                        <span class="material-symbols-outlined">lock_reset</span>
+                        Change Password
+                    </button>
+                    <form th:action="@{/auth/customer/profile/deactivate}" method="post" onsubmit="return confirm('Are you sure you want to deactivate your account? This action cannot be undone and you will be logged out.');">
+                        <button type="submit" class="btn-danger">
+                            <span class="material-symbols-outlined">person_off</span>
+                            Deactivate Account
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
     </div>
 </main>
+
+<!--Change Password Model-->
+<div id="changePasswordModal" class="modal">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h2>Change Password</h2>
+            <span class="close material-symbols-outlined" onclick="closePasswordModal()">close</span>
+        </div>
+
+        <form th:action="@{/auth/customer/profile/update-password}" method="post" class="edit-form">
+            <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" name="currentPassword" required>
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" name="newPassword" minlength="8" required>
+            </div>
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" name="confirmPassword" minlength="8" required>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closePasswordModal()">Cancel</button>
+                <button type="submit" class="btn-save">Update Password</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- Edit Profile Modal -->
 <div id="editProfileModal" class="modal" th:classappend="${activeTab == 'edit'} ? 'show-modal' : ''">
@@ -173,6 +210,7 @@
 <div th:replace="~{customer/fragments/notification :: customer-notification}"></div>
 
 <script>
+    // --- Edit Profile Modal Logic ---
     function openEditModal() {
         document.getElementById('editProfileModal').classList.add('show-modal');
     }
@@ -181,8 +219,14 @@
         document.getElementById('editProfileModal').classList.remove('show-modal');
     }
 
-    // Add event listener to your existing .btn-edit
-    document.querySelector('.btn-edit').addEventListener('click', openEditModal);
+    // --- Change Password Modal Logic ---
+    function openPasswordModal() {
+        document.getElementById('changePasswordModal').classList.add('show-modal');
+    }
+
+    function closePasswordModal() {
+        document.getElementById('changePasswordModal').classList.remove('show-modal');
+    }
 </script>
 </body>
 </html>

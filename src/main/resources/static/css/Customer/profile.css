@@ -161,6 +161,50 @@ body::-webkit-scrollbar { display: none; }
 
 .btn-edit:hover { background: #5d463e; }
 
+/* --- Profile Action Buttons --- */
+.action-buttons-wrap {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* --- Danger Button (Deactivate) --- */
+.btn-danger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    /* Matches the size and shape of your .btn-edit buttons */
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+
+    color: #ba1a1a;
+    background-color: rgba(186, 26, 26, 0.1);
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: rgba(186, 26, 26, 0.2);
+    color: #93000a;
+}
+
+/* Forces the material icon to center vertically without shifting */
+.btn-danger .material-symbols-outlined {
+    line-height: 1;
+    display: block;
+}
+
+/* --- Small Modal (Used for Password Change) --- */
+.modal-sm {
+    max-width: 450px;
+    width: 90%; /* Ensures it stays responsive on mobile */
+}
+
 /* --- Modal Overlay --- */
 .modal {
     display: none;
