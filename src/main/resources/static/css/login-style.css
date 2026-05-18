@@ -34,11 +34,12 @@ body::-webkit-scrollbar { display: none; }
 
 /* Back to Home Button */
 .back-nav {
-    position: fixed;
+    position: absolute;
     top: 2rem;
-    right: 2rem;
-    z-index: 100
+    left: 2rem;
+    z-index: 100;
 }
+
 .btn-back {
     display: inline-flex;
     align-items: center;
@@ -51,14 +52,16 @@ body::-webkit-scrollbar { display: none; }
     font-size: 0.875rem;
     border-radius: 50px;
     border: 1px solid var(--surface-container-highest);
-    box-shadow: 0 4px 12px rgba(141, 110, 99, 0.08);
-    transition: all 0.3s ease
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Slightly darker shadow so it pops on the image */
+    transition: all 0.3s ease;
 }
+
 .btn-back:hover {
-    transform: translatey(-2px);
-    box-shadow: 0 6px 16px rgba(141, 110, 99, 0.15);
-    background-color: var(--surface-container-low)
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    background-color: var(--surface-container-low);
 }
+
 /* Auth Main Layout */
 .auth-main {
     flex: 1;

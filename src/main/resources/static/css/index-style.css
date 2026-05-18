@@ -259,105 +259,110 @@ body::-webkit-scrollbar { display: none; }
     background: linear-gradient(to right, var(--primary), transparent, transparent);
 }
 
-/* --- Footer --- */
-.site-footer {
-    background-color: var(--surface-container-highest);
-    padding: 5rem 0 3rem 0;
+/* --- Carousel Container & Track --- */
+.carousel-container {
+    width: 100%;
+    /* Slightly wider to compensate for the new padding */
+    max-width: 680px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    /* THE FIX: Added padding to the left, right, and extra on bottom for the shadow */
+    padding: 2rem 1.5rem 3.5rem 1.5rem;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+.carousel-track {
+    display: flex;
+    align-items: flex-start;
+
+    /* NEW: Pushes the next card completely out of the padded visible area */
     gap: 3rem;
-    margin-bottom: 5rem;
+
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
 }
 
-.footer-brand-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.footer-brand-desc {
-    margin-bottom: 2rem;
-}
-
-.social-links {
+/* --- The Single Card --- */
+.testimonial-card {
+    flex: 0 0 100%;
+    box-sizing: border-box;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    background-color: #ffffff;
+    border: 1px solid rgba(114, 86, 76, 0.08); /* Softened the border slightly */
+
+    /* THE FIX: Made the shadow slightly wider and softer so it fades beautifully */
+    box-shadow: 0 12px 40px rgba(114, 86, 76, 0.08);
+
+    padding: 2.5rem;
+    border-radius: 1.5rem;
 }
 
-.social-btn {
-    width: 2.5rem;
-    height: 2.5rem;
+/* --- Star Ratings --- */
+.stars {
+    display: flex;
+    gap: 4px;
+}
+
+.star-filled {
+    color: #f5b041;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24 !important;
+}
+
+.star-empty {
+    color: #e0d4d0;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 !important;
+}
+
+/* --- Review Text --- */
+.testimonial-text {
+    font-family: 'Noto Serif', serif;
+    color: var(--on-surface-variant);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- Author Block --- */
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+
+    margin-top: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(114, 86, 76, 0.2); /* Slightly darker dashed line */
+}
+
+.author-avatar img {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    border: 1px solid var(--outline);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 4px 10px rgba(114, 86, 76, 0.15); /* Makes the avatar pop */
 }
 
-.social-btn:hover {
-    background-color: var(--primary);
-    color: var(--on-primary);
-}
-
-.footer-heading {
-    font-size: 0.875rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-}
-
-.footer-contact-list {
+/* --- NEW: Forces Name & Date to Stack --- */
+.author-info {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 4px; /* Space between name and date */
 }
 
-.footer-contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.footer-review-link {
+.author-name {
+    font-size: 1.05rem;
     font-weight: 700;
-}
-
-.footer-review-link:hover {
-    text-decoration: underline;
-}
-
-address {
-    font-style: normal;
-}
-
-address p {
-    margin-bottom: 0.5rem;
-}
-
-.footer-bottom {
-    padding-top: 2rem;
-    border-top: 1px solid rgba(212, 195, 190, 0.3);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.footer-bottom p {
-    font-size: 0.875rem;
-}
-
-.footer-legal-links {
-    display: flex;
-    gap: 2rem;
-    font-size: 0.875rem;
-}
-
-.footer-legal-links a:hover {
     color: var(--primary);
+    line-height: 1; /* Tightens the spacing */
+}
+
+.author-date {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1;
 }
 
 /* --- Media Queries --- */
@@ -387,15 +392,6 @@ address p {
     }
     .btn-view-all {
         align-self: auto;
-    }
-    .footer-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    .footer-brand-col {
-        grid-column: span 1;
-    }
-    .footer-bottom {
-        flex-direction: row;
     }
 }
 

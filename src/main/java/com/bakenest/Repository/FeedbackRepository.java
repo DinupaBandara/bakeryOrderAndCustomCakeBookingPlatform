@@ -12,4 +12,6 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     // Check if feedback already exists for an order
     boolean existsByOrder(Order order);
     List<Feedback> findAllByOrderByCreatedAtDesc();
+    // Fetch the 5 most recent feedbacks
+    List<Feedback> findTop5ByOrderByCreatedAtDesc();
 }

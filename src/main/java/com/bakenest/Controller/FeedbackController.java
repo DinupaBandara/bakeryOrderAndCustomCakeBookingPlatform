@@ -31,7 +31,9 @@ public class FeedbackController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Could not process feedback.");
         }
-        return "redirect:/customer/orders";
+
+        // NEW: Added ?tab=completed to the redirect URL
+        return "redirect:/customer/orders?tab=completed";
     }
 
     // 2. Add the NEW Delete endpoint
