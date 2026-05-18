@@ -1,17 +1,18 @@
-package com.bakery.billing.model;
+package com.bakenest.model;
 
 public abstract class Payment {
 
-    private String paymentId;
-    private double amount;
-    private String paymentDate;
-    private String status;
+    protected String paymentId;
+    protected double amount;
+    protected String status = "PENDING";
 
-    public Payment(String paymentId, double amount, String paymentDate) {
+    public Payment(String paymentId, double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
+
         this.paymentId = paymentId;
         this.amount = amount;
-        this.paymentDate = paymentDate;
-        this.status = "PENDING";
     }
 
     public abstract String getPaymentMethod();
@@ -19,28 +20,31 @@ public abstract class Payment {
     public abstract double calculateTotal();
 
     public String processPayment() {
-        this.status = "PAID";
-        return "Payment of Rs. " + amount + " processed successfully.";
+        if ("PAID".equals(status)) {
+            return "Already processed.";
+        }
+
+        status = "PAID";
+        return "Payment of Rs. " + amount + " is completed.";
     }
 
-    public String getPaymentId() { return paymentId; }
-    public void setPaymentId(String id) { this.paymentId = id; }
-
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
-
-    public String getPaymentDate() { return paymentDate; }
-    public void setPaymentDate(String date) { this.paymentDate = date; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    @Override
-    public String toString() {
-        return "PaymentID: " + paymentId +
-               " | Method: " + getPaymentMethod() +
-               " | Amount: Rs. " + amount +
-               " | Status: " + status +
-               " | Date: " + paymentDate;
+    public String getPaymentId() {
+        return paymentId;
     }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+   @Override
+public String toString() {
+    return "Payment ID: " + paymentId +
+           "\n Method: " + getPaymentMethod() +
+           "\n Amount: Rs. " + amount +
+           "\n Status: " + status;
+}
 }
