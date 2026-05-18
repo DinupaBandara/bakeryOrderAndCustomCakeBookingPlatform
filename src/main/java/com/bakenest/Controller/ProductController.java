@@ -59,11 +59,13 @@ public class ProductController {
     public String updateProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
         try {
             productService.updateProduct(product);
+            // Delegate the complex logic to the service
             redirectAttributes.addFlashAttribute("success", "Product updated successfully!");
         }
         catch (Exception e) {
+            // Catch the specific error message from the service
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/admin/product"; //redirecting
+        return "redirect:/admin/product";
     }
 }
