@@ -98,7 +98,7 @@ public class CartController {
         Customer customer = (Customer) session.getAttribute("loggedUser");
         if (customer == null) return "redirect:/login";
 
-        // 1. Link cake to customer and calculate price using your logic
+        // 1. Link cake to customer  and calculate price using your logic
         customCake.setCustomer(customer);
         customCake.calculateAndSetPrice(); // The logic we wrote earlier
 
