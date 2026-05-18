@@ -102,7 +102,7 @@ public class CartController {
         customCake.setCustomer(customer);
         customCake.calculateAndSetPrice(); // The logic we wrote earlier
 
-        // 2. Create the CartItem wrapper
+        // 2. Create cart item wrapper
         CartItem cartItem = new CartItem();
         cartItem.setCustomer(customer);
         cartItem.setCustomCake(customCake); // Link the custom cake
