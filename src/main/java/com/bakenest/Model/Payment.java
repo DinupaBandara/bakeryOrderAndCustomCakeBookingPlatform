@@ -1,4 +1,4 @@
-package com.bakenest.model;
+package com.bakenest.Model;
 
 public abstract class Payment {
 
