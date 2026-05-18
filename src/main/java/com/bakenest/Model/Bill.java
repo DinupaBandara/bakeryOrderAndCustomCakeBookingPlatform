@@ -14,12 +14,17 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double amount;
+    private String customerName;
+
+    @Column(length = 1000)
+    private String orderItems; 
+
+    private double subtotal;
     private double discount;
     private double finalAmount;
 
     private String paymentMethod;
-    private String status; 
+    private String paymentStatus; 
 
     @OneToOne
     @JoinColumn(name = "order_id")
@@ -28,6 +33,6 @@ public class Bill {
     @PrePersist
     @PreUpdate
     public void calculateFinalAmount() {
-        this.finalAmount = amount - (amount * discount / 100);
+        this.finalAmount = subtotal - (subtotal * discount / 100);
     }
 }
