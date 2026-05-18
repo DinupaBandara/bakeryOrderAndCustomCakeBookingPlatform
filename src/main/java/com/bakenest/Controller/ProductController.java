@@ -46,7 +46,8 @@ public class ProductController {
             // Delegate the complex logic to the service
             productService.registerProduct(product);
             redirectAttributes.addFlashAttribute("success", "Product added successfully!");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // Catch the specific error message from the service
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
@@ -59,7 +60,8 @@ public class ProductController {
         try {
             productService.updateProduct(product);
             redirectAttributes.addFlashAttribute("success", "Product updated successfully!");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/admin/product"; //redirecting
