@@ -85,7 +85,7 @@ public class CartController {
     @ResponseBody // <-- CRITICAL: This tells Spring NOT to look for an HTML page
     public ResponseEntity<String> updateQuantity(@PathVariable Long id, @RequestParam int quantity) {
         try {
-            // Call the service method just we created 
+            // Call the service method just we created
             cartService.updateQuantity(id, quantity);
             return ResponseEntity.ok("Quantity updated in database");
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class CartController {
         cartItem.setCustomCake(customCake); // Link the custom cake
         cartItem.setQuantity(1);
 
-        // 3. Save via service (Ensure service handles Cascading)
+        // 3. Save via service (Ensure service handles  Cascading)
         cartRepository.save(cartItem);
 
         return "redirect:/customer/cart";
