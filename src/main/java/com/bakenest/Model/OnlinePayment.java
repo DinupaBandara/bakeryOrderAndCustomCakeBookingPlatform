@@ -1,17 +1,12 @@
-package com.bakery.billing.model;
+package com.bakenest.model;
 
 public class OnlinePayment extends Payment {
 
-    private String transactionReference;
     private String cardType;
-    private double serviceFee;
 
-    public OnlinePayment(String paymentId, double amount, String paymentDate,
-                         String transactionReference, String cardType) {
-        super(paymentId, amount, paymentDate);
-        this.transactionReference = transactionReference;
+    public OnlinePayment(String paymentId, double amount, String cardType) {
+        super(paymentId, amount);
         this.cardType = cardType;
-        this.serviceFee = 50.00;
     }
 
     @Override
@@ -21,31 +16,23 @@ public class OnlinePayment extends Payment {
 
     @Override
     public double calculateTotal() {
-        return getAmount() + serviceFee;
+        return amount;
     }
 
     @Override
     public String processPayment() {
-        setStatus("PAID");
-        return "Online payment via " + cardType +
-               " confirmed. Ref: " + transactionReference +
-               " | Total charged: Rs. " + calculateTotal();
+        if ("PAID".equals(status)) {
+            return "Already processed.";
+        }
+
+        status = "PAID";
+        return "Online payment of RS. " + amount +" is successfull.";
+               
     }
-
-    public String getTransactionReference() { return transactionReference; }
-    public void setTransactionReference(String ref) { this.transactionReference = ref; }
-
-    public String getCardType() { return cardType; }
-    public void setCardType(String cardType) { this.cardType = cardType; }
-
-    public double getServiceFee() { return serviceFee; }
-    public void setServiceFee(double fee) { this.serviceFee = fee; }
 
     @Override
     public String toString() {
         return super.toString() +
-               " | Ref: " + transactionReference +
-               " | Service Fee: Rs. " + serviceFee +
-               " | Total: Rs. " + calculateTotal();
+               "\n Card Type: " + cardType;
     }
 }
