@@ -33,7 +33,7 @@ public class CartController {
                             HttpSession session,
                             RedirectAttributes redirectAttributes) {
 
-        // 1. Retrieve and validate session from user role 
+        // 1. Retrieve and validate session from user role
         Customer customer = (Customer) session.getAttribute("loggedUser");
         String role = (String) session.getAttribute("role");
 
@@ -49,7 +49,7 @@ public class CartController {
             return "redirect:/customer/product/bakeryitems";
         }
 
-        // 3. Find product and add to cart
+        // 3. Find product and add to cart 
         Product product = productRepository.findById(productId).orElse(null);
         if (product != null) {
             try {
