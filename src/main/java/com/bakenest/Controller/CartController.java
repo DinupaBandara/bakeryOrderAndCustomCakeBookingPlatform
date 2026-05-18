@@ -49,7 +49,7 @@ public class CartController {
             return "redirect:/customer/product/bakeryitems";
         }
 
-        // 3. Find product and add to cart 
+        // 3. Find product and add to cart
         Product product = productRepository.findById(productId).orElse(null);
         if (product != null) {
             try {
