@@ -13,7 +13,7 @@ public class ProductService {
 
     public void registerProduct(Product product) throws Exception {
         // 1. Check if name already exists
-        if (productRepository.existsByName(product.getName())) {
+        if (!productRepository.existsByName(product.getName())) {
             throw new Exception("A product with this name already exists!");
         }
 
