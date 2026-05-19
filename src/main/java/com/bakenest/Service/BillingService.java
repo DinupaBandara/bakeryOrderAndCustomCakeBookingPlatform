@@ -19,7 +19,8 @@ public class BillingService {
     @Transactional
     public Bill generateBill(Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        if (order == null) return null;
+        if (order == null) 
+            return null;
 
         Bill bill = new Bill();
         bill.setOrder(order);
@@ -33,10 +34,12 @@ public class BillingService {
     @Transactional
     public Bill processPayment(Long orderId, String type, double discount, String cardType, double amountGiven) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        if (order == null) return null;
+        if (order == null)
+            return null;
 
         Bill bill = billRepository.findByOrder(order).orElse(null);
-        if (bill == null) return null;
+        if (bill == null) 
+            return null;
 
         Payment payment = createPayment(type, bill.getSubtotal(), cardType, amountGiven);
         String paymentResult = payment.processPayment(); 
