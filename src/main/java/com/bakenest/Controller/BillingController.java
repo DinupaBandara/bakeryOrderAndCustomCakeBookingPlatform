@@ -1,7 +1,7 @@
 package com.bakenest.Controller;
 
-import com.bakenest.model.Bill;
-import com.bakenest.service.BillingService;
+import com.bakenest.Model.Bill;
+import com.bakenest.Service.BillingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/customer/billing")
-    
 public class BillingController {
 
     @Autowired
@@ -36,20 +35,22 @@ public class BillingController {
     public String payBill(@RequestParam Long orderId,
                           @RequestParam String paymentMethod,
                           @RequestParam double discount,
+                          @RequestParam(required = false, defaultValue = "") String cardType,
+                          @RequestParam(required = false, defaultValue = "0.0") double amountGiven,
                           RedirectAttributes redirectAttributes) {
 
         if (discount < 0 || discount > 100) {
             discount = 0;
         }
 
-        Bill bill = billingService.processPayment(orderId, paymentMethod, discount);
+        Bill bill = billingService.processPayment(orderId, paymentMethod, discount, cardType, amountGiven);
 
         if (bill != null) {
             redirectAttributes.addFlashAttribute("success",
                     "Payment successful. Final Amount: Rs. " + bill.getFinalAmount());
         } else {
             redirectAttributes.addFlashAttribute("error",
-                    "Payment failed");
+                    "Payment failed or cash was insufficient.");
         }
 
         return "redirect:/customer/orders";
